@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="pg-1" cx="50%" cy="30%" r="90%">
+      <stop offset="0%" stop-color="#B8431F"/>
+      <stop offset="100%" stop-color="#5C1710"/>
+    </radialGradient>
+    
+  <filter id="grain-port1">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    <feComposite operator="over" in2="SourceGraphic"/>
+  </filter>
+  </defs>
+  <rect width="400" height="400" fill="#141414"/>
+  <circle cx="200" cy="200" r="150" fill="url(#pg-1)" filter="url(#grain-port1)"/>
+  <text x="200" y="232" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="96" fill="#EAE7E0" text-anchor="middle">DM</text>
+</svg>

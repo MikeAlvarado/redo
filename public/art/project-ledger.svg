@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <radialGradient id="g-p1" cx="46.587546966038644%" cy="24.997031374368817%" r="95%">
+      <stop offset="0%" stop-color="#D95B26"/>
+      <stop offset="52%" stop-color="#7A1E12"/>
+      <stop offset="100%" stop-color="#0F0F0F"/>
+    </radialGradient>
+    
+  <filter id="grain-p1">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    <feComposite operator="over" in2="SourceGraphic"/>
+  </filter>
+  </defs>
+  <rect width="1200" height="800" fill="#0A0A0A"/>
+  <rect width="1200" height="800" fill="url(#g-p1)" opacity="0.9" filter="url(#grain-p1)"/>
+  <path d="M 988 511 q 60 -96 121 0" fill="none" stroke="#EAE7E0" stroke-opacity="0.147" stroke-width="1.5"/><path d="M 757 345 q 58 -93 116 0" fill="none" stroke="#EAE7E0" stroke-opacity="0.166" stroke-width="1.5"/><rect x="691" y="310" width="125" height="78" rx="8" fill="#EAE7E0" fill-opacity="0.047"/><path d="M 393 329 q 24 -38 48 0" fill="none" stroke="#EAE7E0" stroke-opacity="0.163" stroke-width="1.5"/><path d="M 1185 750 q 55 -88 110 0" fill="none" stroke="#EAE7E0" stroke-opacity="0.054" stroke-width="1.5"/><rect x="1158" y="672" width="44" height="27" rx="8" fill="#EAE7E0" fill-opacity="0.045"/><circle cx="801" cy="525" r="23" fill="none" stroke="#EAE7E0" stroke-opacity="0.141" stroke-width="1.5"/><circle cx="93" cy="592" r="32" fill="none" stroke="#EAE7E0" stroke-opacity="0.101" stroke-width="1.5"/><circle cx="369" cy="568" r="98" fill="none" stroke="#EAE7E0" stroke-opacity="0.058" stroke-width="1.5"/>
+</svg>

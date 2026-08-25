@@ -1,0 +1,112 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #000000;
+  --color-char: #0f0f0f;
+  --color-surface: #161616;
+  --color-raised: #1c1c1c;
+  --color-cream: #eae7e0;
+  --color-blush: #ffe0e0;
+  --color-blush-deep: #ffd4d4;
+  --color-ember: #fa6800;
+  --color-blood: #cc0000;
+  --color-oxblood: #8c2416;
+  --color-hairline: rgb(255 255 255 / 0.08);
+
+  --font-display: 'Instrument Serif', 'Times New Roman', Times, serif;
+  --font-ui: 'Mona Sans Variable', 'Mona Sans', ui-sans-serif, system-ui, sans-serif;
+
+  --radius-shell: 20px;
+  --radius-nav: 16px;
+  --radius-cta: 8px;
+  --radius-thumb: 6px;
+  --radius-tile: 12px;
+
+  --spacing-inset: 36px;
+  --spacing-inset-sm: 16px;
+
+  --breakpoint-tab: 50.625rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-deck: 90rem;
+
+  --text-statement: clamp(2.25rem, 1rem + 4.2vw, 4.2rem);
+  --text-section: clamp(2.75rem, 1.6rem + 3.4vw, 4rem);
+  --text-hero: clamp(2.6rem, 1.2rem + 4.6vw, 4.6rem);
+  --text-numeral: clamp(2.75rem, 1.5rem + 4.5vw, 5rem);
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+html {
+  background: var(--color-ink);
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.2) transparent;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+::selection {
+  background: var(--color-blood);
+  color: var(--color-blush);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-cream);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(rgb(255 255 255 / 0.055) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@utility hero-gradient {
+  background-image: radial-gradient(
+    55% 94% at 48.7% 6.5%,
+    var(--color-ember) 0%,
+    var(--color-blood) 48%,
+    var(--color-char) 100%
+  );
+}
+
+@utility edge-fade-x {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}

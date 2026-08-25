@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <radialGradient id="g-s3" cx="43.25850789435208%" cy="33.82640049094334%" r="95%">
+      <stop offset="0%" stop-color="#D95B26"/>
+      <stop offset="52%" stop-color="#7A1E12"/>
+      <stop offset="100%" stop-color="#0F0F0F"/>
+    </radialGradient>
+    
+  <filter id="grain-s3">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    <feComposite operator="over" in2="SourceGraphic"/>
+  </filter>
+  </defs>
+  <rect width="800" height="450" fill="#0A0A0A"/>
+  <rect width="800" height="450" fill="url(#g-s3)" opacity="0.9" filter="url(#grain-s3)"/>
+  <circle cx="690" cy="308" r="41" fill="none" stroke="#EAE7E0" stroke-opacity="0.051" stroke-width="1.5"/><rect x="625" y="391" width="58" height="36" rx="8" fill="#EAE7E0" fill-opacity="0.032"/><circle cx="563" cy="298" r="30" fill="none" stroke="#EAE7E0" stroke-opacity="0.081" stroke-width="1.5"/><circle cx="525" cy="317" r="35" fill="none" stroke="#EAE7E0" stroke-opacity="0.112" stroke-width="1.5"/><circle cx="724" cy="392" r="26" fill="none" stroke="#EAE7E0" stroke-opacity="0.081" stroke-width="1.5"/><rect x="788" y="365" width="129" height="80" rx="8" fill="#EAE7E0" fill-opacity="0.033"/>
+</svg>
