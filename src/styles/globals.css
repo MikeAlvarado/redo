@@ -35,6 +35,7 @@
   --text-numeral: clamp(2.75rem, 1.5rem + 4.5vw, 5rem);
 
   --animate-marquee: marquee 40s linear infinite;
+  --animate-grain: grain 0.8s steps(1, end) infinite;
 
   @keyframes marquee {
     from {
@@ -43,6 +44,44 @@
     to {
       transform: translateX(-50%);
     }
+  }
+
+  /* Discrete tile jumps at ~10fps read as TV static; a smooth translate
+     reads as drift. Offsets stay inside the repeating 200px noise tile. */
+  @keyframes grain {
+    0% {
+      background-position: 0 0;
+    }
+    12.5% {
+      background-position: -42px -26px;
+    }
+    25% {
+      background-position: 18px -64px;
+    }
+    37.5% {
+      background-position: -31px 41px;
+    }
+    50% {
+      background-position: 61px 12px;
+    }
+    62.5% {
+      background-position: -15px -58px;
+    }
+    75% {
+      background-position: 44px 33px;
+    }
+    87.5% {
+      background-position: -8px 56px;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-grain {
+    animation: none;
   }
 }
 
@@ -87,8 +126,8 @@ html.lenis body {
 }
 
 @utility dot-grid {
-  background-image: radial-gradient(rgb(255 255 255 / 0.055) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgb(255 255 255 / 0.14) 1.6px, transparent 1.7px);
+  background-size: 48px 48px;
 }
 
 @utility hero-gradient {

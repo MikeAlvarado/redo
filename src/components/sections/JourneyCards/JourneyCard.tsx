@@ -51,7 +51,7 @@ export function JourneyCard({
   return (
     <article
       className={cn(
-        'deck:p-7 relative flex flex-col justify-between overflow-hidden rounded-[10px] p-6 shadow-[0_30px_60px_rgba(0,0,0,0.55)]',
+        'relative flex flex-col justify-between overflow-hidden rounded-[inherit] p-6 shadow-[0_30px_60px_rgba(0,0,0,0.55)]',
         TONE_CLASSES[card.tone],
         className,
       )}

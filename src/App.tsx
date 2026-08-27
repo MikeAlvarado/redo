@@ -1,4 +1,6 @@
+import { MotionConfig } from 'motion/react'
 import { Nav } from './components/layout/Nav'
+import { GrainOverlay } from './components/ui/GrainOverlay'
 import { ClientGrid } from './components/sections/ClientGrid'
 import { ClientMarquee } from './components/sections/ClientMarquee'
 import { ClosingCta } from './components/sections/ClosingCta'
@@ -21,36 +23,37 @@ function Site() {
   useLanguageFade(fadeRef)
   return (
     <div ref={fadeRef}>
+      <GrainOverlay className="fixed inset-0 z-40 opacity-[0.035]" />
       <Nav />
       <main className="flex flex-col">
-        <div className="tab:order-none order-1">
+        <div className="tab:order-none sticky top-0 z-0 order-1">
           <Hero />
         </div>
-        <div className="tab:order-none order-2">
+        <div className="bg-ink tab:order-none relative z-10 order-2">
           <ScrollStatement footer={<ClientMarquee />} />
         </div>
-        <div className="tab:order-none order-3">
+        <div className="bg-ink tab:order-none relative z-10 order-3">
           <JourneyCards />
         </div>
-        <div className="tab:order-none order-4">
+        <div className="bg-ink tab:order-none relative z-10 order-4">
           <Services />
         </div>
-        <div className="tab:order-none order-5">
+        <div className="bg-ink tab:order-none relative z-10 order-5">
           <Showcase />
         </div>
-        <div className="tab:order-none order-8">
+        <div className="bg-ink tab:order-none relative z-10 order-8">
           <ClientGrid />
         </div>
-        <div className="tab:order-none order-6">
+        <div className="bg-ink tab:order-none relative z-10 order-6">
           <Testimonials />
         </div>
-        <div className="tab:order-none order-7">
+        <div className="bg-ink tab:order-none relative z-10 order-7">
           <Stats />
         </div>
-        <div className="tab:order-none order-9">
+        <div className="bg-ink tab:order-none relative z-10 order-9">
           <Founders />
         </div>
-        <div className="tab:order-none order-10">
+        <div className="bg-ink tab:order-none relative z-10 order-10">
           <ClosingCta />
         </div>
       </main>
@@ -60,8 +63,10 @@ function Site() {
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <Site />
-    </LanguageProvider>
+    <MotionConfig reducedMotion="user">
+      <LanguageProvider>
+        <Site />
+      </LanguageProvider>
+    </MotionConfig>
   )
 }

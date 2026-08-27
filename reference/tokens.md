@@ -120,3 +120,49 @@ duotone + heavy grain, same family of reds.
   only during the roll on the live site ("016+" → "16+").
 - Site has a "founders" section (two tilted profile cards) the brief omits —
   omitted deliberately (solo portfolio); noted in NOTES.md.
+
+## Journey deck — per-tier keyframes (measured 2026-08-26, headless Chromium, `window.innerWidth` asserted in-page before every table)
+
+Measurement rule (after the zoom incident): a measurement without its viewport
+width is invalid. Every table below states the asserted `innerWidth`.
+
+### Tier ≥1440 — `#journey` (measured at innerWidth **1500**, viewport 1500×900)
+
+Section 3060px tall; the card row stays fixed on screen (CSS sticky) through
+~2160px of scroll (~240vh). Everything scroll-scrubbed — a held scroll
+position never moves (spring probe negative). Base card 334×464. z left→right
+ascending (right card on top). p = scroll into the fixed range / 2160.
+
+| p | card AABB w | spacing (centers) | rotZ | rotY (faces) | note |
+|---|---|---|---|---|---|
+| 0.00 | 401 | 395 (touching) | 0 | 180 (backs) | joined landscape, scale 1.2 |
+| 0.18 | 365 | 364 (touching) | 0 | 180 | shrinking as one unit |
+| 0.32 | 334 | 366 → 32px gaps | 0 | 180 | shrink done, gaps open |
+| 0.32–0.60 | 334 | 366 | 0 | 180 | hold, face-down |
+| 0.60–0.67 | — | 366 → 335 | 0 → −15/0/+10 | 180 → 0 | flip + tilt + pull-in |
+| 0.67–1.00 | 443/334/409 | 335 | −15/0/+10 | 0 (faces) | settled fan, scrolls away in it |
+
+Heading: absent at p0, fully in by ~p0.2. Settled AABB math confirms base
+334×464 (334·cos15 + 464·sin15 = 443 ✓).
+
+### Tier <1440 — `#journey-1` (measured at innerWidth **1200** and **430**; identical behavior and geometry at both, only x-centering differs)
+
+Section ~2190px tall, **not pinned** — no section-level fixing; instead each
+card sits in flow ~595px below the previous and is `position: sticky` at
+**263px** from the viewport top, so later cards slide over earlier ones into
+a covered pile. All cards release together at the section end and the pile
+scrolls away whole. Base card ≈ 281×383 (AABB 307 at settle tilt 4°:
+281·cos4 + 383·sin4 = 306 ✓; AABB 400 at −20°: ✓). Rotation lives on the
+card element (matrix3d, rotZ); the rotY 180 back-face children exist but the
+container never flips in this tier. z = arrival order (last card on top).
+
+| card | entry rotZ (far) | settle rotZ | opacity | note |
+|---|---|---|---|---|
+| 1 | ~−9 | −4.0 | fades 0→1 over the last ~500px of approach | sticks first |
+| 2 | ~+10 | +4.0 | always 1 | slides over card 1 |
+| 3 | −20 | −4.1 → −4.0 | always 1 | slides over both, tops the pile |
+
+Rotation easing observed over the last ~500px before the sticky stop
+(≈ from 'top 85%' to 'top 263px' at a 900px viewport). Settled container
+tops 263/271/~263 (near-identical); heading is sticky ~120px from the
+viewport top and stays above the pile through the sequence.

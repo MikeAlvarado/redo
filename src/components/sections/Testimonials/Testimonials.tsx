@@ -8,6 +8,7 @@ import { usePrefersReducedMotion } from '../../../hooks/usePrefersReducedMotion'
 import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll'
 import { ArrowButton } from '../../ui/ArrowButton'
 import { DotGrid } from '../../ui/DotGrid'
+import { GrainOverlay } from '../../ui/GrainOverlay'
 import { DotsPagination } from '../../ui/DotsPagination'
 import { MixedHeading } from '../../ui/MixedHeading'
 
@@ -70,6 +71,7 @@ export function Testimonials() {
                 )}
               >
                 <DotGrid className="opacity-60" />
+                <GrainOverlay className="opacity-[0.04]" />
                 <div className="tab:flex-row tab:gap-12 tab:p-10 relative flex flex-col gap-6 p-6">
                   <div className="tab:hidden flex items-center gap-4">
                     <img

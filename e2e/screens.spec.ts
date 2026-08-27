@@ -16,7 +16,7 @@ for (const viewport of VIEWPORTS) {
           await toggle.click()
         } else {
           await page.getByRole('button', { name: 'Open menu' }).click()
-          await page.getByRole('dialog').getByRole('button', { name: 'ES' }).click()
+          await page.locator('#mobile-menu').getByRole('button', { name: 'ES' }).click()
           await page.keyboard.press('Escape')
         }
       }

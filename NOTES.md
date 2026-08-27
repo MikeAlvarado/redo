@@ -37,7 +37,9 @@
 5. **Imagery**: reference photography (Creation-of-Adam hands, classical
    statues) replaced with original layered SVG ridges/arcs + measured gradient
    + generated grain. Reference asset URLs were unreadable through the browser
-   privacy layer anyway; nothing was downloaded.
+   privacy layer anyway; nothing was downloaded. *(Superseded 2026-08-26: the
+   SVG backdrops are replaced by treated CC0 photographs — see "Visual polish
+   pass" below.)*
 6. **Stats "016+" style**: on the live site the leading zero appears only
    mid-roll. Kept the brief's fixed leading zero (2-digit pad) during the roll;
    the final value shows unpadded once digits settle (e.g. 24+), matching the
@@ -164,3 +166,49 @@ shipped exactly (verified loading via `document.fonts`: both faces `loaded`).
   reference's photography; placeholder client/testimonial/project content;
   one founder card instead of two; italic emphasis word in the journey
   heading; deck deal timing runs slightly ahead of the reference.
+
+## Visual polish pass (2026-08-26)
+
+### Photo assets and licenses (both CC0 1.0 — no attribution required, recorded anyway)
+
+| Asset | Source | Photographer | License |
+|---|---|---|---|
+| `public/art/hero-hands-{640,960}.webp` | https://stocksnap.io/photo/hands-reach-LUKSVTLPLT | Lalesh Aldarwish | CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) |
+| `public/art/closing-statue-{640,960}.webp` | https://stocksnap.io/photo/marble-statue-2GPG4GIYD8 | Joe deSousa | CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) |
+
+Both were found via the Openverse API (CC0 filter), downloaded at 960w (the
+largest size StockSnap's CDN serves without an account), and re-encoded to
+two-size WebP via headless-Chromium canvas — no upscaling; the browser
+stretches the 960w under a treatment stack (grayscale × multiply gradient +
+screen hotspot + vignette + animated grain) that reads photographic, not soft.
+The reference's own hands/statue photographs were never downloaded or linked.
+
+### Mobile menu measurements (redomedia.co at 430×932, open state)
+
+- Panel = the nav pill itself grown downward: inset 24px, translucent dark
+  glass, page visible behind; wordmark + trigger stay in the top row.
+- Links: 18px / weight 500 / cream, 54px row pitch, 20px side inset; 1px
+  white/12% hairline divider between rows (none after the last).
+- CTA: full-width cream pill, 40px tall, 16px side/bottom margins.
+- Body scroll is NOT locked while open (scrolled 300→500 during the probe).
+- Deviation: our panel adds a quiet "Language" row (label + EN/ES toggle)
+  above the CTA — the reference site has no language control, so this row has
+  no reference equivalent to match.
+
+
+## Measurements, 2026-08-27 (innerWidth 1512, devicePixelRatio 2)
+
+- Dot grid layer: image tile at `background-size: 48px auto`, `repeat`,
+  `opacity: 1` (dot colour baked into the tile). Ours was a 24px
+  radial-gradient at 5.5% white; retuned to 48px / 1.2px / 10%.
+- Card grain tile: `background-size: 128px auto` on every journey card.
+  Ours was a 200px SVG turbulence tile; now 128px.
+- Page-level grain: a layer of ~5764x3188 at `opacity: 0.5`. We had no
+  equivalent; added a fixed full-viewport layer at 3.5%.
+- Grain motion: none. `animation-name: none`, `transform: none`, and
+  `background-position` unchanged at `0% 0%` across a two second sample on
+  both page-level layers. Our moving grain is a deliberate deviation.
+- Journey card radius: 12px. Joined state rounds outer corners only; the left
+  card reports `12px 0px 0px 12px` (CSS order TL TR BR BL).
+- Journey card box at this width: 401x557 (h/w ratio 1.389, so w/h 0.72).
+- Nav shell radius: 16px, matching our `--radius-nav`.

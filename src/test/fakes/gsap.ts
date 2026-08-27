@@ -42,6 +42,7 @@ function makeTrigger(vars: Record<string, unknown>): FakeScrollTrigger {
 function applyVars(target: unknown, vars: Record<string, unknown>) {
   if (target instanceof HTMLElement) {
     if ('opacity' in vars) target.style.opacity = String(vars.opacity)
+    if ('zIndex' in vars) target.style.zIndex = String(vars.zIndex)
     return
   }
   if (typeof target === 'object' && target !== null) {

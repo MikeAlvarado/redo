@@ -31,6 +31,14 @@ test('every section renders in its final state and smooth scroll is off', async 
   const heroHeadline = page.getByText('Imagine a space')
   await expect(heroHeadline).toBeVisible()
 
+  const deck = await page.evaluate(() =>
+    Array.from(document.querySelectorAll<HTMLElement>('[data-deck-card]')).map(
+      (card) => getComputedStyle(card).opacity,
+    ),
+  )
+  expect(deck).toHaveLength(3)
+  for (const opacity of deck) expect(Number(opacity)).toBe(1)
+
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
   await page.waitForTimeout(400)
   const statValues = await page.evaluate(() =>

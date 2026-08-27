@@ -16,7 +16,10 @@ export function useFocusTrap<T extends HTMLElement>(
 
     const focusables = () =>
       Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-        (el) => !el.hidden && el.getAttribute('aria-hidden') !== 'true',
+        (el) =>
+          !el.hidden &&
+          el.getAttribute('aria-hidden') !== 'true' &&
+          getComputedStyle(el).display !== 'none',
       )
 
     const initial = focusables()[0]

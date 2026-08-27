@@ -5,7 +5,7 @@ import { LanguageProvider } from '../../../i18n/LanguageProvider'
 import { setMediaQuery } from '../../../test/fakes/dom'
 import { JourneyCards } from './JourneyCards'
 
-const FAN_QUERY = '(min-width: 90rem)'
+const ROW_QUERY = '(min-width: 90rem)'
 
 function renderSection() {
   return render(
@@ -16,21 +16,23 @@ function renderSection() {
 }
 
 describe('JourneyCards', () => {
-  it('renders every deck card at mobile width (stack mode)', () => {
+  it('renders every deck card in the stack tier', () => {
     renderSection()
     expect(document.querySelectorAll('[data-deck-card]')).toHaveLength(3)
+    expect(document.querySelector('[data-deck="stack"]')).not.toBeNull()
   })
 
-  it('renders every deck card at desktop width (fan mode) — same tree', () => {
+  it('keeps the identical card nodes when the tier flips to row', () => {
     renderSection()
     const before = Array.from(document.querySelectorAll('[data-deck-card]'))
-    act(() => setMediaQuery(FAN_QUERY, true))
+    act(() => setMediaQuery(ROW_QUERY, true))
+    expect(document.querySelector('[data-deck="row"]')).not.toBeNull()
     const after = Array.from(document.querySelectorAll('[data-deck-card]'))
     expect(after).toHaveLength(3)
     after.forEach((card, index) => expect(card).toBe(before[index]))
   })
 
-  it('every deck card carries a face and a back for the flip', () => {
+  it('every deck card carries a front face and a back for the row-tier flip', () => {
     renderSection()
     document.querySelectorAll('[data-deck-card]').forEach((card) => {
       expect(card.querySelector('article')).not.toBeNull()

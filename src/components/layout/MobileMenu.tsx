@@ -1,9 +1,9 @@
-import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
-import { useEffect, useRef } from 'react'
-import { useBodyScrollLock } from '../../hooks/useBodyScrollLock'
-import { useFocusTrap } from '../../hooks/useFocusTrap'
+import { useEffect } from 'react'
 import { useLanguage } from '../../hooks/useLanguage'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { easeOutExpo, easeOutSoft } from '../../lib/easing'
+import { CONTACT_EMAIL } from '../../lib/site'
 import { LanguageToggle } from './LanguageToggle'
 
 interface MobileMenuProps {
@@ -15,9 +15,7 @@ interface MobileMenuProps {
 
 export function MobileMenu({ open, onClose, onNavigate, links }: MobileMenuProps) {
   const { t } = useLanguage()
-  const panelRef = useRef<HTMLDivElement | null>(null)
-  useBodyScrollLock(open)
-  useFocusTrap(open, panelRef)
+  const reduced = usePrefersReducedMotion()
 
   useEffect(() => {
     if (!open) return
@@ -29,56 +27,58 @@ export function MobileMenu({ open, onClose, onNavigate, links }: MobileMenuProps
   }, [open, onClose])
 
   return (
-    <AnimatePresence>
+    <AnimatePresence initial={false}>
       {open && (
         <motion.div
-          ref={panelRef}
-          role="dialog"
-          aria-modal="true"
-          aria-label={t.nav.navLabel}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="bg-ink/95 fixed inset-0 z-50 flex flex-col px-6 py-5 backdrop-blur-xl"
+          id="mobile-menu"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={reduced ? { duration: 0 } : { duration: 0.45, ease: easeOutExpo }}
+          className="nav:hidden overflow-hidden"
         >
-          <div className="flex items-center justify-between">
-            <span className="font-display text-cream text-2xl italic">
-              {t.nav.wordmark}
-            </span>
-            <button
-              type="button"
-              aria-label={t.nav.closeMenu}
-              onClick={onClose}
-              className="rounded-cta text-cream flex size-10 items-center justify-center border border-white/15"
-            >
-              <X size={20} aria-hidden />
-            </button>
-          </div>
-          <ul className="flex flex-1 flex-col items-center justify-center gap-8">
-            {links.map((link, index) => (
-              <motion.li
-                key={link.id}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.08 + index * 0.07, duration: 0.4 }}
-              >
-                <a
-                  href={`#${link.id}`}
-                  onClick={(event) => {
-                    event.preventDefault()
-                    onNavigate(link.id)
-                  }}
-                  className="font-display text-cream text-4xl"
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: -6 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: reduced
+                ? { duration: 0 }
+                : { delay: 0.12, duration: 0.35, ease: easeOutSoft },
+            }}
+            exit={{ opacity: 0, transition: { duration: reduced ? 0 : 0.15 } }}
+            className="flex flex-col pt-7 pb-1.5"
+          >
+            <ul className="flex flex-col px-1">
+              {links.map((link, index) => (
+                <li
+                  key={link.id}
+                  className={index < links.length - 1 ? 'border-b border-white/12' : ''}
                 >
-                  {link.label}
-                </a>
-              </motion.li>
-            ))}
-          </ul>
-          <div className="flex items-center justify-center pb-6">
-            <LanguageToggle />
-          </div>
+                  <a
+                    href={`#${link.id}`}
+                    onClick={(event) => {
+                      event.preventDefault()
+                      onNavigate(link.id)
+                    }}
+                    className="text-cream block pt-[18px] pb-[17px] text-lg leading-none font-medium"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 flex items-center justify-between px-1">
+              <span className="text-cream/50 text-xs">{t.nav.langLabel}</span>
+              <LanguageToggle />
+            </div>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="rounded-cta bg-cream text-ink mt-4 flex h-10 items-center justify-center text-sm font-medium"
+            >
+              {t.nav.cta}
+            </a>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
