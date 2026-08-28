@@ -13,8 +13,9 @@ test('toggle switches every visible string and survives a hard reload', async ({
   await page.getByRole('button', { name: 'ES', exact: true }).click()
 
   await expect(page.getByRole('navigation').getByRole('link', { name: 'Servicios' })).toBeVisible()
-  await expect(page.getByRole('navigation').getByRole('link', { name: 'Proyectos' })).toBeVisible()
-  await expect(page.getByRole('navigation').getByRole('link', { name: 'Reseñas' })).toBeVisible()
+  await expect(
+    page.getByRole('navigation').getByRole('link', { name: 'Trabajos Previos' }),
+  ).toBeVisible()
   await expect(page.locator('html')).toHaveAttribute('lang', 'es')
   await expect(page.getByText('Imagina un espacio')).toBeVisible()
 

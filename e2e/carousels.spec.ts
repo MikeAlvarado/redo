@@ -8,36 +8,27 @@ test('showcase carousel operates by keyboard alone with visible focus', async ({
   await next.scrollIntoViewIfNeeded()
   await page.waitForTimeout(600)
 
-  await expect(
-    page.getByRole('heading', { name: 'Atlas — Logistics Dashboard' }),
-  ).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Vitrina' })).toBeVisible()
 
   await next.focus()
   await expect(next).toBeFocused()
   await page.keyboard.press('Enter')
-  await expect(
-    page.getByRole('heading', { name: 'Ledger — Fintech Onboarding' }),
-  ).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Mediterra' })).toBeVisible()
 
   await page.keyboard.press('ArrowRight')
-  await expect(
-    page.getByRole('heading', { name: 'Pulse — Health Tracker' }),
-  ).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'AIMeter' })).toBeVisible()
 
   await page.keyboard.press('ArrowLeft')
-  await expect(
-    page.getByRole('heading', { name: 'Ledger — Fintech Onboarding' }),
-  ).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Mediterra' })).toBeVisible()
 })
 
-test('testimonial pagination operates by keyboard', async ({ page }) => {
+test('the reviews section and its nav link stay away while there are no testimonials', async ({
+  page,
+}) => {
   await page.goto('/')
-  const secondDot = page.getByRole('tab', { name: 'Go to testimonial 2' })
-  await secondDot.scrollIntoViewIfNeeded()
-  await page.waitForTimeout(600)
-
-  await secondDot.focus()
-  await expect(secondDot).toBeFocused()
-  await page.keyboard.press('Enter')
-  await expect(secondDot).toHaveAttribute('aria-selected', 'true')
+  await expect(page.locator('[data-section="reviews"]')).toHaveCount(0)
+  await expect(
+    page.getByRole('navigation').getByRole('link', { name: 'Reviews' }),
+  ).toHaveCount(0)
+  await expect(page.getByRole('tab')).toHaveCount(0)
 })

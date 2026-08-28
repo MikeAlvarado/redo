@@ -5,15 +5,15 @@ test('project overlay traps focus, closes on Escape, and restores focus', async 
 }) => {
   await page.goto('/')
   const opener = page.getByRole('button', {
-    name: 'Open project details: Atlas — Logistics Dashboard',
+    name: 'Open project details: Vitrina',
   })
   await opener.scrollIntoViewIfNeeded()
   await page.waitForTimeout(600)
   await opener.click()
 
-  const dialog = page.getByRole('dialog', { name: 'Atlas — Logistics Dashboard' })
+  const dialog = page.getByRole('dialog', { name: 'Vitrina' })
   await expect(dialog).toBeVisible()
-  expect(page.url()).toContain('#project/atlas')
+  expect(page.url()).toContain('#project/vitrina')
 
   const close = page.getByRole('button', { name: 'Close project details' })
   await expect(close).toBeFocused()
@@ -34,8 +34,8 @@ test('project overlay traps focus, closes on Escape, and restores focus', async 
 })
 
 test('an open project survives a refresh via the hash', async ({ page }) => {
-  await page.goto('/#project/ledger')
+  await page.goto('/#project/mediterra')
   await expect(
-    page.getByRole('dialog', { name: 'Ledger — Fintech Onboarding' }),
+    page.getByRole('dialog', { name: 'Mediterra' }),
   ).toBeVisible()
 })

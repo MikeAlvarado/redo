@@ -1,22 +1,24 @@
 import type { Dictionary } from './types'
 
-// TODO(mike): placeholder voice throughout — replace every string with your own copy.
 export const en = {
   meta: {
-    title: 'Mike Alvarado',
-    description: 'Mike Alvarado — product designer and engineer. Portfolio.',
+    title: 'Mike Alvarado — Technical Founder & Software Engineer',
+    description:
+      'Portfolio of Mike Alvarado, a technical founder focused on building meaningful, scalable technology. Product, engineering, and leadership.',
   },
   nav: {
     wordmark: 'Mike.',
     services: 'Services',
-    work: 'Featured Work',
+    work: 'Previous Work',
     reviews: 'Reviews',
-    cta: 'Get In Touch',
+    cta: 'Get in touch',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
     langLabel: 'Language',
     navLabel: 'Main navigation',
   },
+  // TODO(mike): hero.line1 / line2 / sub are the last placeholder copy on the
+  // site — write them here and in es.ts (both files, same three keys).
   hero: {
     line1: 'Imagine a space',
     line2: 'between idea & product',
@@ -26,24 +28,24 @@ export const en = {
     clockLabel: 'My local time',
   },
   statement:
-    'I design and build digital products end to end, from the first sketch to shipped code. So you can stay focused on what matters, while I shape how the world experiences it.',
+    'I am a technical founder focused on building meaningful, scalable technology. I care about clarity, craftsmanship, and leading teams that build with purpose.',
   marquee: {
-    lockup: 'Trusted by 20+ organizations',
+    lockup: 'Y Combinator S21',
     trackLabel: 'Organizations I have worked with',
   },
   journey: {
-    heading: 'Where are *you* in\nyour journey?',
+    heading: 'Three ways to\n*build* together',
   },
   services: {
-    heading: '*With* my services',
-    sub: 'I help you achieve more at every stage of building',
+    heading: 'What we can *build* together',
+    sub: 'Six ways I plug into a team, from the first commit to the shipped product',
     listLabel: 'Services',
     toggleDetails: 'Toggle details for',
     cta: 'Build your vision with me',
   },
   showcase: {
     heading: '*Featured* work',
-    sub: "Bold ideas I've turned into tangible realities",
+    sub: 'Products, libraries and experiments I have shipped end to end',
     prev: 'Previous project',
     next: 'Next project',
     goToSlide: 'Go to project',
@@ -59,12 +61,12 @@ export const en = {
     carouselLabel: 'Featured projects',
   },
   clients: {
-    heading: 'Brands that trusted my craft',
-    gridLabel: 'Client logos',
+    heading: 'Organizations I have built with and for',
+    gridLabel: 'Organizations I have built with and for',
   },
   testimonials: {
     heading: 'Hear *from* my clients',
-    sub: "After 20+ projects shipped, here's what they have to say",
+    sub: 'Words from the people I have built with',
     prev: 'Previous testimonial',
     next: 'Next testimonial',
     goTo: 'Go to testimonial',
@@ -73,6 +75,10 @@ export const en = {
   },
   stats: {
     regionLabel: 'Numbers that back it up',
+    sourceLabel: 'Where this number comes from',
+  },
+  credentials: {
+    regionLabel: 'Credentials and education',
   },
   founders: {
     heading: 'Get in touch *with me*',
@@ -80,10 +86,12 @@ export const en = {
     regionLabel: 'Contact card',
   },
   closing: {
-    eyebrow: "That's my story",
-    heading: "Let's *reimagine* yours",
-    cta: 'Get In Touch',
-    rights: '© 2026 Mike Alvarado | All Rights Reserved.',
+    eyebrow: "Have a project in mind? Reach out and let's create something amazing.",
+    heading: "Let's *work together*",
+    cta: 'Get in touch',
+    rights: 'All rights reserved.',
     emailLabel: 'Email me',
+    reachLabel: 'Ways to reach me',
+    connectLabel: 'Connect',
   },
 } satisfies Dictionary

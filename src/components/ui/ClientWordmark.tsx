@@ -4,7 +4,7 @@ import { cn } from '../../lib/cn'
 const FLAIR_CLASSES = {
   serif: 'font-display text-2xl',
   caps: 'text-lg font-bold tracking-[0.22em] uppercase',
-  mono: 'font-mono text-lg tracking-tight lowercase',
+  mono: 'font-mono text-lg tracking-tight',
   script: 'font-display text-2xl italic',
 } as const
 

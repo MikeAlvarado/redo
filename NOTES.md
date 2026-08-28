@@ -212,3 +212,24 @@ The reference's own hands/statue photographs were never downloaded or linked.
   card reports `12px 0px 0px 12px` (CSS order TL TR BR BL).
 - Journey card box at this width: 401x557 (h/w ratio 1.389, so w/h 0.72).
 - Nav shell radius: 16px, matching our `--radius-nav`.
+
+## Content migration (2026-08-27)
+
+The compare-run notes above describe the site as it stood with placeholder
+content. They are kept as the record of those passes; what changed since:
+
+- The "placeholder client/testimonial/project content" listed under *Third
+  compare run → remaining deliberate differences* is gone. Projects, clients,
+  services, stats, journey copy and the founder card now come from the
+  `portfolio` repo, the CV and GitHub (see CLAUDE.md → *Content migration*).
+- The client wall's twelve tiles are now twelve real organizations, so the
+  density note there is about layout only, not about fictional names.
+- Testimonials ship as an empty array: there is no real quote to show, so the
+  reviews section renders nothing and drops out of the nav. Any compare row for
+  `reviews` is therefore build-empty by design, not a regression.
+- A credentials strip sits between the founders card and the closing card. It
+  has no reference counterpart — the reference site has no such section — so it
+  is an addition, like the founders section itself.
+- Three fields remain placeholders on purpose and are the only `TODO(mike)`
+  markers in `src/`: the hero headline, the four stat company marks, and Mike's
+  portrait.

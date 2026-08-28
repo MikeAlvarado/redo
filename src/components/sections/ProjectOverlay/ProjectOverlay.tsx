@@ -55,14 +55,19 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
             className="nav:py-20 mx-auto flex max-w-4xl flex-col gap-8 px-6 py-16"
           >
             <div className="flex items-start justify-between gap-6">
-              <motion.h2
+              <motion.div
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.5 }}
-                className="font-display text-cream nav:text-5xl text-4xl leading-[1.05]"
+                className="flex min-w-0 flex-col gap-2"
               >
-                {l(project.title)}
-              </motion.h2>
+                <p className="text-cream/55 text-xs tracking-[0.16em] uppercase">
+                  {l(project.category)}
+                </p>
+                <h2 className="font-display text-cream nav:text-5xl text-4xl leading-[1.05]">
+                  {l(project.title)}
+                </h2>
+              </motion.div>
               <button
                 type="button"
                 aria-label={t.showcase.closeOverlay}
@@ -75,10 +80,10 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
 
             <motion.img
               layoutId={`cover-${project.slug}`}
-              src={project.cover}
+              src={project.cover.src}
               alt={l(project.coverAlt)}
-              width={1200}
-              height={800}
+              width={project.cover.width}
+              height={project.cover.height}
               className="rounded-tile aspect-[3/2] w-full object-cover"
             />
 
@@ -129,14 +134,14 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
 
             <ul aria-label={t.showcase.galleryLabel} className="flex flex-col gap-6">
               {project.gallery.map((image, index) => (
-                <li key={image}>
+                <li key={image.src}>
                   <img
-                    src={image}
+                    src={image.src}
                     alt={`${l(project.title)} — ${index + 1}`}
-                    width={1200}
-                    height={800}
+                    width={image.width}
+                    height={image.height}
                     loading="lazy"
-                    className="rounded-tile aspect-[3/2] w-full object-cover"
+                    className="rounded-tile w-full object-contain"
                   />
                 </li>
               ))}

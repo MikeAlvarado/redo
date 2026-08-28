@@ -14,7 +14,7 @@ test('mobile menu opens from the pill, traps focus, closes on Escape, restores f
 
   const panel = page.locator('#mobile-menu')
   await expect(panel.getByRole('link', { name: 'Services' })).toBeVisible()
-  await expect(panel.getByRole('link', { name: 'Get In Touch' })).toBeVisible()
+  await expect(panel.getByRole('link', { name: 'Get in touch' })).toBeVisible()
 
   for (let i = 0; i < 10; i += 1) {
     await page.keyboard.press('Tab')

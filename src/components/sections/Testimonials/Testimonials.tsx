@@ -12,7 +12,7 @@ import { GrainOverlay } from '../../ui/GrainOverlay'
 import { DotsPagination } from '../../ui/DotsPagination'
 import { MixedHeading } from '../../ui/MixedHeading'
 
-export function Testimonials() {
+function TestimonialCarousel() {
   const { t, l } = useLanguage()
   const reduced = usePrefersReducedMotion()
   const headingRef = useRevealOnScroll<HTMLDivElement>({ selector: '[data-reveal]' })
@@ -145,4 +145,9 @@ export function Testimonials() {
       </div>
     </section>
   )
+}
+
+export function Testimonials() {
+  if (testimonials.length === 0) return null
+  return <TestimonialCarousel />
 }

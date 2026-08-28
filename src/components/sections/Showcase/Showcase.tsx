@@ -75,16 +75,21 @@ export function Showcase() {
                 >
                   <motion.img
                     layoutId={`cover-${project.slug}`}
-                    src={project.cover}
+                    src={project.cover.src}
                     alt={l(project.coverAlt)}
-                    width={1200}
-                    height={800}
+                    width={project.cover.width}
+                    height={project.cover.height}
                     loading="lazy"
                     className="rounded-tile aspect-[3/2] w-full object-cover"
                   />
                   <span className="tab:hidden mt-4 flex flex-col gap-3">
-                    <span className="text-cream text-lg leading-snug">
-                      {l(project.title)}
+                    <span className="flex flex-col gap-1">
+                      <span className="text-cream/55 text-xs tracking-[0.16em] uppercase">
+                        {l(project.category)}
+                      </span>
+                      <span className="text-cream text-lg leading-snug">
+                        {l(project.title)}
+                      </span>
                     </span>
                     <span className="flex flex-wrap gap-2">
                       {project.categories.map((category) => (
@@ -126,6 +131,9 @@ export function Showcase() {
               transition={{ duration: 0.25 }}
               className="flex flex-col items-center gap-4"
             >
+              <span className="text-cream/55 text-xs tracking-[0.16em] uppercase">
+                {l(active.category)}
+              </span>
               <h3 className="text-cream text-xl">{l(active.title)}</h3>
               <div className="flex flex-wrap justify-center gap-2">
                 {active.categories.map((category) => (

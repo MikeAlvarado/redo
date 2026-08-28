@@ -46,5 +46,5 @@ test('every section renders in its final state and smooth scroll is off', async 
       (span) => span.textContent,
     ),
   )
-  expect(statValues.join(' ')).toContain('24')
+  expect(statValues.join(' ')).toContain('8,000')
 })

@@ -14,6 +14,12 @@ for (const lang of ['en', 'es'] as const) {
     const blocking = results.violations.filter(
       (violation) => violation.impact === 'serious' || violation.impact === 'critical',
     )
-    expect(blocking.map((violation) => `${violation.id}: ${violation.help}`)).toEqual([])
+    expect(
+      blocking.flatMap((violation) =>
+        violation.nodes.map(
+          (node) => `${violation.id}: ${node.target.join(' ')} — ${node.failureSummary}`,
+        ),
+      ),
+    ).toEqual([])
   })
 }

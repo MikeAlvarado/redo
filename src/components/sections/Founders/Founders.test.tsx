@@ -20,8 +20,12 @@ function makeFounder(id: string): Founder {
     portrait: '/art/founder-mike.svg',
     portraitAlt: { en: `Portrait ${id}`, es: `Retrato ${id}` },
     links: [
-      { label: 'LinkedIn', href: 'https://example.com', icon: 'linkedin' },
-      { label: 'GitHub', href: 'https://example.com', icon: 'github' },
+      {
+        label: { en: 'LinkedIn', es: 'LinkedIn' },
+        href: 'https://example.com',
+        icon: 'linkedin',
+      },
+      { label: { en: 'GitHub', es: 'GitHub' }, href: 'https://example.com', icon: 'github' },
     ],
   }
 }
@@ -43,6 +47,11 @@ describe('Founders', () => {
     expect(cards).toHaveLength(1)
     expect(screen.getByText('Person 1')).toBeInTheDocument()
     expect(screen.getAllByRole('link', { name: /LinkedIn/ })).toHaveLength(1)
+
+    const row = cards[0]?.parentElement?.parentElement
+    expect(row?.className).toContain('justify-center')
+    expect(cards[0]?.parentElement?.className).not.toContain('-mt-6')
+    expect(cards[0]?.className).toContain('w-[305px]')
   })
 
   it('renders two tilted overlapping cards', () => {

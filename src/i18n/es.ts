@@ -1,17 +1,17 @@
 import type { Dictionary } from './types'
 
-// TODO(mike): voz provisional — reemplaza cada texto con tu propia redacción.
 export const es = {
   meta: {
-    title: 'Mike Alvarado',
-    description: 'Mike Alvarado — diseñador de producto e ingeniero. Portafolio.',
+    title: 'Mike Alvarado — Tech-Founder e Ingeniero de Software',
+    description:
+      'Portafolio de Mike Alvarado, un tech-founder enfocado en crear tecnología significativa y escalable. Producto, ingeniería y liderazgo.',
   },
   nav: {
     wordmark: 'Mike.',
     services: 'Servicios',
-    work: 'Proyectos',
+    work: 'Trabajos Previos',
     reviews: 'Reseñas',
-    cta: 'Contáctame',
+    cta: 'Ponerse en contacto',
     openMenu: 'Abrir menú',
     closeMenu: 'Cerrar menú',
     langLabel: 'Idioma',
@@ -26,24 +26,24 @@ export const es = {
     clockLabel: 'Mi hora local',
   },
   statement:
-    'Diseño y construyo productos digitales de principio a fin, del primer boceto al código en producción. Así tú te concentras en lo importante, mientras yo doy forma a cómo lo vive el mundo.',
+    'Soy un tech-founder enfocado en crear tecnología significativa y escalable. Me importa la claridad, las buenas prácticas y liderar equipos que construyen con propósito.',
   marquee: {
-    lockup: 'Con la confianza de más de 20 organizaciones',
+    lockup: 'Y Combinator S21',
     trackLabel: 'Organizaciones con las que he trabajado',
   },
   journey: {
-    heading: '¿En qué punto de *tu*\ncamino estás?',
+    heading: 'Tres formas de\n*construir* juntos',
   },
   services: {
-    heading: '*Con* mis servicios',
-    sub: 'Te ayudo a lograr más en cada etapa de tu proyecto',
+    heading: 'Lo que podemos *construir* juntos',
+    sub: 'Seis formas de sumarme a tu equipo, del primer commit al producto entregado',
     listLabel: 'Servicios',
     toggleDetails: 'Mostrar detalles de',
     cta: 'Construyamos tu visión',
   },
   showcase: {
     heading: 'Proyectos *destacados*',
-    sub: 'Ideas audaces que he convertido en realidades tangibles',
+    sub: 'Productos, librerías y experimentos que he entregado de principio a fin',
     prev: 'Proyecto anterior',
     next: 'Proyecto siguiente',
     goToSlide: 'Ir al proyecto',
@@ -59,12 +59,12 @@ export const es = {
     carouselLabel: 'Proyectos destacados',
   },
   clients: {
-    heading: 'Marcas que confiaron en mi trabajo',
-    gridLabel: 'Logotipos de clientes',
+    heading: 'Organizaciones con las que y para las que he construido',
+    gridLabel: 'Organizaciones con las que y para las que he construido',
   },
   testimonials: {
     heading: 'Lo que dicen *mis* clientes',
-    sub: 'Después de más de 20 proyectos entregados, esto es lo que opinan',
+    sub: 'Palabras de las personas con las que he construido',
     prev: 'Reseña anterior',
     next: 'Reseña siguiente',
     goTo: 'Ir a la reseña',
@@ -73,6 +73,10 @@ export const es = {
   },
   stats: {
     regionLabel: 'Números que lo respaldan',
+    sourceLabel: 'De dónde viene este número',
+  },
+  credentials: {
+    regionLabel: 'Credenciales y formación',
   },
   founders: {
     heading: 'Ponte en contacto *conmigo*',
@@ -80,10 +84,12 @@ export const es = {
     regionLabel: 'Tarjeta de contacto',
   },
   closing: {
-    eyebrow: 'Esa es mi historia',
-    heading: '*Reimaginemos* la tuya',
-    cta: 'Contáctame',
-    rights: '© 2026 Mike Alvarado | Todos los derechos reservados.',
+    eyebrow: '¿Tienes un proyecto en mente? Escríbeme y creemos algo increíble.',
+    heading: '*Trabajemos* juntos',
+    cta: 'Ponerse en contacto',
+    rights: 'Todos los derechos reservados.',
     emailLabel: 'Escríbeme',
+    reachLabel: 'Formas de contactarme',
+    connectLabel: 'Conectar',
   },
 } satisfies Dictionary

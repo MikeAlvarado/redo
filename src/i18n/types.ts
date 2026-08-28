@@ -73,6 +73,10 @@ export interface Dictionary {
   }
   stats: {
     regionLabel: string
+    sourceLabel: string
+  }
+  credentials: {
+    regionLabel: string
   }
   founders: {
     heading: string
@@ -85,5 +89,7 @@ export interface Dictionary {
     cta: string
     rights: string
     emailLabel: string
+    reachLabel: string
+    connectLabel: string
   }
 }

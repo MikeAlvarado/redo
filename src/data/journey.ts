@@ -8,36 +8,35 @@ export interface JourneyCard {
   body: LocalizedString
 }
 
-// TODO(mike): tune these three audience cards to the clients you want.
 export const journeyCards: JourneyCard[] = [
   {
     id: 'zero-to-one',
     tone: 'silver',
     icon: 'trend',
-    title: { en: 'Going\nZero to One', es: 'De cero\na uno' },
+    title: { en: 'Zero to one', es: 'De cero a uno' },
     body: {
-      en: "If you're shaping a new idea and need a first version the world can touch",
-      es: 'Si estás dando forma a una idea nueva y necesitas una primera versión tangible',
+      en: "You have an idea and need a first version people can actually use. Let's build it.",
+      es: 'Tienes una idea y necesitas una primera versión que la gente pueda usar. Construyámosla.',
     },
   },
   {
-    id: 'one-to-n',
+    id: 'one-to-many',
     tone: 'red',
     icon: 'orbit',
-    title: { en: 'Scaling from\nOne to N', es: 'Escalar de\nuno a N' },
+    title: { en: 'One to many', es: 'De uno a muchos' },
     body: {
-      en: "If you've found your fit and want design and code that keep up with growth",
-      es: 'Si ya encontraste tu mercado y quieres diseño y código que crezcan contigo',
+      en: 'Something works and now it has to hold. I have taken a product past 8,000 users and built the team that kept it shipping.',
+      es: 'Algo ya funciona y ahora tiene que sostenerse. Llevé un producto más allá de 8,000 usuarios y armé el equipo que lo mantuvo entregando.',
     },
   },
   {
-    id: 'quick-help',
+    id: 'hands-on-the-tools',
     tone: 'charcoal',
     icon: 'spark',
-    title: { en: 'Need Quick\nSolutions', es: 'Soluciones\nrápidas' },
+    title: { en: 'Hands on the tools', es: 'Manos a la obra' },
     body: {
-      en: 'If you know exactly what you need and want a safe pair of hands to ship it',
-      es: 'Si sabes exactamente qué necesitas y quieres manos expertas que lo entreguen',
+      en: 'You know what you need and want someone who ships it. Design, code, and the judgement in between.',
+      es: 'Sabes lo que necesitas y quieres a alguien que lo entregue. Diseño, código, y el criterio que va en medio.',
     },
   },
 ]

@@ -413,6 +413,144 @@ parameter and missing-piece fixes only.
   scroll range (0 to one viewport) because the sticky pin freezes the section's
   own rect, so element-relative start/end would never advance.
 
+### Content migration (2026-08-27) — real material replaces every placeholder
+
+Everything the site says now comes from one of three sources: the `portfolio`
+repo (`~/Developer/personal/portfolio/portfolio`, "P"), `Mike_Alvarado_Tech.pdf`
+v3.2 (July 2026, "CV"), or `github.com/MikeAlvarado` ("GH"). Nothing is invented.
+Three items are deliberately still `TODO(mike)`; see **Deferred** below.
+
+- **`scripts/import-portfolio-content.mjs` generates `src/data/projects.ts`**
+  (`npm run import:content`). P groups locale→key (`messages/{en,es}.json`);
+  redo groups key→locale (`LocalizedString`), so eleven projects by hand would
+  drift between languages. The script reads both JSON files plus `PROJECT_META`
+  parsed out of `P/components/sections/Projects.tsx`, runs a parity check that
+  **exits non-zero** listing every key/field present in one locale and missing in
+  the other (and every `tags` array whose lengths disagree), converts
+  `P/public/projects/*` to WebP in `public/projects/` with sharp, and writes the
+  typed file with each image's real pixel dimensions. `projects.ts` is generated
+  — edit the script, never the file. Verified by feeding it a deliberately
+  broken `es.json`: three problems reported, exit 1, no files written.
+- **Featured, in carousel order (7)**: vitrina, mediterra, aiMeter, koddaStudio,
+  apex, tequilaKaos, reactPractice. Present but not featured: lightcycleArena,
+  cloudFunctionsTs, yCombinator, pmp — the last two are credentials and also
+  appear in the new strip; they stay in `projects.ts` with `featured: false` so
+  nothing dangles.
+- **`reactPractice` renders as "React Lab"** (both locales) with its category
+  retitled `Open Source` / `Código abierto`. `i18nKey`, slug and image paths are
+  untouched; the rename lives in `TITLE_OVERRIDES`/`CATEGORY_OVERRIDES` in the
+  import script so a re-import keeps it.
+- **`Project` gained `category` and `ProjectImage`.** The spec maps
+  `categories[]` from P's `tags` (not `category`) but also asks for the React Lab
+  `category` rename, so `category: LocalizedString` is now its own field,
+  rendered as the small uppercase eyebrow above the title in the showcase caption
+  and the overlay. `cover`/`gallery` are `{ src, width, height }` rather than
+  bare paths, so every project image carries its true intrinsic size (the assets
+  range from 3:2 screenshots to a portrait certificate; one hardcoded 1200×800
+  would have been a lie and a CLS source). Overlay gallery images switched to
+  `object-contain` for the same reason.
+- **DEVIATION from the spec's repo list: `tequilakaos` is NOT public.** The spec
+  named it among the repos safe to link; the GitHub API returns 404 for
+  `MikeAlvarado/tequilakaos` (as it does for `Mediterra` and `portfolio`), and
+  the account's public repo list does not contain it. Gate 5 ("every `links.repo`
+  resolves to a public repository") wins over the enumeration, so tequilaKaos
+  keeps `links.live` only. Six repo links ship, all re-verified public:
+  vitrina, AIMeter, getapex, lightcycle_arena, cloudfunctions-ts, react_practice.
+- **Clients are twelve real organizations** (CV + P), replacing the fictional
+  wordmarks. `clients.heading` no longer says "trusted by N organizations" —
+  agency language a solo portfolio cannot speak, and an invented number. It now
+  reads "Organizations I have built with and for" / "Organizaciones con las que
+  y para las que he construido". `marquee.lockup` lost "Trusted by 20+
+  organizations" for the laurel-appropriate, factual "Y Combinator S21".
+  `ClientWordmark`'s `mono` flair **dropped its `lowercase`**: styling
+  "Moneypool", "VantTec" and "Campus Accesible" down to lowercase reads as a
+  typo once the names are real. `caps` keeps `uppercase` — all-caps is a
+  wordmark convention, lowercase is not.
+- **Services keeps its CTA** (the mobile-only cream button under the list) —
+  Mike is taking client work. All six rows are retitled to what the CV actually
+  evidences, every deliverable traceable to a CV line, and thumbnails are now
+  real project screenshots (`/projects/*.webp`) with P's own `imageAlt` strings.
+  Heading and sub are written around working together.
+- **Stats carry an optional `mark`.** Four real CV numbers (8,000+ Kodda users,
+  6 engineers led, 70+ supermarkets, +37% payment completion), each paired with
+  the company it came from. `StatRow` grew `prefix`/`suffix`/`group`/`source`
+  and `mark?: { src, alt }`; `useCountUp` grew a `group` option
+  (`groupStat` in `lib/format`) so 8000 rolls to "8,000". **All four ship with
+  `mark` undefined** — nothing in P holds a transparent Kodda/Softtek/Moneypool
+  wordmark, and a cropped screenshot or a logo drawn from memory would be worse
+  than none, so the row renders the source name as small muted text and takes
+  the image only when one is supplied. `Stats.test.tsx` covers both shapes.
+- **Testimonials ship empty.** There is not one quote in P, CV or GH, so
+  `testimonials` is `[]` and `Testimonials` returns `null` (the hook-bearing
+  body moved to an inner `TestimonialCarousel`). `Testimonials.test.tsx` covers
+  0/1/2/11 entries, so the section works the day real quotes arrive. Because the
+  section is gone, `SECTION_IDS` in `lib/site.ts` now **derives** from the data —
+  `reviews` drops out while `testimonials` is empty — and Nav and Footer both map
+  over it, so neither offers an anchor that resolves to nothing.
+- **Credentials strip** (`src/data/credentials.ts` + `sections/Credentials`),
+  between founders and the closing card: one wrapping flex row, small UI type,
+  hairline dividers, shared reveal, no cards. Only Y Combinator carries an
+  `href`. The row sits in an `overflow-hidden` wrapper and is shifted `-ml-px`,
+  so the `border-l` of whichever item starts a wrapped line falls outside and
+  disappears — dividers survive only between items on the same line, at every
+  width, with no dangling tick. It is left-aligned in `max-w-5xl`, matching the
+  stats column above it.
+- **Journey reframed to an invitation.** The three cards were an agency
+  qualifying a prospect ("where are *you* in your journey?"), which has no
+  speaker on a personal site. They are now Zero to one / One to many / Hands on
+  the tools, and `journey.heading` is "Three ways to\n*build* together" /
+  "Tres formas de\n*construir* juntos" — same `\n` + `*italic*` treatment
+  `MixedHeading` and the `deck:` variants expect.
+- **Copy** now comes from P verbatim where the spec maps it: `meta.*` from
+  `Meta`, `nav.work`/`nav.cta`/`nav.openMenu`/`nav.closeMenu` from `Nav`,
+  `statement` from `AboutPage.title` (28 words, right at what the pinned reveal
+  wants), `closing.heading`/`closing.eyebrow` from `Footer.title`/`description`,
+  `closing.rights` from `Footer.rights` (the footer composes
+  `© {year} Mike Alvarado.` in front of it, as P does). `CONTACT_EMAIL` moved to
+  P's public address, `miguel_l06@hotmail.com`.
+- **Founders is one centred card.** Mike only; `w-[305px]` keeps it from
+  stretching, `justify-center` centres it, the tilt stays. `FounderLink.label`
+  became a `LocalizedString` (for "Email"/"Correo") and the three links now wrap
+  in a centred row **without the hairline dividers** — three labels plus icons
+  overflow a 249px content box in Spanish, and the card clips. Verified at 390,
+  430 and 1440.
+- **Contact links** (`src/data/contact.ts`): P's full footer set. `reachLinks`
+  (email, WhatsApp, phone, CV) render as a labelled row inside the closing card;
+  `socialLinks` (LinkedIn, GitHub, GitHub @MikeAlvaradoBP, X, Strava, Instagram)
+  render as a hairline-separated row in the footer. Labels only, no nested
+  opacity — the second GitHub is disambiguated the way P labels it.
+- **Contrast**: the new 12px eyebrows and the credentials strip failed axe at
+  `text-cream/40..50` on black (3.76:1 against a 4.5 floor). They are
+  `text-cream/55`/`/60` now. `e2e/axe.spec.ts` was changed to report the failing
+  node selectors and summaries instead of just the rule id — the old message
+  named the rule but not the element.
+- **`e2e/overflow.spec.ts` gained a Spanish clipping sweep at 390 and 430.**
+  Page-level `scrollWidth` never catches text clipped *inside* an
+  `overflow-hidden` section, which is exactly where longer Spanish strings fail.
+  The new test walks every visible text leaf and asserts it is inside both the
+  viewport and its nearest clipping ancestor. It scrolls with `mouse.wheel`, not
+  `window.scrollTo`: Lenis drives ScrollTrigger off real scroll events, so a
+  programmatic jump leaves reveals at opacity 0 and `checkVisibility` would skip
+  the very elements under test. Decorative layers (`aria-hidden`, the marquee
+  track) are excluded — the parallax backdrop and the duplicated marquee row are
+  *meant* to exceed their container.
+- Placeholder art deleted: `project-*.svg`, `service-*.svg`, `portrait-*.svg`,
+  and `scripts/gen-art.mjs`, which generated all three and now generates nothing
+  the site uses. `public/art/` keeps only the hero/closing photographs,
+  `deck-back.svg` and the founder portrait placeholder.
+
+**Deferred — the only three `TODO(mike)` left in `src/`:**
+
+1. `src/i18n/en.ts` — `hero.line1` / `line2` / `sub`, in **both** `en.ts` and
+   `es.ts`. P's hero is "hey." plus an under-construction notice, which this
+   design cannot carry. Mike is writing it.
+2. `src/data/stats.ts` — the four stat `mark` images (Kodda, Softtek,
+   Moneypool). Mike is supplying transparent wordmarks separately.
+3. `src/data/founders.ts` — the portrait. No photograph of Mike exists anywhere
+   in P, so `/art/founder-mike.svg` stays. (The spec named
+   `public/portrait.jpg`; the placeholder that actually exists in this repo is
+   `/art/founder-mike.svg`, and that is what is kept.)
+
 ## Blockers
 
 - Times Now (display serif) is commercial → shipped Instrument Serif and logged
@@ -425,10 +563,14 @@ parameter and missing-piece fixes only.
 
 ## Adding content
 
-- **New project**: append to `src/data/projects.ts` (both locales for every
-  `LocalizedString`), drop cover/gallery files in `public/art/`, set
-  `featured: true` to show it in the carousel. The overlay, hash-routing, pills,
-  and captions pick it up automatically.
+- **New project**: `src/data/projects.ts` is GENERATED. Add the project in the
+  `portfolio` repo (an entry in `PROJECT_META` plus its block in BOTH
+  `messages/en.json` and `messages/es.json`), then run `npm run import:content`.
+  To feature it, add its `i18nKey` to `FEATURED` in
+  `scripts/import-portfolio-content.mjs` — that array is also the carousel
+  order. Repo links are filtered through `PUBLIC_REPOS` in the same script; a
+  repo that is not listed there ships without a `repo` link on purpose.
+  The overlay, hash-routing, pills, and captions pick the rest up automatically.
 - **New UI string**: add the key to `src/i18n/types.ts`, then to BOTH `en.ts`
   and `es.ts` (the compiler enforces the second half), and read it via
   `useLanguage().t`.
@@ -441,9 +583,10 @@ parameter and missing-piece fixes only.
 | `npm run lint` | ESLint flat config, `--max-warnings 0` |
 | `npm run typecheck` | `tsc --noEmit` on the app project |
 | `npm run test` / `test:watch` / `test:cov` | Vitest (jsdom, GSAP/Lenis fakes); cov enforces 80% statements on hooks+lib |
-| `npm run e2e` | Playwright: overflow sweep, language persistence, keyboard carousels, overlay focus, mobile menu (trap/Escape/outside-tap/no scroll lock), reduced motion, axe (en+es), self-check screenshots |
+| `npm run e2e` | Playwright: overflow sweep, Spanish per-section clipping at 390/430, language persistence, keyboard carousels, overlay focus, mobile menu (trap/Escape/outside-tap/no scroll lock), reduced motion, axe (en+es), self-check screenshots |
 | `npm run check:layout` | Reports every grid utility in `src/` (must match the exception list above) |
 | `npm run check:assets` | FAILS if `src/` imports from `/reference/` |
+| `npm run import:content` | Regenerates `src/data/projects.ts` + `public/projects/*.webp` from the `portfolio` repo (`PORTFOLIO_DIR` env or argv[2] overrides its path); FAILS on any locale parity gap |
 | `npm run verify` | lint → typecheck → test → check:layout → check:assets → build → e2e |
 
 Node version: `.nvmrc` (24.19.0). GSAP ships under its standard no-charge

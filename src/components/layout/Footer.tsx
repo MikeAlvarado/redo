@@ -1,20 +1,38 @@
+import { socialLinks } from '../../data/contact'
 import { useLanguage } from '../../hooks/useLanguage'
 import { scrollToAnchor } from '../../hooks/useLenis'
-import { CONTACT_EMAIL, NAV_OFFSET } from '../../lib/site'
+import { CONTACT_EMAIL, NAV_OFFSET, SECTION_IDS } from '../../lib/site'
 
 export function Footer() {
-  const { t } = useLanguage()
-  const links = [
-    { id: 'services', label: t.nav.services },
-    { id: 'work', label: t.nav.work },
-    { id: 'reviews', label: t.nav.reviews },
-  ]
+  const { t, l } = useLanguage()
+  const labels = { services: t.nav.services, work: t.nav.work, reviews: t.nav.reviews }
+  const links = SECTION_IDS.map((id) => ({ id, label: labels[id] }))
 
   return (
     <footer className="nav:px-10 nav:pb-8 relative px-7 pb-7">
       <div className="mb-6 h-px w-full bg-white/15" />
+      <ul
+        aria-label={t.closing.connectLabel}
+        className="text-blush/70 mb-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm"
+      >
+        {socialLinks.map((link) => (
+          <li key={link.id}>
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-blush transition-colors"
+            >
+              {l(link.label)}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div className="mb-6 h-px w-full bg-white/10" />
       <div className="text-blush/80 nav:flex-row nav:justify-between flex flex-col-reverse items-center gap-3 text-sm">
-        <p>{t.closing.rights}</p>
+        <p>
+          © {new Date().getFullYear()} Mike Alvarado. {t.closing.rights}
+        </p>
         <a
           href={`mailto:${CONTACT_EMAIL}`}
           aria-label={t.closing.emailLabel}

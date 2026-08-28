@@ -4,20 +4,19 @@ export interface Client {
   flair: 'serif' | 'caps' | 'mono' | 'script'
 }
 
-// TODO(mike): fictional wordmarks — replace with the organizations you've worked with.
 export const clients: Client[] = [
-  { id: 'atlas', name: 'Atlas', flair: 'caps' },
-  { id: 'ledger', name: 'ledger', flair: 'mono' },
-  { id: 'pulse', name: 'Pulse', flair: 'serif' },
-  { id: 'bloom', name: 'bloom & co.', flair: 'script' },
-  { id: 'forge', name: 'FORGE', flair: 'caps' },
-  { id: 'nimbus', name: 'nimbus', flair: 'mono' },
-  { id: 'marea', name: 'Marea', flair: 'serif' },
-  { id: 'quill', name: 'Quill', flair: 'script' },
-  { id: 'vertex', name: 'VERTEX', flair: 'caps' },
-  { id: 'solstice', name: 'solstice', flair: 'mono' },
-  { id: 'harbor', name: 'Harbor', flair: 'serif' },
-  { id: 'ember', name: 'ember.', flair: 'script' },
+  { id: 'kodda', name: 'Kodda', flair: 'caps' },
+  { id: 'ycombinator', name: 'Y Combinator', flair: 'serif' },
+  { id: 'moneypool', name: 'Moneypool', flair: 'mono' },
+  { id: 'softtek', name: 'Softtek', flair: 'caps' },
+  { id: 'itesm', name: 'ITESM', flair: 'serif' },
+  { id: 'first-robotics', name: 'FIRST Robotics', flair: 'caps' },
+  { id: 'vanttec', name: 'VantTec', flair: 'mono' },
+  { id: 'women-in-tech', name: 'Women in Tech', flair: 'script' },
+  { id: 'transpais', name: 'Transpais', flair: 'serif' },
+  { id: 'campus-accesible', name: 'Campus Accesible', flair: 'mono' },
+  { id: 'caritas', name: 'Cáritas', flair: 'script' },
+  { id: 'tequila-kaos', name: 'Tequila KAOS', flair: 'script' },
 ]
 
 export const marqueeClients = clients.slice(0, 8)
