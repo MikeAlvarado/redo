@@ -48,7 +48,7 @@ export interface Dictionary {
     next: string
     goToSlide: string
     openProject: string
-    closeOverlay: string
+    back: string
     visit: string
     repo: string
     caseStudy: string

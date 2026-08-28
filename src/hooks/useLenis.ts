@@ -24,8 +24,11 @@ export function pauseLenis() {
   activeLenis?.stop()
 }
 
-export function resumeLenis() {
+export function resumeLenis(scrollY?: number) {
   activeLenis?.start()
+  if (scrollY !== undefined) {
+    activeLenis?.scrollTo(scrollY, { immediate: true, force: true })
+  }
 }
 
 export function useLenis() {

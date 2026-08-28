@@ -48,7 +48,7 @@ export const es = {
     next: 'Proyecto siguiente',
     goToSlide: 'Ir al proyecto',
     openProject: 'Abrir detalles del proyecto',
-    closeOverlay: 'Cerrar detalles del proyecto',
+    back: 'Volver a proyectos',
     visit: 'Visitar sitio',
     repo: 'Ver repositorio',
     caseStudy: 'Leer caso de estudio',

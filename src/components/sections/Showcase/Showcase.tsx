@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import type { KeyboardEvent } from 'react'
 import { useCarousel } from '../../../hooks/useCarousel'
 import { useLanguage } from '../../../hooks/useLanguage'
+import { useMediaQuery } from '../../../hooks/useMediaQuery'
 import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll'
 import { cn } from '../../../lib/cn'
 import { ArrowButton } from '../../ui/ArrowButton'
@@ -11,17 +12,26 @@ import { ProjectOverlay } from '../ProjectOverlay'
 import { useGhostZoom } from './useGhostZoom'
 import { useShowcaseSlides } from './useShowcaseSlides'
 
+// Below `tab:` the slides lay out as a plain vertical list, so the carousel
+// deactivates. Expressed in rem, not px, so it tracks --breakpoint-tab
+// (50.625rem) through browser zoom — if JS and CSS ever disagreed here, a click
+// would scroll a carousel the reader cannot see.
+const STACKED_QUERY = '(max-width: 50.624rem)'
+
 export function Showcase() {
   const { t, l } = useLanguage()
   const headingRef = useRevealOnScroll<HTMLDivElement>({ selector: '[data-reveal]' })
   const ghostRef = useGhostZoom<HTMLDivElement>()
   const { slides, activeProject, openProject, closeProject } = useShowcaseSlides()
-  const { viewportRef, selectedIndex, scrollPrev, scrollNext } = useCarousel({
+  const stacked = useMediaQuery(STACKED_QUERY)
+  const { viewportRef, selectedIndex, scrollTo, scrollPrev, scrollNext } = useCarousel({
     loop: true,
     align: 'center',
-    breakpoints: { '(max-width: 809px)': { active: false } },
+    breakpoints: { [STACKED_QUERY]: { active: false } },
   })
   const active = slides[selectedIndex]
+
+  const isPeeking = (index: number) => !stacked && index !== selectedIndex
 
   const onArrowKeys = (event: KeyboardEvent) => {
     if (event.key === 'ArrowLeft') {
@@ -65,9 +75,13 @@ export function Showcase() {
               >
                 <button
                   type="button"
-                  onClick={() => openProject(project.slug)}
+                  onClick={() =>
+                    isPeeking(index) ? scrollTo(index) : openProject(project.slug)
+                  }
                   onKeyDown={onArrowKeys}
-                  aria-label={`${t.showcase.openProject}: ${l(project.title)}`}
+                  aria-label={`${
+                    isPeeking(index) ? t.showcase.goToSlide : t.showcase.openProject
+                  }: ${l(project.title)}`}
                   className={cn(
                     'block w-full text-left transition-[opacity,transform] duration-500',
                     index !== selectedIndex && 'tab:scale-[0.94] tab:opacity-30',

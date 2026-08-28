@@ -50,7 +50,7 @@ export const en = {
     next: 'Next project',
     goToSlide: 'Go to project',
     openProject: 'Open project details',
-    closeOverlay: 'Close project details',
+    back: 'Back to projects',
     visit: 'Visit live site',
     repo: 'View repository',
     caseStudy: 'Read case study',

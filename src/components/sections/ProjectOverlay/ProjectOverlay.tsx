@@ -1,6 +1,7 @@
-import { ArrowUpRight, X } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import type { Project } from '../../../data/projects'
 import { useBodyScrollLock } from '../../../hooks/useBodyScrollLock'
 import { useFocusTrap } from '../../../hooks/useFocusTrap'
@@ -34,7 +35,10 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
     { href: links?.caseStudy, label: t.showcase.caseStudy },
   ].filter((entry): entry is { href: string; label: string } => Boolean(entry.href))
 
-  return (
+  // Every section wrapper in App.tsx is `relative z-10`, which is a stacking
+  // context — so this panel's z-50 only ever competed inside it and the nav's
+  // root-level z-50 painted over the top of it. A portal puts it back at root.
+  return createPortal(
     <AnimatePresence>
       {project && (
         <motion.div
@@ -42,7 +46,11 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="bg-ink/95 fixed inset-0 z-50 overflow-y-auto backdrop-blur-sm"
+          // Lenis keeps its wheel/touch listener and calls preventDefault even
+          // while stopped, which kills native scrolling inside this fixed
+          // panel. data-lenis-prevent makes it skip events from in here.
+          data-lenis-prevent
+          className="bg-ink/95 fixed inset-0 z-50 overflow-y-auto overscroll-contain backdrop-blur-sm"
           onClick={(event) => {
             if (event.target === event.currentTarget) onClose()
           }}
@@ -54,29 +62,28 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
             aria-label={l(project.title)}
             className="nav:py-20 mx-auto flex max-w-4xl flex-col gap-8 px-6 py-16"
           >
-            <div className="flex items-start justify-between gap-6">
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15, duration: 0.5 }}
-                className="flex min-w-0 flex-col gap-2"
-              >
-                <p className="text-cream/55 text-xs tracking-[0.16em] uppercase">
-                  {l(project.category)}
-                </p>
-                <h2 className="font-display text-cream nav:text-5xl text-4xl leading-[1.05]">
-                  {l(project.title)}
-                </h2>
-              </motion.div>
-              <button
-                type="button"
-                aria-label={t.showcase.closeOverlay}
-                onClick={onClose}
-                className="text-cream hover:bg-cream hover:text-ink flex size-11 shrink-0 items-center justify-center rounded-full border border-white/20 transition-colors"
-              >
-                <X size={20} aria-hidden />
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-cta text-cream hover:bg-cream hover:text-ink inline-flex w-fit items-center gap-2 border border-white/20 px-4 py-2.5 text-sm transition-colors"
+            >
+              <ArrowLeft size={16} aria-hidden />
+              {t.showcase.back}
+            </button>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.5 }}
+              className="flex min-w-0 flex-col gap-2"
+            >
+              <p className="text-cream/55 text-xs tracking-[0.16em] uppercase">
+                {l(project.category)}
+              </p>
+              <h2 className="font-display text-cream nav:text-5xl text-4xl leading-[1.05]">
+                {l(project.title)}
+              </h2>
+            </motion.div>
 
             <motion.img
               layoutId={`cover-${project.slug}`}
@@ -149,6 +156,7 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
           </div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }

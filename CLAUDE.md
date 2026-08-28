@@ -551,6 +551,117 @@ Three items are deliberately still `TODO(mike)`; see **Deferred** below.
    `public/portrait.jpg`; the placeholder that actually exists in this repo is
    `/art/founder-mike.svg`, and that is what is kept.)
 
+### Project detail overlay (2026-08-27) — three bugs that made it unusable
+
+Reported as "no se puede scrollear ni ver hacia otros lados". Three separate
+faults stacked up; every one of them was invisible to the existing suite,
+because the overlay test only ever used Tab and Escape.
+
+- **Lenis ate the wheel.** `lenis.stop()` does not remove Lenis's wheel/touch
+  listener — it keeps calling `preventDefault()`, so native scrolling inside the
+  fixed panel was dead while keyboard scrolling (End/PageDown) still worked, which
+  is exactly why it looked like a CSS problem and wasn't. The panel now carries
+  `data-lenis-prevent`, Lenis's own opt-out: it skips any event whose composed
+  path contains that attribute. Added `overscroll-contain` alongside it.
+- **Closing dumped the reader at the top of the site.** `useBodyScrollLock` set
+  `overflow: hidden` on `<html>`, which takes the scroll extent away and drops
+  the document's scroll position; on unlock the page came back at 0 (measured:
+  3189 → 0). The hook now captures `window.scrollY` before locking and restores
+  it on cleanup, and `resumeLenis(scrollY)` re-seats Lenis's own `animatedScroll`
+  with `scrollTo(y, { immediate: true, force: true })` — restoring the window
+  alone is not enough, Lenis would animate back to its stale internal target.
+- **The nav painted on top of the overlay.** Every section wrapper in `App.tsx`
+  is `relative z-10`, which opens a stacking context, so the panel's `z-50` only
+  ever competed *inside* that wrapper while the nav's root-level `z-50` won
+  outright — the Back control sat half-buried under the nav pill. `ProjectOverlay`
+  now renders through `createPortal(..., document.body)`. Motion's `layoutId`
+  cover transition is unaffected (its registry is not DOM-tree scoped).
+
+**From the reference**: redomedia.co has no overlay at all — project details are
+real pages at `/featured-work/<slug>`, natively scrolling with Lenis still
+running, exiting through a `← Back` pill at the top left (no X). We keep the
+hash-routed overlay (see *Overlay state* in Architecture — no router), but took
+its exit affordance: the corner X is gone, replaced by a labelled Back pill at
+the top of the panel. Its string is `showcase.back`, sourced verbatim from P's
+`ProjectsPage.backToProjects` ("Back to projects" / "Volver a proyectos"), and
+the now-dead `showcase.closeOverlay` key was deleted from the Dictionary and both
+dictionaries. Escape and backdrop-click still close.
+
+Covered by a new e2e case (`overlay.spec.ts`): scroll the page, open a project,
+assert the panel has real scroll extent, wheel it, assert the panel moved and the
+page behind did not, then close and assert the page is back where it was and
+still scrolls. Plus a `useBodyScrollLock` unit test for the position restore.
+The reference-vs-build `npm run compare` has no row for this — the reference has
+no overlay to compare against.
+
+### Showcase carousel (2026-08-27) — a peeking card scrolls, it does not open
+
+Clicking a dimmed neighbour opened that project instead of bringing it to the
+centre, which is not what a peek carousel affords: the neighbours are visibly
+*not* the subject, so a click reads as "bring this one here". Only the centred
+slide opens now; `isPeeking(index)` gates both the click handler and the
+accessible name (`showcase.goToSlide` vs `showcase.openProject`), so the name
+always states the action the click actually performs.
+
+Below `tab:` the slides are a plain vertical list with the carousel deactivated,
+and there is no "centred" card — every card opens directly, as before. That
+decision needs JS to agree with CSS about the breakpoint, so the Embla
+`breakpoints` key and the `useMediaQuery` call now share one constant,
+`STACKED_QUERY`, and it is expressed in **rem** (`max-width: 50.624rem`) rather
+than the old `809px`. Under browser zoom the px query would have drifted away
+from `--breakpoint-tab: 50.625rem` by ~90px, opening a band where CSS renders
+the stacked list while JS still thinks a carousel is centred — the same
+two-sources-of-truth failure that broke the journey deck fan.
+
+Covered in `carousels.spec.ts`: clicking a neighbour centres it and opens
+nothing (both directions, including the loop-back), the centred card opens, and
+at 430px all seven cards carry "Open project details" with no "Go to project"
+button present.
+
+### Fidelity re-check (2026-08-27, post-migration) — 151/151, one defect fixed
+
+`npm run compare` re-run against the live reference after the content migration.
+The previous run predated it, so its verdict notes described placeholder content
+that no longer exists; they have been rewritten against what the sheets actually
+show. Two tool corrections were needed first:
+
+- `reviews` rows were still in the report from **stale screenshots on disk** —
+  the build no longer renders that section, but the report is driven by
+  `existsSync`, so old `mine-en` captures kept producing PASS rows for a section
+  that is gone. Deleted, and their verdicts with them.
+- `credentials` was untracked. Added to `SECTIONS` with an empty `ref` list so
+  the reference column reads "missing" on purpose rather than the section going
+  unexamined.
+
+**Defect found and fixed: the services CTA was missing at desktop.** The
+reference renders "Build Your Vision With Us" centred under the service list at
+1440 — measured 201x34, radius 8px, background #EAE7E0, padding 10px/20px. Ours
+was `tab:hidden`, so it only ever appeared below 810px and desktop visitors got
+no call to action at the end of the section — on a site whose whole point is
+that Mike is taking client work. It descends from the first compare run's note
+("a cream CTA sits under the list on mobile"), which read a mobile-only
+placement into something the reference does at every width. The fix is dropping
+`tab:hidden` and giving desktop a wider gap (`tab:mt-24`); our pill already
+matched the reference's radius, colour and padding exactly, only its
+`text-sm`/500 type differs from the reference's 12px/400, kept for consistency
+with the site's other CTAs. Report is back to 151/151.
+
+The narrative version of all of this — what is copied, what deliberately is
+not, and how to re-check — lives in **`FIDELITY.md`** at the repo root.
+
+Corrections to earlier claims, from this run's evidence:
+
+- **The reference has SIX service rows, not five** (`(06) Full-stack Marketing`
+  is visible at 1440). The old "my six vs reference five — content" note was
+  simply wrong; the counts match.
+- **The reference nests stats inside its "Get In Touch" section**, in a
+  two-column row with the founder cards on the left and the numerals on the
+  right. Ours are two separate stacked sections (full-width stats, then
+  founders). Structural difference, recorded, not yet reconciled.
+- Client-wall tiles are uniform height on both (measured 80px at 1440, 56px at
+  390); the density gap is real and is content — 7-up x ~5 rows of logo images
+  against our 6-up x 2 rows of twelve text wordmarks.
+
 ## Blockers
 
 - Times Now (display serif) is commercial → shipped Instrument Serif and logged

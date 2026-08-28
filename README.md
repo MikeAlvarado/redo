@@ -47,7 +47,7 @@ npm run dev        # http://localhost:5173
 npm run test       # unit + hook tests (Vitest)
 npm run e2e        # Playwright suite (npx playwright install chromium once)
 npm run verify     # the full gate: lint → typecheck → test → checks → build → e2e
-npm run compare    # side-by-side fidelity check against redomedia.co (see reference/compare/report.md)
+npm run compare    # side-by-side fidelity check against redomedia.co (see FIDELITY.md)
 ```
 
 ## Where the content comes from
@@ -137,6 +137,12 @@ each image's real dimensions.
 Serif and Mona Sans are SIL OFL. `public/projects/` holds Mike's own project
 screenshots; `public/art/` holds CC0 photographs (sources in NOTES.md) and
 generated placeholder art.
+
+## Fidelity to the reference
+
+**[`FIDELITY.md`](./FIDELITY.md)** lists what this build copies from
+redomedia.co, what it deliberately does not and why, and how to re-run the
+check. Last full run: 151/151 PASS across four viewports.
 
 ## Credit
 

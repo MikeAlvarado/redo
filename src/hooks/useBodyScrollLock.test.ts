@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { useBodyScrollLock } from './useBodyScrollLock'
 
 describe('useBodyScrollLock', () => {
@@ -23,5 +23,18 @@ describe('useBodyScrollLock', () => {
     expect(document.documentElement.style.overflow).toBe('hidden')
     unmount()
     expect(document.documentElement.style.overflow).toBe('')
+  })
+
+  it('puts the page back where it was when the lock lifts', () => {
+    const scrollTo = vi.spyOn(window, 'scrollTo').mockImplementation(() => {})
+    vi.spyOn(window, 'scrollY', 'get').mockReturnValue(2480)
+
+    const { unmount } = renderHook(() => useBodyScrollLock(true))
+    expect(scrollTo).not.toHaveBeenCalled()
+
+    unmount()
+    expect(scrollTo).toHaveBeenCalledWith(0, 2480)
+
+    vi.restoreAllMocks()
   })
 })

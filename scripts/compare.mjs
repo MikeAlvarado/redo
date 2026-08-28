@@ -20,6 +20,9 @@ const SECTIONS = [
   { id: 'reviews', ref: ['#mobile-reviews', '#reviews'], pinned: false },
   { id: 'stats', ref: ['text:Industries'], pinned: false },
   { id: 'founders', ref: ['#founders'], pinned: false },
+  // Build-only: the reference has no credentials strip, so its `ref` column
+  // renders "missing" on purpose rather than being left untracked.
+  { id: 'credentials', ref: [], pinned: false },
   { id: 'closing', ref: ['#footer'], pinned: false },
 ]
 
