@@ -662,6 +662,19 @@ Corrections to earlier claims, from this run's evidence:
   390); the density gap is real and is content — 7-up x ~5 rows of logo images
   against our 6-up x 2 rows of twelve text wordmarks.
 
+### Deck back letterboxing (2026-08-31) — square-looking corners on the joined panel
+
+- The joined face-down triptych appeared to have square outer corners. The
+  radius logic was correct all along (the visible face always paints in
+  identity orientation — the back face's own `rotateY(180deg)` cancels the
+  card's flip, so element-space corners are visual corners). The real defect:
+  `deck-back.svg` kept its default `preserveAspectRatio` (`xMidYMid meet`), so
+  `background-size: 300% 100%` letterboxed the art with ~10px transparent
+  bands top and bottom — the rounded corners clipped transparent pixels and
+  the visible art started lower with square edges (plus a dark band across the
+  panel top). Fix: `preserveAspectRatio="none"` on the SVG so it stretches to
+  fill the slice exactly (~4% horizontal squeeze, invisible on abstract art).
+
 ## Blockers
 
 - Times Now (display serif) is commercial → shipped Instrument Serif and logged

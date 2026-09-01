@@ -130,6 +130,9 @@ describe('rowCardState math (measured: joined backs shrink, gap, flip, fan)', ()
   it('rounds only the outer corners while the panels are joined', () => {
     // Measured on the reference: the left card reports '12px 0px 0px 12px'
     // while joined, so the three read as one rectangle with no seam notches.
+    // The visible face always paints in identity orientation (the back
+    // face's own rotateY(180) cancels the card's), so element-space corners
+    // are visual corners.
     expect(rowCardRadius(0, 0)).toBe(`${ROW_RADIUS}px 0px 0px ${ROW_RADIUS}px`)
     expect(rowCardRadius(0, 1)).toBe('0px 0px 0px 0px')
     expect(rowCardRadius(0, 2)).toBe(`0px ${ROW_RADIUS}px ${ROW_RADIUS}px 0px`)

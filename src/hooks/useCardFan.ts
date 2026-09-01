@@ -89,6 +89,9 @@ export function rowCardState(progress: number, index: number, cardW = ROW_CARD_W
 
 // Corner radius follows the flip: outer-only while the panels are joined,
 // interpolating to a uniform radius as each card turns and separates.
+// The value is inherited by the face children, and the visible face always
+// paints in identity orientation (the back face's own rotateY(180) cancels
+// the card's), so no left/right swap is needed while face-down.
 // Returned in CSS shorthand order: top-left top-right bottom-right bottom-left.
 export function rowCardRadius(progress: number, index: number, radius = ROW_RADIUS) {
   const flip = clamp01(
