@@ -44,8 +44,8 @@ export const projects: Project[] = [
     ],
     year: 2026,
     role: { en: "Author / Maintainer", es: "Autor / Mantenedor" },
-    cover: { src: "/projects/vitrina-detail.webp", width: 1280, height: 746 },
-    coverAlt: { en: "Vitrina's detail panel open on the left showing a product's full detail while the draggable plane of cut-out bottles stays interactive on the right", es: "Panel de detalle de Vitrina abierto a la izquierda con el detalle completo de un producto mientras el plano arrastrable de botes recortados sigue interactivo a la derecha" },
+    cover: { src: "/projects/vitrina-npm.webp", width: 1280, height: 636 },
+    coverAlt: { en: "The vitrina package page on npm, with the README and install command", es: "La página del paquete vitrina en npm, con el README y el comando de instalación" },
     gallery: [
       { src: "/projects/vitrina-detail.webp", width: 1280, height: 746 },
       { src: "/projects/vitrina-plane.webp", width: 1280, height: 746 },

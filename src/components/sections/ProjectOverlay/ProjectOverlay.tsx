@@ -28,6 +28,10 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [project, onClose])
 
+  // The generated data repeats the cover as the gallery's first image; the
+  // overlay already renders the cover as its hero, so it would show twice.
+  const galleryImages =
+    project?.gallery.filter((image) => image.src !== project.cover.src) ?? []
   const links = project?.links
   const linkEntries = [
     { href: links?.live, label: t.showcase.visit },
@@ -139,20 +143,22 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
               </dl>
             </div>
 
-            <ul aria-label={t.showcase.galleryLabel} className="flex flex-col gap-6">
-              {project.gallery.map((image, index) => (
-                <li key={image.src}>
-                  <img
-                    src={image.src}
-                    alt={`${l(project.title)} — ${index + 1}`}
-                    width={image.width}
-                    height={image.height}
-                    loading="lazy"
-                    className="rounded-tile w-full object-contain"
-                  />
-                </li>
-              ))}
-            </ul>
+            {galleryImages.length > 0 && (
+              <ul aria-label={t.showcase.galleryLabel} className="flex flex-col gap-6">
+                {galleryImages.map((image, index) => (
+                  <li key={image.src}>
+                    <img
+                      src={image.src}
+                      alt={`${l(project.title)} — ${index + 1}`}
+                      width={image.width}
+                      height={image.height}
+                      loading="lazy"
+                      className="rounded-tile w-full object-contain"
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </motion.div>
       )}

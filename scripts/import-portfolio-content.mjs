@@ -34,6 +34,22 @@ const CATEGORY_OVERRIDES = {
   reactPractice: { en: 'Open Source', es: 'Código abierto' },
 }
 
+// Vitrina's own detail shot IS a Mediterra screen (the library powers that
+// shop), so the carousel showed two near-identical slides in a row and the
+// "Open Source Library" eyebrow sat over vitamin bottles. The npm page reads
+// "library" at a glance. Value is a basename from that entry's `images`.
+const COVER_OVERRIDES = {
+  vitrina: 'vitrina-npm',
+}
+
+// P's imageAlt describes `entry.image`; an overridden cover needs its own alt.
+const COVER_ALT_OVERRIDES = {
+  vitrina: {
+    en: 'The vitrina package page on npm, with the README and install command',
+    es: 'La página del paquete vitrina en npm, con el README y el comando de instalación',
+  },
+}
+
 // Compressions of each project's own description; they add no claim the
 // description does not already make.
 const SUMMARIES = {
@@ -328,8 +344,14 @@ async function main() {
       categories,
       year: Number(entry.year),
       role: pick('role'),
-      cover: await convert(entry.image),
-      coverAlt: pick('imageAlt'),
+      cover: await convert(
+        (COVER_OVERRIDES[key] &&
+          entry.images.find((path) =>
+            basename(path, extname(path)).startsWith(COVER_OVERRIDES[key]),
+          )) ||
+          entry.image,
+      ),
+      coverAlt: COVER_ALT_OVERRIDES[key] ?? pick('imageAlt'),
       gallery: await Promise.all(entry.images.map(convert)),
       links: { live: entry.link, repo },
       featured: FEATURED.includes(key),

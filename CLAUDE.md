@@ -662,6 +662,32 @@ Corrections to earlier claims, from this run's evidence:
   390); the density gap is real and is content — 7-up x ~5 rows of logo images
   against our 6-up x 2 rows of twelve text wordmarks.
 
+### Recruiter/client review pass (2026-08-31) — head metadata, overlay gallery, Vitrina cover
+
+- **`index.html` head now carries the dictionary's meta strings.** `meta.title`
+  and `meta.description` existed in both dictionaries but were consumed
+  nowhere; the static head shipped "product designer and engineer" (wrong
+  positioning) and a bare title. Now: the en meta title/description verbatim,
+  plus `og:type`/`og:title`/`og:description` and a `twitter:card`. `og:image`
+  and `og:url` wait for the production domain (TODO(mike) in the file) —
+  crawlers need absolute URLs and a PNG/JPG card. Runtime language-sync of the
+  head was deliberately skipped: default is en, language never hits the URL,
+  and crawlers see the static head anyway.
+- **Overlay gallery no longer repeats the cover.** The generated data includes
+  the cover as `gallery[0]` for every project; the overlay renders the cover
+  as its hero, so the first gallery item duplicated it back-to-back. The
+  overlay filters `cover.src` out and hides the gallery list when nothing
+  remains (several projects have a one-image gallery).
+- **Vitrina's cover is its npm page** (`COVER_OVERRIDES` + matching
+  `COVER_ALT_OVERRIDES` in the import script). Its detail shot IS a Mediterra
+  screen — the library powers that shop — so the carousel showed two
+  near-identical cream-green slides in a row with "Open Source Library"
+  sitting over vitamin bottles. The npm page reads "library" at a glance and
+  disambiguates the pair at every width.
+- Verified this pass: full EN/ES/430 Playwright walks, mobile menu, overlay
+  scroll, stats count-up targets (the rolling numerals in mid-scroll captures
+  are sampling, not data errors — targets are 8,000/6/70/37).
+
 ### Deck back letterboxing (2026-08-31) — square-looking corners on the joined panel
 
 - The joined face-down triptych appeared to have square outer corners. The
