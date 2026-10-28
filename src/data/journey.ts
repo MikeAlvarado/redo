@@ -9,50 +9,50 @@ export interface JourneyCard {
   status: LocalizedString
 }
 
-// What Mike is building now. Status lines are read from each repository on
-// 2026-10-27 (commit counts, versions, the ticket in flight) and are meant to
-// be refreshed by hand with every milestone.
+// The three kinds of technology Mike builds with. Every line is evidenced by
+// a repository under ~/Developer/personal or by the CV (v3.2); the status
+// line names the products that prove it.
 export const journeyCards: JourneyCard[] = [
   {
-    id: 'midflight',
+    id: 'native',
     tone: 'silver',
     icon: 'orbit',
-    title: { en: 'midflight', es: 'midflight' },
+    title: { en: 'Native\napps', es: 'Apps\nnativas' },
     body: {
-      en: 'Working memory for people who direct coding agents. One always-open page: what is open, where each thread stopped, what changed at the source.',
-      es: 'Memoria de trabajo para quien dirige agentes de código. Una página siempre abierta: qué está abierto, dónde se quedó cada hilo, qué cambió en la fuente.',
+      en: 'Swift, SwiftUI and React Native, from iPhone to Apple Watch. Widgets, Live Activities, Keychain, architectures that need no server at all.',
+      es: 'Swift, SwiftUI y React Native, del iPhone al Apple Watch. Widgets, Live Activities, Keychain, arquitecturas que no necesitan servidor.',
     },
     status: {
-      en: '108 commits · local-first · cloud landing on Firebase',
-      es: '108 commits · local-first · la nube aterriza en Firebase',
+      en: 'AIMeter · preride · Kodda',
+      es: 'AIMeter · preride · Kodda',
     },
   },
   {
-    id: 'preride',
+    id: 'web',
     tone: 'red',
     icon: 'trend',
-    title: { en: 'preride', es: 'preride' },
+    title: { en: 'Web &\ncloud', es: 'Web y\nnube' },
     body: {
-      en: 'Know the ride before you ride it. A physics engine in Rust and a SwiftUI app for cyclists, every formula cited and validated on real rides.',
-      es: 'Conoce la ruta antes de rodarla. Un motor de física en Rust y una app SwiftUI para ciclistas, cada fórmula citada y validada en rodadas reales.',
+      en: 'React and TypeScript in front, Node, Firebase and Cloud Run behind, Stripe when it bills. Design systems, accessibility and prerendering built in.',
+      es: 'React y TypeScript al frente, Node, Firebase y Cloud Run detrás, Stripe cuando cobra. Sistemas de diseño, accesibilidad y prerenderizado de serie.',
     },
     status: {
-      en: 'Rust no_std · SwiftUI · iOS first',
-      es: 'Rust no_std · SwiftUI · primero iOS',
+      en: 'midflight · Mediterra · HazloFácil · vitrina',
+      es: 'midflight · Mediterra · HazloFácil · vitrina',
     },
   },
   {
-    id: 'aimeter',
+    id: 'ai',
     tone: 'charcoal',
     icon: 'spark',
-    title: { en: 'AIMeter', es: 'AIMeter' },
+    title: { en: 'AI &\nengines', es: 'IA y\nmotores' },
     body: {
-      en: 'Your AI limits at a glance, on iPhone, iPad, Mac and Apple Watch. No server, no account. Claude, Codex and Copilot today, more providers pluggable.',
-      es: 'Tus límites de IA de un vistazo, en iPhone, iPad, Mac y Apple Watch. Sin servidor, sin cuenta. Claude, Codex y Copilot hoy, más proveedores conectables.',
+      en: 'Coding agents I direct and the tools they run on: Claude Code plugins, MCP servers, on-device ML. Physics engines in Rust with every formula cited.',
+      es: 'Agentes de código que dirijo y las herramientas donde corren: plugins de Claude Code, servidores MCP, ML en el dispositivo. Motores de física en Rust con cada fórmula citada.',
     },
     status: {
-      en: '4.3.4 on the App Store · 8 languages',
-      es: '4.3.4 en la App Store · 8 idiomas',
+      en: 'midflight · preride · AIMeter · OCR at Softtek',
+      es: 'midflight · preride · AIMeter · OCR en Softtek',
     },
   },
 ]

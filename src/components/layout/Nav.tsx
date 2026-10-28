@@ -29,8 +29,8 @@ export function Nav() {
   }, [menuOpen])
 
   const labels = {
-    now: t.nav.now,
-    services: t.nav.services,
+    tech: t.nav.tech,
+    about: t.nav.about,
     work: t.nav.work,
     reviews: t.nav.reviews,
   }

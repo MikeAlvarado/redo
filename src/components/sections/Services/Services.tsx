@@ -11,7 +11,7 @@ export function Services() {
 
   return (
     <section
-      id="services"
+      id="about"
       data-section="services"
       className="px-inset-sm nav:px-inset nav:py-32 py-24"
     >

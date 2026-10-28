@@ -20,12 +20,12 @@ index.html
          └─ main
             ├─ Hero              gradient card, word-by-word intro, live clock
             ├─ ScrollStatement   pinned word wipe (≈30 words), marquee at its foot
-            ├─ JourneyCards      "What I'm building now": pinned deck, stack-deal below 1440, flip-fan at 1440
-            ├─ Services          "How I ship": 6 numbered flex rows, divider draw, thumbnail lift
+            ├─ JourneyCards      "What I build with": pinned deck (native / web & cloud / AI & engines), stack-deal below 1440, flip-fan at 1440
+            ├─ Services          "What drives me": 4 numbered flex rows (founder, leader, engineer, learner), divider draw, thumbnail lift
             ├─ Showcase          center-peek Embla carousel → ProjectOverlay (#project/<slug>)
             ├─ ClientGrid        flex-wrap logo tile wall (public/art/marks), diagonal reveal
             ├─ Testimonials      Embla peek carousel + dots — renders null while empty
-            ├─ Stats             italic serif numerals, count-up on enter, optional company mark
+            ├─ Stats             "Numbers, and what's behind them": italic serif numerals, count-up on enter, company mark
             ├─ Founders          tilted contact card(s), data-driven (1..n entries)
             ├─ Credentials       quiet hairline strip: YC, PMP, Scrum, Six Sigma, degree
             └─ ClosingCta        parallax red card + contact links + footer (page ends here)
@@ -60,7 +60,7 @@ field keeps a `TODO(mike)` marker instead of a plausible-looking guess.
 |---|---|
 | The `portfolio` repo (Next.js, `~/Developer/personal/portfolio/portfolio`) | All eleven projects (titles, descriptions, roles, tags, image alts, links, years) in both locales, the project screenshots, the meta/nav/statement/closing copy, and the full contact link set |
 | `Mike_Alvarado_Tech.pdf` (CV v3.2, July 2026) | The first four stat numbers, the client organizations, the credentials strip |
-| The repositories under `~/Developer/personal` (read 2026-10-27) | The "What I'm building now" cards and their status lines, the "How I ship" items, the fifth stat, the product marks |
+| The repositories under `~/Developer/personal` (read 2026-10-27) | The "What I build with" cards and their product lines, the evidence lines under "What drives me", the fifth stat, the product marks |
 | `github.com/MikeAlvarado` | Which repositories are public, and therefore which projects may carry a `repo` link |
 
 One field is deliberately unfinished and marked `TODO(mike)`: Mike's portrait

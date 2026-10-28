@@ -9,8 +9,8 @@ export interface Dictionary {
   }
   nav: {
     wordmark: string
-    now: string
-    services: string
+    tech: string
+    about: string
     work: string
     reviews: string
     cta: string
@@ -74,6 +74,7 @@ export interface Dictionary {
     regionLabel: string
   }
   stats: {
+    heading: string
     regionLabel: string
     sourceLabel: string
   }

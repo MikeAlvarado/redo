@@ -1,68 +1,57 @@
-# Pendientes — lo que falta de tu lado (2026-09-01)
+# Pendientes — lo que solo tú puedes dar
 
-Todo lo demás está resuelto en código. Estos puntos necesitan material o
-decisiones tuyas; cada uno dice exactamente qué entregar y dónde cae.
+Estado al 2026-10-27 (rama `yc-refresh`, después de tu revisión). Todo lo
+demás está hecho y verificado; estas son las piezas que necesitan material o
+una decisión tuya.
 
 ## 1. Foto tuya para la founder card — el de mayor impacto
 
-Es lo único en la página que se ve "sin terminar": hoy sale un avatar genérico
-rojo (`/art/founder-mike.svg`).
+La tarjeta de contacto sigue mostrando un retrato generado (`/art/founder-mike.svg`).
+Es el único `TODO(mike)` que queda en `src/`.
 
-- **Entregar**: una foto real tuya. Ideal ≥ 800×800, encuadre de retrato
-  (pecho hacia arriba), fondo simple, buena luz. JPG o PNG; nosotros la
-  convertimos a WebP.
-- **Dónde cae**: `public/art/` y se referencia en `src/data/founders.ts`
-  (campo `portrait`).
+- **Entregar**: una foto cuadrada, mínimo 800×800, fondo simple; cara al
+  centro porque se recorta en círculo de 130px.
+- **Dónde cae**: `public/art/` y el campo `portrait` en `src/data/founders.ts`.
 
-## 2. Copy del hero (último `TODO(mike)` de textos)
+## 2. Dos logos oficiales que faltan
 
-El placeholder actual ("Imagine a space / between idea & product / That's
-where I build.") lee bien, pero no dice tu nombre ni tu rol above the fold.
+La pared ya usa logos oficiales de YC, Kodda, Softtek, Moneypool, Tec de
+Monterrey, FIRST, Transpais, Cáritas de Monterrey, KAOS y Mediterra. Siguen
+tipográficos (hechos con las fuentes del sitio):
 
-- **Entregar**: `hero.line1`, `hero.line2` y `hero.sub` en **inglés y
-  español** (van en `src/i18n/en.ts` y `es.ts`).
-- **Restricciones**: line1/line2 cortas (serif display enorme, 2 líneas);
-  sub una sola línea. Sugerencia: usa el sub para nombre + rol, p. ej.
-  "Mike Alvarado — technical founder & software engineer."
+- **VantTec**
+- **Women in Technology**
 
-## 3. Wordmarks para las stats
+- **Entregar**: el archivo oficial (SVG o PNG grande). Yo lo paso a crema con
+  fondo transparente como hice con los demás.
+- **Dónde cae**: `public/art/marks/` + `kind: 'official'` en `src/data/clients.ts`.
 
-Las cuatro cifras (8,000+ / 6 / 70+ / +37%) hoy muestran la fuente como texto
-("KODDA", "SOFTTEK", "MONEYPOOL"). El diseño acepta un logo opcional.
+## 3. Dominio de producción
 
-- **Entregar**: wordmarks **con fondo transparente** (SVG o PNG) de Kodda,
-  Softtek y Moneypool, en versión clara (crema/blanco) porque van sobre negro.
-- **Dónde caen**: `public/art/` + campo `mark: { src, alt }` en
-  `src/data/stats.ts`. Si no hay logo de alguna, el texto actual se queda —
-  no inventamos nada.
+`index.html` apunta `og:url` y `og:image` a `https://mikealvaradol.web.app/`.
+Si el sitio va a vivir en otro dominio, dime cuál y cambio las dos líneas.
 
-## 4. Dominio de producción → social card
+## 4. Testimonios (opcional)
 
-El `<head>` ya lleva título, descripción y OG/Twitter, pero faltan dos cosas
-que exigen URL absoluta (marcadas `TODO(mike)` en `index.html`):
+La sección de reseñas y su link en el nav se ocultan solos mientras
+`src/data/testimonials.ts` esté vacío. Si quieres que aparezca: nombre, cargo,
+organización y una o dos frases por persona, en inglés y español.
 
-- **Entregar**: el dominio final (p. ej. `https://mikealvarado.dev`) y, si
-  quieres preview con imagen al compartir el link, una social card
-  **1200×630 PNG o JPG** (los crawlers no aceptan WebP de forma fiable).
-- **Dónde caen**: `og:url` + `og:image` en `index.html`.
+## 5. Capturas de preride desde la app
 
-## 5. Decisiones (solo necesito un sí/no o el texto)
+El proyecto preride usa una captura de su sitio web. Dos capturas de la app en
+iPhone (ruta y resumen) la dejarían al nivel de AIMeter y midflight.
 
-- **Email de contacto**: hoy es `miguel_l06@hotmail.com` (viene del repo
-  portfolio). ¿Lo cambiamos a `mikealvaradol06@gmail.com` o a un correo del
-  dominio propio? Afecta `src/data/contact.ts` y el footer.
-- **Título del founder card en español**: hoy mezcla idiomas ("Technical
-  Founder e Ingeniero de Software"). ¿Lo dejamos así a propósito o lo paso a
-  "Fundador técnico e ingeniero de software"? (`src/data/founders.ts`)
-- **Testimonios**: la sección existe pero está vacía y oculta. En cuanto
-  tengas 1–3 quotes reales (texto EN/ES + nombre + rol; foto opcional),
-  se rellena `src/data/testimonials.ts` y la sección reaparece sola, con su
-  anchor en el nav incluido.
+- **Dónde caen**: `portfolio/portfolio/public/projects/` y luego
+  `npm run import:content` en redo.
+
+## 6. CV v3.3
+
+Los números de Softtek (70+ supermercados) y Moneypool (+37%) vienen del CV
+v3.2. Si sacas la v3.3, pásamelo y reviso que las cifras sigan igual.
 
 ## Notas
 
-- `src/data/projects.ts` es **generado**: cualquier cambio de proyectos se
-  hace en el repo `portfolio` (o en los overrides de
-  `scripts/import-portfolio-content.mjs`) y se corre `npm run import:content`.
-- Cuando entregues cualquiera de estos, el cierre es correr `npm run verify`
-  (todo el pipeline, e2e incluido) — hoy está en verde.
+- Correo público: `miguel_l06@hotmail.com` (tu decisión).
+- Kodda: fueron 23 personas en la empresa; el sitio no da ese número. Habla de
+  "más de 30 personas con las que trabajé a la vez" y de ayudarles a crecer.

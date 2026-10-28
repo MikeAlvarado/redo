@@ -17,9 +17,8 @@ export interface StatRow {
   mark?: StatMark
 }
 
-// The first four rows come from the CV (v3.2). The Kodda mark is Kodda's own
-// wordmark; Softtek and Moneypool are typographic marks set in the site's
-// faces until official ones are supplied. The fifth row is read from git.
+// Rows 1, 3 and 4 come from the CV (v3.2); row 2 is Mike's own account of
+// Kodda; the fifth row is read from git. Marks are the organizations' own.
 export const stats: StatRow[] = [
   {
     id: 'kodda-users',
@@ -38,13 +37,14 @@ export const stats: StatRow[] = [
     },
   },
   {
-    id: 'kodda-team',
-    value: 6,
+    id: 'kodda-people',
+    value: 30,
+    suffix: '+',
     source: 'Kodda',
-    label: { en: 'Engineers led', es: 'Ingenieros a mi cargo' },
+    label: { en: 'People I worked alongside', es: 'Personas con las que trabajé' },
     body: {
-      en: 'Built and led a 6-person engineering team from scratch, establishing the code review standards and delivery processes that kept web and mobile shipping.',
-      es: 'Armé y lideré desde cero un equipo de ingeniería de 6 personas, estableciendo los estándares de code review y los procesos de entrega que mantuvieron web y móvil entregando.',
+      en: 'At Kodda I worked with more than 30 people at once and learned from them constantly. Helping them grow in their careers was an honor.',
+      es: 'En Kodda trabajé con más de 30 personas a la vez y aprendí de ellas constantemente. Ayudarlas a crecer en su carrera fue un honor.',
     },
     mark: {
       src: '/art/marks/kodda-wordmark-cream.svg',
@@ -62,7 +62,7 @@ export const stats: StatRow[] = [
       es: 'Desplegué una app de OCR construida con ML Kit en más de 70 supermercados, agilizando el procesamiento de facturas en el punto de venta.',
     },
     mark: {
-      src: '/art/marks/softtek-wordmark.svg',
+      src: '/art/marks/softtek-wordmark-cream.svg',
       alt: { en: 'Softtek wordmark', es: 'Logotipo de Softtek' },
     },
   },
@@ -78,7 +78,7 @@ export const stats: StatRow[] = [
       es: 'Diseñé y ejecuté pruebas A/B en los flujos de pago, mejorando la finalización semanal de pagos directos en 37%.',
     },
     mark: {
-      src: '/art/marks/moneypool-wordmark.svg',
+      src: '/art/marks/moneypool-wordmark-cream.svg',
       alt: { en: 'Moneypool wordmark', es: 'Logotipo de Moneypool' },
     },
   },

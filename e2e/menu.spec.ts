@@ -13,7 +13,7 @@ test('mobile menu opens from the pill, traps focus, closes on Escape, restores f
   await expect(trigger).toHaveAccessibleName('Close menu')
 
   const panel = page.locator('#mobile-menu')
-  await expect(panel.getByRole('link', { name: 'How I ship' })).toBeVisible()
+  await expect(panel.getByRole('link', { name: 'About' })).toBeVisible()
   await expect(panel.getByRole('link', { name: 'Get in touch' })).toBeVisible()
 
   for (let i = 0; i < 10; i += 1) {
@@ -55,7 +55,7 @@ test('language toggles from inside the open menu', async ({ page }) => {
   await page.getByRole('button', { name: 'Open menu' }).click()
   await page.locator('#mobile-menu').getByRole('button', { name: 'ES' }).click()
   await expect(
-    page.locator('#mobile-menu').getByRole('link', { name: 'Cómo entrego' }),
+    page.locator('#mobile-menu').getByRole('link', { name: 'Sobre mí' }),
   ).toBeVisible()
   await page.keyboard.press('Escape')
 })

@@ -3,6 +3,7 @@ import { stats } from '../../../data/stats'
 import { useCountUp } from '../../../hooks/useCountUp'
 import { useLanguage } from '../../../hooks/useLanguage'
 import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll'
+import { MixedHeading } from '../../ui/MixedHeading'
 
 function StatNumeral({ stat }: { stat: StatRow }) {
   const numeralRef = useCountUp<HTMLSpanElement>(stat.value, {
@@ -67,12 +68,19 @@ function StatRowItem({ stat }: { stat: StatRow }) {
 
 export function Stats() {
   const { t } = useLanguage()
+  const headingRef = useRevealOnScroll<HTMLDivElement>()
   return (
     <section
       data-section="stats"
       aria-label={t.stats.regionLabel}
       className="px-inset-sm nav:px-inset nav:py-24 py-16"
     >
+      <div ref={headingRef} className="mx-auto mb-8 flex max-w-4xl justify-center text-center">
+        <MixedHeading
+          text={t.stats.heading}
+          className="text-section leading-[1.02] [text-shadow:0_0_26px_rgba(234,231,224,0.25)]"
+        />
+      </div>
       <ul className="mx-auto flex max-w-5xl flex-col">
         {stats.map((stat) => (
           <StatRowItem key={stat.id} stat={stat} />

@@ -2,14 +2,14 @@ import type { Dictionary } from './types'
 
 export const es = {
   meta: {
-    title: 'Mike Alvarado — Fundador técnico, YC S21',
+    title: 'Mike Alvarado — Ingeniero y fundador, YC S21',
     description:
-      'Fundador técnico (Kodda, YC S21) que escaló un producto a más de 8,000 usuarios y hoy publica productos nativos, web y en la nube por su cuenta: midflight, preride, AIMeter.',
+      'Ingeniero y fundador (Kodda, YC S21) que construye tecnología que hace la vida más fácil para todos: apps nativas, web y nube, IA y motores. midflight, preride, AIMeter.',
   },
   nav: {
     wordmark: 'Mike.',
-    now: 'Ahora',
-    services: 'Cómo entrego',
+    tech: 'Tecnología',
+    about: 'Sobre mí',
     work: 'Trabajo',
     reviews: 'Reseñas',
     cta: 'Ponerse en contacto',
@@ -19,26 +19,26 @@ export const es = {
     navLabel: 'Navegación principal',
   },
   hero: {
-    line1: 'Del primer commit',
-    line2: 'al usuario 8,000.',
-    sub: 'Mike Alvarado. Fundador técnico, Kodda (YC S21). Hoy construyo midflight y preride desde Monterrey.',
+    line1: 'Tecnología que hace',
+    line2: 'la vida más fácil para todos.',
+    sub: 'Mike Alvarado. Ingeniero y fundador (Kodda, YC S21). Construyo productos que ponen a las personas al centro, desde Monterrey.',
     scroll: 'Desliza para explorar',
     location: 'MTY, MX',
     clockLabel: 'Mi hora local',
   },
   statement:
-    'Cofundé Kodda, la llevé por Y Combinator y de 30 a 8,000 usuarios como CTO, y luego la dirigí como CEO. Hoy construyo solo, rápido y con agentes: cuatro productos publicados este año, uno en la App Store.',
+    'Siempre me ha fascinado cómo la tecnología puede moldear la forma en que vivimos y nos conectamos, y de verdad hacer la vida mejor. En Kodda, una startup respaldada por YC, aprendí a construir con propósito, adaptarme cuando las cosas cambian y poner a las personas al centro de cada decisión.',
   marquee: {
     lockup: 'Y Combinator S21',
     trackLabel: 'Organizaciones con las que he trabajado',
   },
   journey: {
-    heading: 'Lo que estoy\n*construyendo* hoy',
+    heading: 'Con qué\n*construyo*',
   },
   services: {
-    heading: 'Cómo *entrego*',
-    sub: 'Seis capas que llevo de punta a punta, de la app nativa a la nube que la cobra',
-    listLabel: 'Cómo entrego',
+    heading: 'Lo que me *mueve*',
+    sub: 'Fundador, líder, ingeniero, aprendiz. En mis palabras.',
+    listLabel: 'Lo que me mueve',
     toggleDetails: 'Mostrar detalles de',
     cta: 'Hablemos',
   },
@@ -74,6 +74,7 @@ export const es = {
     regionLabel: 'Reseñas',
   },
   stats: {
+    heading: 'Números, y lo que hay *detrás*',
     regionLabel: 'Números que lo respaldan',
     sourceLabel: 'De dónde viene este número',
   },

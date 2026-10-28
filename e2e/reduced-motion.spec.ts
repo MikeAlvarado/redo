@@ -28,7 +28,7 @@ test('every section renders in its final state and smooth scroll is off', async 
   )
   expect(pinSpacers).toBe(0)
 
-  const heroHeadline = page.getByText('From first commit')
+  const heroHeadline = page.getByText('Technology that makes')
   await expect(heroHeadline).toBeVisible()
 
   const deck = await page.evaluate(() =>

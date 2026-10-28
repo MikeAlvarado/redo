@@ -2,14 +2,14 @@ import type { Dictionary } from './types'
 
 export const en = {
   meta: {
-    title: 'Mike Alvarado — Technical founder, YC S21',
+    title: 'Mike Alvarado — Engineer & founder, YC S21',
     description:
-      'Technical founder (Kodda, YC S21) who scaled a product past 8,000 users and now ships native, web and cloud products solo: midflight, preride, AIMeter.',
+      'Engineer and founder (Kodda, YC S21) building technology that makes life easier for everyone: native apps, web and cloud, AI and engines. midflight, preride, AIMeter.',
   },
   nav: {
     wordmark: 'Mike.',
-    now: 'Now',
-    services: 'How I ship',
+    tech: 'Tech',
+    about: 'About',
     work: 'Work',
     reviews: 'Reviews',
     cta: 'Get in touch',
@@ -19,26 +19,26 @@ export const en = {
     navLabel: 'Main navigation',
   },
   hero: {
-    line1: 'From first commit',
-    line2: 'to the 8,000th user.',
-    sub: 'Mike Alvarado. Technical founder, Kodda (YC S21). Now building midflight and preride from Monterrey.',
+    line1: 'Technology that makes',
+    line2: 'life easier for everyone.',
+    sub: 'Mike Alvarado. Engineer and founder (Kodda, YC S21). I build products that keep people at the center, from Monterrey.',
     scroll: 'Scroll to Explore',
     location: 'MTY, MX',
     clockLabel: 'My local time',
   },
   statement:
-    'I co-founded Kodda, took it through Y Combinator and from 30 to 8,000 users as CTO, then ran it as CEO. Now I build alone, fast, with agents: four products shipped this year, one on the App Store.',
+    "I've always been fascinated by how technology can shape the way we live, connect, and truly make life better. At Kodda, a YC-backed startup, I learned to build with purpose, adapt when things change, and keep people at the center of every decision.",
   marquee: {
     lockup: 'Y Combinator S21',
     trackLabel: 'Organizations I have worked with',
   },
   journey: {
-    heading: "What I'm\n*building* now",
+    heading: 'What I\n*build* with',
   },
   services: {
-    heading: 'How I *ship*',
-    sub: 'Six layers I own end to end, from the native app to the cloud that bills it',
-    listLabel: 'How I ship',
+    heading: 'What *drives* me',
+    sub: 'Founder, leader, engineer, learner. In my own words.',
+    listLabel: 'What drives me',
     toggleDetails: 'Toggle details for',
     cta: "Let's talk",
   },
@@ -74,6 +74,7 @@ export const en = {
     regionLabel: 'Testimonials',
   },
   stats: {
+    heading: 'Numbers, and what\'s *behind* them',
     regionLabel: 'Numbers that back it up',
     sourceLabel: 'Where this number comes from',
   },

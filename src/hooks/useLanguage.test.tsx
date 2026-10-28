@@ -13,14 +13,14 @@ describe('useLanguage', () => {
   it('defaults to English without sniffing the browser locale', () => {
     const { result } = renderHook(() => useLanguage(), { wrapper })
     expect(result.current.lang).toBe('en')
-    expect(result.current.t.nav.services).toBe('How I ship')
+    expect(result.current.t.nav.about).toBe('About')
   })
 
   it('switches language, persists it, and updates the html lang attribute', () => {
     const { result } = renderHook(() => useLanguage(), { wrapper })
     act(() => result.current.setLang('es'))
     expect(result.current.lang).toBe('es')
-    expect(result.current.t.nav.services).toBe('Cómo entrego')
+    expect(result.current.t.nav.about).toBe('Sobre mí')
     expect(window.localStorage.getItem(STORAGE_KEY)).toBe('es')
     expect(document.documentElement.lang).toBe('es')
   })

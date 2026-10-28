@@ -16,8 +16,10 @@ export function ClosingCta() {
   const contentRef = useRevealOnScroll<HTMLDivElement>({ selector: '[data-reveal]' })
 
   return (
-    <section ref={sectionRef} data-section="closing" className="p-inset-sm nav:p-inset">
-      <div className="rounded-shell relative flex min-h-[92svh] flex-col overflow-hidden">
+    <section ref={sectionRef} data-section="closing">
+      {/* Full-bleed on purpose: the closing runs edge to edge and down to the
+          bottom of the page, unlike the hero, which keeps its rounded shell. */}
+      <div className="relative flex min-h-svh flex-col overflow-hidden">
         <div
           ref={backgroundRef}
           aria-hidden

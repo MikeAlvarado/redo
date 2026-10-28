@@ -701,6 +701,39 @@ Corrections to earlier claims, from this run's evidence:
   panel top). Fix: `preserveAspectRatio="none"` on the SVG so it stretches to
   fill the slice exactly (~4% horizontal squeeze, invisible on abstract art).
 
+### Copy revision after Mike's review (2026-10-27, same branch)
+
+Mike reviewed the YC refresh and redirected the voice from "founder who
+ships" to "technology that makes life easier for everyone". What changed:
+
+- **Hero**: "Technology that makes / life easier for everyone." (ES
+  "Tecnología que hace / la vida más fácil para todos."), sub names him as
+  engineer and founder (Kodda, YC S21). The "8,000th user" line is gone.
+- **Statement**: Mike's own paragraph (fascination with technology; Kodda as
+  a YC-backed startup; build with purpose, adapt, people at the center), 44
+  words so the pinned reveal keeps its length.
+- **Deck → "What I build with"**: three kinds of technology instead of three
+  products: Native apps (silver), Web & cloud (red), AI & engines (charcoal).
+  The `status` line now lists the products that prove each one.
+- **Services → "What drives me"**: four rows in Mike's words (As a founder /
+  leader / engineer / lifelong learner); the first item is the belief, the
+  rest is evidence. Section id is `about`, nav label About / Sobre mí; the
+  deck's id is `tech`, label Tech / Tecnología. `SECTION_IDS` updated.
+- **Kodda numbers**: the "6-person team" claim was wrong (the company was 23
+  people) and Mike does not want a headcount. The stat is now "30+ people I
+  worked alongside" with his line about learning from them and helping their
+  careers. Stats gained a heading, "Numbers, and what's behind them".
+- **Marks**: official files replace the typographic ones for Softtek,
+  Moneypool, Tec de Monterrey (site header lockup), FIRST (primary logo with
+  the knockouts set to black so the icon keeps its shape in one colour),
+  Transpais and Cáritas de Monterrey (JPEG → luminance-to-alpha → cream).
+  Kodda +Studio (same company as Kodda) and Campus Accesible were dropped.
+  Only VantTec and Women in Tech remain typographic. 37 files in
+  `public/art/marks`.
+- **Closing** is full-bleed (no inset, no rounded shell, `min-h-svh`) so the
+  page ends edge to edge at the bottom; the hero keeps its shell.
+- Social card re-rendered with the new hero line.
+
 ### YC refresh (2026-10-27) — founder positioning, new products, marks
 
 Branch `yc-refresh`. The design, hooks and motion are untouched; what changed

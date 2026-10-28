@@ -3,8 +3,9 @@ import type { LocalizedString } from '../i18n/types'
 export interface ClientMark {
   src: string
   alt: LocalizedString
-  // 'official' marks come from the organization's own files; 'typographic'
-  // ones are set in the site's faces until an official file is supplied.
+  // 'official' marks come from the organization's own files (recoloured to
+  // cream, background removed); 'typographic' ones are set in the site's
+  // faces until an official file is supplied (VantTec, Women in Tech).
   kind: 'official' | 'typographic'
 }
 
@@ -33,20 +34,14 @@ export const clients: Client[] = [
     mark: mark('ycombinator-cream.png', 'Y Combinator', 'official'),
   },
   { id: 'kodda', name: 'Kodda', flair: 'caps', mark: mark('kodda-wordmark-cream.svg', 'Kodda', 'official') },
-  {
-    id: 'kodda-studio',
-    name: 'Kodda +Studio',
-    flair: 'caps',
-    mark: mark('kodda-plus-studio-cream.svg', 'Kodda +Studio', 'official'),
-  },
-  { id: 'softtek', name: 'Softtek', flair: 'caps', mark: mark('softtek-wordmark.svg', 'Softtek') },
-  { id: 'moneypool', name: 'Moneypool', flair: 'mono', mark: mark('moneypool-wordmark.svg', 'Moneypool') },
-  { id: 'itesm', name: 'ITESM', flair: 'serif', mark: mark('itesm-wordmark.svg', 'Tecnológico de Monterrey') },
+  { id: 'softtek', name: 'Softtek', flair: 'caps', mark: mark('softtek-wordmark-cream.svg', 'Softtek', 'official') },
+  { id: 'moneypool', name: 'Moneypool', flair: 'mono', mark: mark('moneypool-wordmark-cream.svg', 'Moneypool', 'official') },
+  { id: 'itesm', name: 'ITESM', flair: 'serif', mark: mark('itesm-lockup-cream.svg', 'Tecnológico de Monterrey', 'official') },
   {
     id: 'first-robotics',
     name: 'FIRST Robotics',
     flair: 'caps',
-    mark: mark('first-robotics-wordmark.svg', 'FIRST Robotics'),
+    mark: mark('first-lockup-cream.svg', 'FIRST Robotics', 'official'),
   },
   { id: 'vanttec', name: 'VantTec', flair: 'mono', mark: mark('vanttec-wordmark.svg', 'VantTec') },
   {
@@ -55,14 +50,8 @@ export const clients: Client[] = [
     flair: 'script',
     mark: mark('women-in-tech-wordmark.svg', 'Women in Technology'),
   },
-  { id: 'transpais', name: 'Transpais', flair: 'serif', mark: mark('transpais-wordmark.svg', 'Transpais') },
-  {
-    id: 'campus-accesible',
-    name: 'Campus Accesible',
-    flair: 'mono',
-    mark: mark('campus-accesible-wordmark.svg', 'Campus Accesible'),
-  },
-  { id: 'caritas', name: 'Cáritas', flair: 'script', mark: mark('caritas-wordmark.svg', 'Cáritas de Monterrey') },
+  { id: 'transpais', name: 'Transpais', flair: 'serif', mark: mark('transpais-wordmark-cream.svg', 'Transpais', 'official') },
+  { id: 'caritas', name: 'Cáritas', flair: 'script', mark: mark('caritas-lockup-cream.png', 'Cáritas de Monterrey', 'official') },
   {
     id: 'tequila-kaos',
     name: 'Tequila KAOS',
