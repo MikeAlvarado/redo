@@ -8,7 +8,12 @@ function LogoRow({ hidden }: { hidden?: boolean }) {
   return (
     <div aria-hidden={hidden} className="flex shrink-0 items-center gap-20 pr-20">
       {marqueeClients.map((client) => (
-        <ClientWordmark key={client.id} client={client} className="opacity-70" />
+        <ClientWordmark
+          key={client.id}
+          client={client}
+          className="opacity-70"
+          loading="eager"
+        />
       ))}
     </div>
   )
@@ -31,7 +36,12 @@ export function ClientMarquee() {
           className="flex flex-wrap items-center justify-center gap-x-14 gap-y-6"
         >
           {marqueeClients.map((client) => (
-            <ClientWordmark key={client.id} client={client} className="opacity-70" />
+            <ClientWordmark
+          key={client.id}
+          client={client}
+          className="opacity-70"
+          loading="eager"
+        />
           ))}
         </div>
       ) : (

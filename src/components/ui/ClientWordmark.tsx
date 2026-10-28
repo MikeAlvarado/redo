@@ -12,9 +12,14 @@ const FLAIR_CLASSES = {
 export function ClientWordmark({
   client,
   className,
+  loading = 'lazy',
 }: {
   client: Client
   className?: string
+  // The marquee duplicates its row off-screen; a lazy image there never
+  // loads, the clone measures narrower than the original, and the loop
+  // overlaps itself. That caller passes 'eager'.
+  loading?: 'lazy' | 'eager'
 }) {
   const { l } = useLanguage()
   if (client.mark) {
@@ -22,7 +27,7 @@ export function ClientWordmark({
       <img
         src={client.mark.src}
         alt={l(client.mark.alt)}
-        loading="lazy"
+        loading={loading}
         className={cn(
           'max-tab:max-h-6 max-tab:max-w-[7.5rem] h-auto max-h-8 w-auto max-w-[9.5rem] select-none',
           className,
