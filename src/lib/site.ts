@@ -1,6 +1,6 @@
 import { testimonials } from '../data/testimonials'
 
-const ALL_SECTION_IDS = ['services', 'work', 'reviews'] as const
+const ALL_SECTION_IDS = ['now', 'services', 'work', 'reviews'] as const
 
 export type SectionId = (typeof ALL_SECTION_IDS)[number]
 

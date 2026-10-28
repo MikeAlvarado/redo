@@ -34,7 +34,7 @@ export function ClientGrid() {
           >
             <ClientWordmark
               client={client}
-              className="text-cream/45 hover:text-cream/90 max-tab:text-sm transition-opacity duration-300"
+              className="max-tab:text-sm opacity-60 transition-opacity duration-300 hover:opacity-100"
             />
           </li>
         ))}

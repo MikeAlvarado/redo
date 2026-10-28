@@ -35,6 +35,7 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
   const links = project?.links
   const linkEntries = [
     { href: links?.live, label: t.showcase.visit },
+    { href: links?.site, label: t.showcase.site },
     { href: links?.repo, label: t.showcase.repo },
     { href: links?.caseStudy, label: t.showcase.caseStudy },
   ].filter((entry): entry is { href: string; label: string } => Boolean(entry.href))

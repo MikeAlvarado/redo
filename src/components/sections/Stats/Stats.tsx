@@ -32,10 +32,10 @@ function StatSource({ stat }: { stat: StatRow }) {
           width={72}
           height={24}
           loading="lazy"
-          className="h-4 w-auto opacity-60"
+          className="h-5 w-auto opacity-70"
         />
       )}
-      {stat.source}
+      <span className={stat.mark ? 'sr-only' : undefined}>{stat.source}</span>
     </span>
   )
 }

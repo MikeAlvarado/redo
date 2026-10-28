@@ -7,6 +7,8 @@ export interface ContactLink {
   href: string
 }
 
+// Phone and WhatsApp stay in the CV; the public page carries email, LinkedIn
+// and the CV itself.
 export const reachLinks: ContactLink[] = [
   {
     id: 'email',
@@ -15,16 +17,10 @@ export const reachLinks: ContactLink[] = [
     href: 'mailto:miguel_l06@hotmail.com',
   },
   {
-    id: 'whatsapp',
-    label: { en: 'WhatsApp', es: 'WhatsApp' },
-    value: '+52 1 55 5462 5780',
-    href: 'https://wa.me/5215554625780',
-  },
-  {
-    id: 'phone',
-    label: { en: 'Phone', es: 'Teléfono' },
-    value: '+52 1 55 5462 5780',
-    href: 'tel:+5215554625780',
+    id: 'linkedin',
+    label: { en: 'LinkedIn', es: 'LinkedIn' },
+    value: 'in/mikealvaradol',
+    href: 'https://www.linkedin.com/in/mikealvaradol/',
   },
   {
     id: 'cv',
@@ -50,11 +46,6 @@ export const socialLinks: SocialLink[] = [
     id: 'github',
     label: { en: 'GitHub', es: 'GitHub' },
     href: 'https://github.com/MikeAlvarado/',
-  },
-  {
-    id: 'github-bp',
-    label: { en: 'GitHub (@MikeAlvaradoBP)', es: 'GitHub (@MikeAlvaradoBP)' },
-    href: 'https://github.com/MikeAlvaradoBP/',
   },
   { id: 'x', label: { en: 'X', es: 'X' }, href: 'http://x.com/mikealvaradol' },
   {

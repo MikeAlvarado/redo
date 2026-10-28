@@ -9,22 +9,24 @@ export interface ServiceRow {
   imageAlt: LocalizedString
 }
 
+// Six layers Mike ships end to end. Every item is evidenced by a repository
+// under ~/Developer/personal or by a line in the CV (v3.2).
 export const services: ServiceRow[] = [
   {
-    id: 'mobile',
+    id: 'native',
     index: '01',
-    title: { en: 'Mobile Apps', es: 'Apps móviles' },
+    title: { en: 'Native Apps', es: 'Apps nativas' },
     items: [
+      { en: 'Swift & SwiftUI', es: 'Swift y SwiftUI' },
+      { en: 'WidgetKit, Live Activities, watchOS', es: 'WidgetKit, Live Activities, watchOS' },
       { en: 'React Native', es: 'React Native' },
-      { en: 'Swift', es: 'Swift' },
-      { en: 'Offline data sync', es: 'Sincronización de datos sin conexión' },
-      { en: 'Role-based access', es: 'Acceso por roles' },
-      { en: 'App Store delivery', es: 'Publicación en la App Store' },
+      { en: 'Keychain, no-server architectures', es: 'Keychain, arquitecturas sin servidor' },
+      { en: 'App Store delivery, 8 languages', es: 'Publicación en la App Store, 8 idiomas' },
     ],
-    image: '/projects/kodda-app.webp',
+    image: '/projects/aimeter-hero.webp',
     imageAlt: {
-      en: 'Official Kodda iOS app screenshots from the App Store showing wellness programs and class bookings',
-      es: 'Screenshots oficiales de la app iOS de Kodda en el App Store mostrando programas de bienestar y reservas de clases',
+      en: "AIMeter header graphic reading 'All your AI limits, one glance' next to an iPhone with usage bars and Home Screen widgets",
+      es: "Gráfico de AIMeter que dice 'All your AI limits, one glance' junto a un iPhone con barras de uso y widgets de pantalla de inicio",
     },
   },
   {
@@ -32,12 +34,11 @@ export const services: ServiceRow[] = [
     index: '02',
     title: { en: 'Web & Frontend', es: 'Web y frontend' },
     items: [
-      { en: 'React', es: 'React' },
-      { en: 'TypeScript', es: 'TypeScript' },
-      { en: 'Vite', es: 'Vite' },
-      { en: 'GSAP motion', es: 'Motion con GSAP' },
-      { en: 'React Query', es: 'React Query' },
-      { en: 'Responsive systems', es: 'Sistemas responsivos' },
+      { en: 'React 19, TypeScript, Vite', es: 'React 19, TypeScript, Vite' },
+      { en: 'Astro, React Router, prerendering', es: 'Astro, React Router, prerenderizado' },
+      { en: 'GSAP and three.js motion', es: 'Motion con GSAP y three.js' },
+      { en: 'Design systems and tokens', es: 'Sistemas de diseño y tokens' },
+      { en: 'Accessibility, axe-clean', es: 'Accesibilidad, limpio en axe' },
     ],
     image: '/projects/mediterra-hero.webp',
     imageAlt: {
@@ -48,52 +49,50 @@ export const services: ServiceRow[] = [
   {
     id: 'backend',
     index: '03',
-    title: { en: 'Backend & Infrastructure', es: 'Backend e infraestructura' },
+    title: { en: 'Backend & Cloud', es: 'Backend y nube' },
     items: [
-      { en: 'Node.js', es: 'Node.js' },
-      { en: 'Express', es: 'Express' },
-      { en: 'Firebase Functions', es: 'Firebase Functions' },
-      { en: 'Firestore', es: 'Firestore' },
-      { en: 'Firebase Auth', es: 'Firebase Auth' },
-      { en: 'Stripe', es: 'Stripe' },
-      { en: 'REST APIs', es: 'APIs REST' },
+      { en: 'Node, Express, Firebase Functions', es: 'Node, Express, Firebase Functions' },
+      { en: 'Firestore, Firebase Auth, Cloud Run', es: 'Firestore, Firebase Auth, Cloud Run' },
+      { en: 'Stripe, REST APIs', es: 'Stripe, APIs REST' },
+      { en: 'Rate limits, read caps, abuse controls', es: 'Límites de tasa, topes de lectura, control de abuso' },
+      { en: 'SQLite local-first stores', es: 'Stores local-first en SQLite' },
     ],
-    image: '/projects/cloudfunctions-ts.webp',
+    image: '/projects/midflight-item.webp',
     imageAlt: {
-      en: 'GitHub repository page for cloudfunctions-ts showing the Firebase Functions project structure',
-      es: 'Página del repositorio cloudfunctions-ts en GitHub mostrando la estructura del proyecto de Firebase Functions',
+      en: 'A midflight item page in dark mode with its checkpoints, prompts and linked sessions',
+      es: 'Una página de item de midflight en modo oscuro con sus checkpoints, prompts y sesiones ligadas',
+    },
+  },
+  {
+    id: 'engines',
+    index: '04',
+    title: { en: 'Engines & Math', es: 'Motores y matemáticas' },
+    items: [
+      { en: 'Rust no_std, UniFFI, WebAssembly', es: 'Rust no_std, UniFFI, WebAssembly' },
+      { en: 'Physics models from the literature', es: 'Modelos físicos de la literatura' },
+      { en: 'Audited formulas, cited sources', es: 'Fórmulas auditadas, fuentes citadas' },
+      { en: 'Validation against real data', es: 'Validación contra datos reales' },
+    ],
+    image: '/projects/preride-route.webp',
+    imageAlt: {
+      en: 'preride route page: the Chipinque climb on a terrain map with the weather window and the time estimate',
+      es: 'Página de ruta de preride: la subida a Chipinque sobre un mapa de terreno con la ventana de clima y la estimación de tiempo',
     },
   },
   {
     id: 'ai',
-    index: '04',
-    title: { en: 'AI & Automation', es: 'IA y automatización' },
-    items: [
-      { en: 'ML Kit OCR', es: 'OCR con ML Kit' },
-      { en: 'On-device inference', es: 'Inferencia en el dispositivo' },
-      { en: 'Pinecone', es: 'Pinecone' },
-      { en: 'Agentic tooling', es: 'Herramientas agénticas' },
-    ],
-    image: '/projects/aimeter-launch.webp',
-    imageAlt: {
-      en: 'AIMeter launch graphic showing iPhone home screen widgets with Claude usage percentages next to the AIMeter wordmark',
-      es: 'Gráfico de lanzamiento de AIMeter mostrando los widgets de pantalla de inicio del iPhone con los porcentajes de uso de Claude junto al logotipo de AIMeter',
-    },
-  },
-  {
-    id: 'open-source',
     index: '05',
-    title: { en: 'Open Source', es: 'Código abierto' },
+    title: { en: 'AI & Agents', es: 'IA y agentes' },
     items: [
-      { en: 'npm publishing', es: 'Publicación en npm' },
-      { en: 'Library API design', es: 'Diseño de API de librerías' },
-      { en: 'SSR-safe rendering', es: 'Renderizado seguro en servidor' },
-      { en: 'Peer dependency hygiene', es: 'Higiene de peer dependencies' },
+      { en: 'Claude Code plugins, hooks, MCP servers', es: 'Plugins de Claude Code, hooks, servidores MCP' },
+      { en: 'Agent-directed delivery, several sessions in parallel', es: 'Entrega dirigida por agentes, varias sesiones en paralelo' },
+      { en: 'ML Kit OCR, on-device inference', es: 'OCR con ML Kit, inferencia en el dispositivo' },
+      { en: 'Pinecone', es: 'Pinecone' },
     ],
-    image: '/projects/vitrina-npm.webp',
+    image: '/projects/midflight-graph.webp',
     imageAlt: {
-      en: 'The vitrina package page on npm showing the readme and the install command',
-      es: 'La página del paquete vitrina en npm mostrando el readme y el comando de instalación',
+      en: "midflight's graph view: tickets grouped by repository, with the Now panel listing live sessions",
+      es: 'Vista de grafo de midflight: tickets agrupados por repositorio, con el panel Now listando sesiones vivas',
     },
   },
   {
@@ -101,10 +100,11 @@ export const services: ServiceRow[] = [
     index: '06',
     title: { en: 'Engineering Leadership', es: 'Liderazgo técnico' },
     items: [
-      { en: 'Team building and mentoring', es: 'Formación y mentoría de equipos' },
+      { en: 'Built and led a 6-person team', es: 'Armé y lideré un equipo de 6' },
       { en: 'Code review standards', es: 'Estándares de code review' },
       { en: 'CI/CD with GitHub Actions', es: 'CI/CD con GitHub Actions' },
       { en: 'PostHog-informed roadmaps', es: 'Roadmaps informados con PostHog' },
+      { en: 'CTO to CEO at a YC company', es: 'De CTO a CEO en una empresa de YC' },
     ],
     image: '/projects/y-combinator-kodda.webp',
     imageAlt: {

@@ -6,37 +6,53 @@ export interface JourneyCard {
   icon: 'trend' | 'orbit' | 'spark'
   title: LocalizedString
   body: LocalizedString
+  status: LocalizedString
 }
 
+// What Mike is building now. Status lines are read from each repository on
+// 2026-10-27 (commit counts, versions, the ticket in flight) and are meant to
+// be refreshed by hand with every milestone.
 export const journeyCards: JourneyCard[] = [
   {
-    id: 'zero-to-one',
+    id: 'midflight',
     tone: 'silver',
-    icon: 'trend',
-    title: { en: 'Zero to one', es: 'De cero a uno' },
-    body: {
-      en: "You have an idea and need a first version people can actually use. Let's build it.",
-      es: 'Tienes una idea y necesitas una primera versión que la gente pueda usar. Construyámosla.',
-    },
-  },
-  {
-    id: 'one-to-many',
-    tone: 'red',
     icon: 'orbit',
-    title: { en: 'One to many', es: 'De uno a muchos' },
+    title: { en: 'midflight', es: 'midflight' },
     body: {
-      en: 'Something works and now it has to hold. I have taken a product past 8,000 users and built the team that kept it shipping.',
-      es: 'Algo ya funciona y ahora tiene que sostenerse. Llevé un producto más allá de 8,000 usuarios y armé el equipo que lo mantuvo entregando.',
+      en: 'Working memory for people who direct coding agents. One always-open page: what is open, where each thread stopped, what changed at the source.',
+      es: 'Memoria de trabajo para quien dirige agentes de código. Una página siempre abierta: qué está abierto, dónde se quedó cada hilo, qué cambió en la fuente.',
+    },
+    status: {
+      en: '108 commits · local-first · cloud landing on Firebase',
+      es: '108 commits · local-first · la nube aterriza en Firebase',
     },
   },
   {
-    id: 'hands-on-the-tools',
+    id: 'preride',
+    tone: 'red',
+    icon: 'trend',
+    title: { en: 'preride', es: 'preride' },
+    body: {
+      en: 'Know the ride before you ride it. A physics engine in Rust and a SwiftUI app for cyclists, every formula cited and validated on real rides.',
+      es: 'Conoce la ruta antes de rodarla. Un motor de física en Rust y una app SwiftUI para ciclistas, cada fórmula citada y validada en rodadas reales.',
+    },
+    status: {
+      en: 'Rust no_std · SwiftUI · iOS first',
+      es: 'Rust no_std · SwiftUI · primero iOS',
+    },
+  },
+  {
+    id: 'aimeter',
     tone: 'charcoal',
     icon: 'spark',
-    title: { en: 'Hands on the tools', es: 'Manos a la obra' },
+    title: { en: 'AIMeter', es: 'AIMeter' },
     body: {
-      en: 'You know what you need and want someone who ships it. Design, code, and the judgement in between.',
-      es: 'Sabes lo que necesitas y quieres a alguien que lo entregue. Diseño, código, y el criterio que va en medio.',
+      en: 'Your AI limits at a glance, on iPhone, iPad, Mac and Apple Watch. No server, no account. Claude, Codex and Copilot today, more providers pluggable.',
+      es: 'Tus límites de IA de un vistazo, en iPhone, iPad, Mac y Apple Watch. Sin servidor, sin cuenta. Claude, Codex y Copilot hoy, más proveedores conectables.',
+    },
+    status: {
+      en: '4.3.4 on the App Store · 8 languages',
+      es: '4.3.4 en la App Store · 8 idiomas',
     },
   },
 ]

@@ -1,4 +1,5 @@
 import type { Client } from '../../data/clients'
+import { useLanguage } from '../../hooks/useLanguage'
 import { cn } from '../../lib/cn'
 
 const FLAIR_CLASSES = {
@@ -15,6 +16,20 @@ export function ClientWordmark({
   client: Client
   className?: string
 }) {
+  const { l } = useLanguage()
+  if (client.mark) {
+    return (
+      <img
+        src={client.mark.src}
+        alt={l(client.mark.alt)}
+        loading="lazy"
+        className={cn(
+          'max-tab:max-h-6 max-tab:max-w-[7.5rem] h-auto max-h-8 w-auto max-w-[9.5rem] select-none',
+          className,
+        )}
+      />
+    )
+  }
   return (
     <span
       className={cn('text-cream/45 select-none', FLAIR_CLASSES[client.flair], className)}

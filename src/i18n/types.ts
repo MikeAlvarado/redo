@@ -9,6 +9,7 @@ export interface Dictionary {
   }
   nav: {
     wordmark: string
+    now: string
     services: string
     work: string
     reviews: string
@@ -50,6 +51,7 @@ export interface Dictionary {
     openProject: string
     back: string
     visit: string
+    site: string
     repo: string
     caseStudy: string
     roleLabel: string

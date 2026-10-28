@@ -20,7 +20,7 @@ export function JourneyCards() {
   useCardFan(containerRef, tier)
 
   return (
-    <section data-section="journey" className="overflow-x-clip">
+    <section id="now" data-section="journey" className="overflow-x-clip">
       <div
         ref={containerRef}
         data-deck={tier}

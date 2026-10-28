@@ -2,14 +2,15 @@ import type { Dictionary } from './types'
 
 export const en = {
   meta: {
-    title: 'Mike Alvarado — Technical Founder & Software Engineer',
+    title: 'Mike Alvarado — Technical founder, YC S21',
     description:
-      'Portfolio of Mike Alvarado, a technical founder focused on building meaningful, scalable technology. Product, engineering, and leadership.',
+      'Technical founder (Kodda, YC S21) who scaled a product past 8,000 users and now ships native, web and cloud products solo: midflight, preride, AIMeter.',
   },
   nav: {
     wordmark: 'Mike.',
-    services: 'Services',
-    work: 'Previous Work',
+    now: 'Now',
+    services: 'How I ship',
+    work: 'Work',
     reviews: 'Reviews',
     cta: 'Get in touch',
     openMenu: 'Open menu',
@@ -17,31 +18,29 @@ export const en = {
     langLabel: 'Language',
     navLabel: 'Main navigation',
   },
-  // TODO(mike): hero.line1 / line2 / sub are the last placeholder copy on the
-  // site — write them here and in es.ts (both files, same three keys).
   hero: {
-    line1: 'Imagine a space',
-    line2: 'between idea & product',
-    sub: "That's where I build.",
+    line1: 'From first commit',
+    line2: 'to the 8,000th user.',
+    sub: 'Mike Alvarado. Technical founder, Kodda (YC S21). Now building midflight and preride from Monterrey.',
     scroll: 'Scroll to Explore',
     location: 'MTY, MX',
     clockLabel: 'My local time',
   },
   statement:
-    'I am a technical founder focused on building meaningful, scalable technology. I care about clarity, craftsmanship, and leading teams that build with purpose.',
+    'I co-founded Kodda, took it through Y Combinator and from 30 to 8,000 users as CTO, then ran it as CEO. Now I build alone, fast, with agents: four products shipped this year, one on the App Store.',
   marquee: {
     lockup: 'Y Combinator S21',
     trackLabel: 'Organizations I have worked with',
   },
   journey: {
-    heading: 'Three ways to\n*build* together',
+    heading: "What I'm\n*building* now",
   },
   services: {
-    heading: 'What we can *build* together',
-    sub: 'Six ways I plug into a team, from the first commit to the shipped product',
-    listLabel: 'Services',
+    heading: 'How I *ship*',
+    sub: 'Six layers I own end to end, from the native app to the cloud that bills it',
+    listLabel: 'How I ship',
     toggleDetails: 'Toggle details for',
-    cta: 'Build your vision with me',
+    cta: "Let's talk",
   },
   showcase: {
     heading: '*Featured* work',
@@ -52,6 +51,7 @@ export const en = {
     openProject: 'Open project details',
     back: 'Back to projects',
     visit: 'Visit live site',
+    site: 'Product site',
     repo: 'View repository',
     caseStudy: 'Read case study',
     roleLabel: 'Role',
@@ -86,8 +86,8 @@ export const en = {
     regionLabel: 'Contact card',
   },
   closing: {
-    eyebrow: "Have a project in mind? Reach out and let's create something amazing.",
-    heading: "Let's *work together*",
+    eyebrow: 'Building something, hiring a founder-level engineer, or just curious? Write to me.',
+    heading: "Let's *build* something",
     cta: 'Get in touch',
     rights: 'All rights reserved.',
     emailLabel: 'Email me',

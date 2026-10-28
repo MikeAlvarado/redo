@@ -28,7 +28,12 @@ export function Nav() {
     return () => document.removeEventListener('pointerdown', onPointerDown)
   }, [menuOpen])
 
-  const labels = { services: t.nav.services, work: t.nav.work, reviews: t.nav.reviews }
+  const labels = {
+    now: t.nav.now,
+    services: t.nav.services,
+    work: t.nav.work,
+    reviews: t.nav.reviews,
+  }
   const links = SECTION_IDS.map((id) => ({ id, label: labels[id] }))
 
   const goTo = (id: string) => {

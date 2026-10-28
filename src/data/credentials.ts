@@ -13,6 +13,16 @@ export const credentials: Credential[] = [
     href: 'https://www.ycombinator.com/companies/kodda',
   },
   {
+    id: 'app-store',
+    label: { en: 'AIMeter on the App Store', es: 'AIMeter en la App Store' },
+    href: 'https://apps.apple.com/app/id6797946742',
+  },
+  {
+    id: 'npm',
+    label: { en: 'vitrina on npm', es: 'vitrina en npm' },
+    href: 'https://www.npmjs.com/package/vitrina',
+  },
+  {
     id: 'pmp',
     label: { en: 'PMI-PMP Training, 2025', es: 'Formación PMI-PMP, 2025' },
   },

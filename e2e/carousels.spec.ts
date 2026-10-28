@@ -4,22 +4,24 @@ test('showcase carousel operates by keyboard alone with visible focus', async ({
   page,
 }) => {
   await page.goto('/')
+  // The deck names the same products, so headings are scoped to the showcase.
+  const work = page.locator('[data-section="work"]')
   const next = page.getByRole('button', { name: 'Next project' })
   await next.scrollIntoViewIfNeeded()
   await page.waitForTimeout(600)
 
-  await expect(page.getByRole('heading', { name: 'Vitrina' })).toBeVisible()
+  await expect(work.getByRole('heading', { name: 'midflight' })).toBeVisible()
 
   await next.focus()
   await expect(next).toBeFocused()
   await page.keyboard.press('Enter')
-  await expect(page.getByRole('heading', { name: 'Mediterra' })).toBeVisible()
+  await expect(work.getByRole('heading', { name: 'AIMeter' })).toBeVisible()
 
   await page.keyboard.press('ArrowRight')
-  await expect(page.getByRole('heading', { name: 'AIMeter' })).toBeVisible()
+  await expect(work.getByRole('heading', { name: 'preride' })).toBeVisible()
 
   await page.keyboard.press('ArrowLeft')
-  await expect(page.getByRole('heading', { name: 'Mediterra' })).toBeVisible()
+  await expect(work.getByRole('heading', { name: 'AIMeter' })).toBeVisible()
 })
 
 test('the reviews section and its nav link stay away while there are no testimonials', async ({
@@ -42,25 +44,25 @@ test('clicking a peeking card centres it; only the centred card opens', async ({
   await page.waitForTimeout(700)
 
   const caption = section.getByRole('heading', { level: 3 })
-  await expect(caption).toHaveText('Vitrina')
+  await expect(caption).toHaveText('midflight')
 
   // The right-hand neighbour scrolls into the centre instead of opening.
-  await page.getByRole('button', { name: 'Go to project: Mediterra' }).click()
+  await page.getByRole('button', { name: 'Go to project: AIMeter' }).click()
   await page.waitForTimeout(800)
-  await expect(caption).toHaveText('Mediterra')
+  await expect(caption).toHaveText('AIMeter')
   await expect(page.locator('[data-lenis-prevent]')).toHaveCount(0)
   expect(page.url()).not.toContain('#project/')
 
   // A neighbour on the other side loops back the short way.
-  await page.getByRole('button', { name: 'Go to project: Vitrina' }).click()
+  await page.getByRole('button', { name: 'Go to project: midflight' }).click()
   await page.waitForTimeout(800)
-  await expect(caption).toHaveText('Vitrina')
+  await expect(caption).toHaveText('midflight')
   await expect(page.locator('[data-lenis-prevent]')).toHaveCount(0)
 
   // The centred card is the only one that opens.
-  await page.getByRole('button', { name: 'Open project details: Vitrina' }).click()
+  await page.getByRole('button', { name: 'Open project details: midflight' }).click()
   await expect(page.locator('[data-lenis-prevent]')).toBeVisible()
-  expect(page.url()).toContain('#project/vitrina')
+  expect(page.url()).toContain('#project/midflight')
 })
 
 test('the stacked list below tab: opens every card directly', async ({ page }) => {
@@ -69,7 +71,7 @@ test('the stacked list below tab: opens every card directly', async ({ page }) =
   await page.waitForTimeout(700)
 
   const cards = page.locator('[data-section="work"] button[aria-label^="Open project"]')
-  await expect(cards).toHaveCount(7)
+  await expect(cards).toHaveCount(10)
   await expect(
     page.locator('[data-section="work"] button[aria-label^="Go to project"]'),
   ).toHaveCount(0)

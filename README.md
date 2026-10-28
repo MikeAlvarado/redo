@@ -20,10 +20,10 @@ index.html
          └─ main
             ├─ Hero              gradient card, word-by-word intro, live clock
             ├─ ScrollStatement   pinned word wipe (≈30 words), marquee at its foot
-            ├─ JourneyCards      pinned deck: stack-deal below 1440, flip-fan at 1440
-            ├─ Services          6 numbered flex rows, divider draw, thumbnail lift
+            ├─ JourneyCards      "What I'm building now": pinned deck, stack-deal below 1440, flip-fan at 1440
+            ├─ Services          "How I ship": 6 numbered flex rows, divider draw, thumbnail lift
             ├─ Showcase          center-peek Embla carousel → ProjectOverlay (#project/<slug>)
-            ├─ ClientGrid        flex-wrap wordmark tile wall, diagonal reveal
+            ├─ ClientGrid        flex-wrap logo tile wall (public/art/marks), diagonal reveal
             ├─ Testimonials      Embla peek carousel + dots — renders null while empty
             ├─ Stats             italic serif numerals, count-up on enter, optional company mark
             ├─ Founders          tilted contact card(s), data-driven (1..n entries)
@@ -59,14 +59,14 @@ field keeps a `TODO(mike)` marker instead of a plausible-looking guess.
 | Source | What it supplies |
 |---|---|
 | The `portfolio` repo (Next.js, `~/Developer/personal/portfolio/portfolio`) | All eleven projects (titles, descriptions, roles, tags, image alts, links, years) in both locales, the project screenshots, the meta/nav/statement/closing copy, and the full contact link set |
-| `Mike_Alvarado_Tech.pdf` (CV v3.2, July 2026) | The stat numbers, the client organizations, every service deliverable, the credentials strip |
+| `Mike_Alvarado_Tech.pdf` (CV v3.2, July 2026) | The first four stat numbers, the client organizations, the credentials strip |
+| The repositories under `~/Developer/personal` (read 2026-10-27) | The "What I'm building now" cards and their status lines, the "How I ship" items, the fifth stat, the product marks |
 | `github.com/MikeAlvarado` | Which repositories are public, and therefore which projects may carry a `repo` link |
 
-Three fields are deliberately unfinished and marked `TODO(mike)`:
-the hero headline (`hero.line1`/`line2`/`sub` in **both** `src/i18n/en.ts` and
-`es.ts`), the four stat company marks (`src/data/stats.ts`), and Mike's portrait
+One field is deliberately unfinished and marked `TODO(mike)`: Mike's portrait
 (`src/data/founders.ts`). `grep -rn "TODO(mike)" src/` should return exactly
-those three lines and nothing else.
+that line and nothing else. Everything else that needs Mike's material is
+listed in `PENDIENTES.md`.
 
 ## Adding a project
 

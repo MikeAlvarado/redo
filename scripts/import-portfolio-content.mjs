@@ -16,12 +16,15 @@ const LOCALES = ['en', 'es']
 
 // Carousel order. Everything else keeps `featured: false`.
 const FEATURED = [
+  'midflight',
+  'aiMeter',
+  'preride',
   'vitrina',
   'mediterra',
-  'aiMeter',
   'koddaStudio',
+  'hazloFacil',
   'apex',
-  'tequilaKaos',
+  'lightcycleArena',
   'reactPractice',
 ]
 
@@ -53,21 +56,37 @@ const COVER_ALT_OVERRIDES = {
 // Compressions of each project's own description; they add no claim the
 // description does not already make.
 const SUMMARIES = {
+  midflight: {
+    en: 'Working memory for people who direct coding agents: what is open, where each thread stopped.',
+    es: 'Memoria de trabajo para quien dirige agentes de código: qué está abierto, dónde se quedó cada hilo.',
+  },
+  preride: {
+    en: 'Know the ride before you ride it: a Rust physics engine and a SwiftUI app for cyclists.',
+    es: 'Conoce la ruta antes de rodarla: un motor de física en Rust y una app SwiftUI para ciclistas.',
+  },
+  hazloFacil: {
+    en: 'A landing that tests a product for small businesses, on top of WhatsApp Business.',
+    es: 'Una landing que prueba un producto para negocios pequeños, sobre WhatsApp Business.',
+  },
+  siteLog: {
+    en: 'A project tracker for construction teams: a layered Express API and a React client.',
+    es: 'Un rastreador de obras para equipos de construcción: API en Express por capas y cliente en React.',
+  },
   vitrina: {
     en: 'An open-source React library for draggable, zoomable planes of objects.',
     es: 'Librería React de código abierto: planos de objetos arrastrables y con zoom.',
   },
   mediterra: {
-    en: 'A bilingual editorial site for a preventive-medicine practice in Monterrey.',
-    es: 'Sitio editorial bilingüe para un consultorio de medicina preventiva en Monterrey.',
+    en: 'A bilingual editorial site and a draggable shop for a preventive-medicine practice.',
+    es: 'Sitio editorial bilingüe y tienda arrastrable para un consultorio de medicina preventiva.',
   },
   aiMeter: {
-    en: 'A native iOS and macOS app for tracking AI usage and limits.',
-    es: 'App nativa de iOS y macOS para monitorear uso y límites de IA.',
+    en: 'Your AI limits at a glance, on iPhone, iPad, Mac and Apple Watch. On the App Store.',
+    es: 'Tus límites de IA de un vistazo, en iPhone, iPad, Mac y Apple Watch. En la App Store.',
   },
   koddaStudio: {
-    en: 'The product I co-founded and led from CTO to CEO, on the App Store.',
-    es: 'El producto que cofundé y dirigí de CTO a CEO, publicado en la App Store.',
+    en: 'The YC-backed product I co-founded and led from CTO to CEO, past 8,000 users.',
+    es: 'El producto respaldado por YC que cofundé y dirigí de CTO a CEO, más de 8,000 usuarios.',
   },
   apex: {
     en: 'A browser tool that plots and compares racing lines lap by lap.',
@@ -82,8 +101,8 @@ const SUMMARIES = {
     es: 'Un laboratorio donde construyo y publico patrones de React en abierto.',
   },
   lightcycleArena: {
-    en: 'A browser lightcycle game built for speed and tight controls.',
-    es: 'Juego de lightcycles en el navegador, hecho para velocidad y control preciso.',
+    en: 'A Tron-style lightcycle game with a 3D cockpit in three.js and bots that carve the arena.',
+    es: 'Juego de lightcycles estilo Tron con cabina 3D en three.js y bots que parten la arena.',
   },
   cloudFunctionsTs: {
     en: 'A typed Firebase Functions starter with the patterns I reach for.',
@@ -285,7 +304,7 @@ export interface Project {
   cover: ProjectImage
   coverAlt: LocalizedString
   gallery: ProjectImage[]
-  links?: { live?: string; repo?: string; caseStudy?: string }
+  links?: { live?: string; site?: string; repo?: string; caseStudy?: string }
   featured: boolean
 }
 
@@ -353,7 +372,7 @@ async function main() {
       ),
       coverAlt: COVER_ALT_OVERRIDES[key] ?? pick('imageAlt'),
       gallery: await Promise.all(entry.images.map(convert)),
-      links: { live: entry.link, repo },
+      links: { live: entry.link, site: entry.website, repo },
       featured: FEATURED.includes(key),
     })
   }

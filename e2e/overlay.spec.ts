@@ -5,15 +5,15 @@ test('project overlay traps focus, closes on Escape, and restores focus', async 
 }) => {
   await page.goto('/')
   const opener = page.getByRole('button', {
-    name: 'Open project details: Vitrina',
+    name: 'Open project details: midflight',
   })
   await opener.scrollIntoViewIfNeeded()
   await page.waitForTimeout(600)
   await opener.click()
 
-  const dialog = page.getByRole('dialog', { name: 'Vitrina' })
+  const dialog = page.getByRole('dialog', { name: 'midflight' })
   await expect(dialog).toBeVisible()
-  expect(page.url()).toContain('#project/vitrina')
+  expect(page.url()).toContain('#project/midflight')
 
   const back = page.getByRole('button', { name: 'Back to projects' })
   await expect(back).toBeFocused()

@@ -701,6 +701,56 @@ Corrections to earlier claims, from this run's evidence:
   panel top). Fix: `preserveAspectRatio="none"` on the SVG so it stretches to
   fill the slice exactly (~4% horizontal squeeze, invisible on abstract art).
 
+### YC refresh (2026-10-27) — founder positioning, new products, marks
+
+Branch `yc-refresh`. The design, hooks and motion are untouched; what changed
+is what the site says and the assets it says it with.
+
+- **Positioning**: the site read as an agency (Services, "Build your vision
+  with me", a deck qualifying a prospect). It now reads as a technical founder
+  who is building: hero "From first commit / to the 8,000th user." with name,
+  Kodda (YC S21) and the two products in flight; the statement tells the
+  Kodda → YC → CTO → CEO → solo-with-agents story in 40 words.
+- **Journey deck → "What I'm building now"**: midflight (silver), preride
+  (red), AIMeter (charcoal). `JourneyCard` gained a `status` line (mono,
+  uppercase) read from each repository on 2026-10-27; refresh it by hand.
+- **Services → "How I ship"**: six layers (native, web, backend & cloud,
+  engines & math, AI & agents, leadership), every item evidenced by a repo or
+  the CV. CTA is "Let's talk". Thumbnails are AIMeter, Mediterra, midflight,
+  preride, midflight graph, YC.
+- **Nav**: `now` joined `SECTION_IDS` (JourneyCards carries `id="now"`);
+  labels are Now / How I ship / Work. e2e and `useLanguage.test` updated.
+- **Projects**: 15 (was 11), 10 featured in this order: midflight, aiMeter,
+  preride, vitrina, mediterra, koddaStudio, hazloFacil, apex, lightcycleArena,
+  reactPractice. New in `portfolio`: midflight, preride, hazloFacil, siteLog;
+  rewritten: aiMeter (4.3.4, four platforms, three providers), lightcycleArena
+  (three.js cockpit), vitrina (0.4.1), mediterra (shop + cart), koddaStudio
+  (8,000+ and the +Studio 30→400 figure both, dated). `Project.links` gained
+  `site` (P's `website`), rendered as "Product site" in the overlay.
+- **Marks** (`public/art/marks/`, 39 files): official ones recoloured to cream
+  from the organizations' own files (YC, Kodda, +Studio, KAOS, Mediterra, GSC,
+  Apex, AIMeter); typographic ones set in the site's faces for organizations
+  with no file in any repo (`kind: 'typographic'` in `clients.ts`, swap when
+  official arrives); lockups for Mike's own products. SVGs bake `#EAE7E0`
+  because `<img>` cannot inherit `currentColor`; opacity does the dimming.
+  Text-based SVGs have their viewBox tightened to the measured text bbox
+  (Playwright + `getBBox`) so they size like the raster marks.
+- **Client wall and marquee** render the mark when a `Client` has one
+  (`ClientWordmark`), text otherwise. Stats rows show the mark alone and keep
+  the source name `sr-only`. A fifth stat (4 products shipped in 2026) is
+  sourced from git, not the CV, and says so in `source`.
+- **Head**: title "Mike Alvarado — Technical founder, YC S21", new
+  description, `og:url`/`og:image` on mikealvaradol.web.app, `og-card.png`
+  (1200×630) rendered from the hero treatment with the site's fonts
+  (Playwright), `twitter:card` large image. The TODO(mike) in `index.html` is
+  resolved; the only one left is the portrait.
+- **Contact**: email stays `miguel_l06@hotmail.com` (Mike, 2026-10-27).
+  Phone and WhatsApp left the closing card (they stay in the CV); LinkedIn
+  took their place. The second GitHub account left the footer.
+- **Node**: the unit suite needs Node 24 (`.nvmrc`); under Node 26 jsdom's
+  `window.localStorage` is undefined and all 103 tests fail before any
+  assertion. `nvm use` first.
+
 ## Blockers
 
 - Times Now (display serif) is commercial → shipped Instrument Serif and logged

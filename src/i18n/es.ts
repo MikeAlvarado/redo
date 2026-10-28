@@ -2,14 +2,15 @@ import type { Dictionary } from './types'
 
 export const es = {
   meta: {
-    title: 'Mike Alvarado — Tech-Founder e Ingeniero de Software',
+    title: 'Mike Alvarado — Fundador técnico, YC S21',
     description:
-      'Portafolio de Mike Alvarado, un tech-founder enfocado en crear tecnología significativa y escalable. Producto, ingeniería y liderazgo.',
+      'Fundador técnico (Kodda, YC S21) que escaló un producto a más de 8,000 usuarios y hoy publica productos nativos, web y en la nube por su cuenta: midflight, preride, AIMeter.',
   },
   nav: {
     wordmark: 'Mike.',
-    services: 'Servicios',
-    work: 'Trabajos Previos',
+    now: 'Ahora',
+    services: 'Cómo entrego',
+    work: 'Trabajo',
     reviews: 'Reseñas',
     cta: 'Ponerse en contacto',
     openMenu: 'Abrir menú',
@@ -18,28 +19,28 @@ export const es = {
     navLabel: 'Navegación principal',
   },
   hero: {
-    line1: 'Imagina un espacio',
-    line2: 'entre idea y producto',
-    sub: 'Ahí es donde construyo.',
+    line1: 'Del primer commit',
+    line2: 'al usuario 8,000.',
+    sub: 'Mike Alvarado. Fundador técnico, Kodda (YC S21). Hoy construyo midflight y preride desde Monterrey.',
     scroll: 'Desliza para explorar',
     location: 'MTY, MX',
     clockLabel: 'Mi hora local',
   },
   statement:
-    'Soy un tech-founder enfocado en crear tecnología significativa y escalable. Me importa la claridad, las buenas prácticas y liderar equipos que construyen con propósito.',
+    'Cofundé Kodda, la llevé por Y Combinator y de 30 a 8,000 usuarios como CTO, y luego la dirigí como CEO. Hoy construyo solo, rápido y con agentes: cuatro productos publicados este año, uno en la App Store.',
   marquee: {
     lockup: 'Y Combinator S21',
     trackLabel: 'Organizaciones con las que he trabajado',
   },
   journey: {
-    heading: 'Tres formas de\n*construir* juntos',
+    heading: 'Lo que estoy\n*construyendo* hoy',
   },
   services: {
-    heading: 'Lo que podemos *construir* juntos',
-    sub: 'Seis formas de sumarme a tu equipo, del primer commit al producto entregado',
-    listLabel: 'Servicios',
+    heading: 'Cómo *entrego*',
+    sub: 'Seis capas que llevo de punta a punta, de la app nativa a la nube que la cobra',
+    listLabel: 'Cómo entrego',
     toggleDetails: 'Mostrar detalles de',
-    cta: 'Construyamos tu visión',
+    cta: 'Hablemos',
   },
   showcase: {
     heading: 'Proyectos *destacados*',
@@ -50,6 +51,7 @@ export const es = {
     openProject: 'Abrir detalles del proyecto',
     back: 'Volver a proyectos',
     visit: 'Visitar sitio',
+    site: 'Sitio del producto',
     repo: 'Ver repositorio',
     caseStudy: 'Leer caso de estudio',
     roleLabel: 'Rol',
@@ -84,8 +86,8 @@ export const es = {
     regionLabel: 'Tarjeta de contacto',
   },
   closing: {
-    eyebrow: '¿Tienes un proyecto en mente? Escríbeme y creemos algo increíble.',
-    heading: '*Trabajemos* juntos',
+    eyebrow: '¿Construyes algo, buscas un ingeniero de nivel fundador o solo tienes curiosidad? Escríbeme.',
+    heading: '*Construyamos* algo',
     cta: 'Ponerse en contacto',
     rights: 'Todos los derechos reservados.',
     emailLabel: 'Escríbeme',
