@@ -28,3 +28,6 @@ test-results
 playwright-report
 reference/*
 !reference/*.md
+
+# Firebase CLI cache
+.firebase/
