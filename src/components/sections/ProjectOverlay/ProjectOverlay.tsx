@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowUpRight } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
@@ -7,6 +7,7 @@ import { useBodyScrollLock } from '../../../hooks/useBodyScrollLock'
 import { useFocusTrap } from '../../../hooks/useFocusTrap'
 import { useLanguage } from '../../../hooks/useLanguage'
 import { Pill } from '../../ui/Pill'
+import { ProjectLinks } from '../../ui/ProjectLinks'
 
 interface ProjectOverlayProps {
   project: Project | null
@@ -32,13 +33,6 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
   // overlay already renders the cover as its hero, so it would show twice.
   const galleryImages =
     project?.gallery.filter((image) => image.src !== project.cover.src) ?? []
-  const links = project?.links
-  const linkEntries = [
-    { href: links?.live, label: t.showcase.visit },
-    { href: links?.site, label: t.showcase.site },
-    { href: links?.repo, label: t.showcase.repo },
-    { href: links?.caseStudy, label: t.showcase.caseStudy },
-  ].filter((entry): entry is { href: string; label: string } => Boolean(entry.href))
 
   // Every section wrapper in App.tsx is `relative z-10`, which is a stacking
   // context — so this panel's z-50 only ever competed inside it and the nav's
@@ -103,23 +97,7 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
               <div className="nav:flex-1 flex flex-col gap-5">
                 <p className="text-cream/90 text-lg">{l(project.summary)}</p>
                 <p className="text-cream/65 leading-relaxed">{l(project.description)}</p>
-                {linkEntries.length > 0 && (
-                  <ul className="flex flex-wrap gap-4 pt-2">
-                    {linkEntries.map((entry) => (
-                      <li key={entry.label}>
-                        <a
-                          href={entry.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-cream hover:decoration-cream inline-flex items-center gap-1.5 underline decoration-white/30 underline-offset-4 transition-colors"
-                        >
-                          {entry.label}
-                          <ArrowUpRight size={16} aria-hidden />
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <ProjectLinks project={project} className="pt-2" />
               </div>
               <dl className="nav:w-56 flex shrink-0 flex-col gap-4 text-sm">
                 <div className="flex flex-col gap-1">

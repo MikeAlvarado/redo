@@ -8,6 +8,7 @@ import { cn } from '../../../lib/cn'
 import { ArrowButton } from '../../ui/ArrowButton'
 import { MixedHeading } from '../../ui/MixedHeading'
 import { Pill } from '../../ui/Pill'
+import { ProjectLinks } from '../../ui/ProjectLinks'
 import { ProjectOverlay } from '../ProjectOverlay'
 import { useGhostZoom } from './useGhostZoom'
 import { useShowcaseSlides } from './useShowcaseSlides'
@@ -96,22 +97,21 @@ export function Showcase() {
                     loading="lazy"
                     className="rounded-tile aspect-[3/2] w-full object-cover"
                   />
-                  <span className="tab:hidden mt-4 flex flex-col gap-3">
-                    <span className="flex flex-col gap-1">
-                      <span className="text-cream/55 text-xs tracking-[0.16em] uppercase">
-                        {l(project.category)}
-                      </span>
-                      <span className="text-cream text-lg leading-snug">
-                        {l(project.title)}
-                      </span>
-                    </span>
-                    <span className="flex flex-wrap gap-2">
-                      {project.categories.map((category) => (
-                        <Pill key={category.en}>{l(category)}</Pill>
-                      ))}
-                    </span>
-                  </span>
                 </button>
+                <div className="tab:hidden mt-4 flex flex-col gap-3">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-cream/55 text-xs tracking-[0.16em] uppercase">
+                      {l(project.category)}
+                    </span>
+                    <span className="text-cream text-lg leading-snug">{l(project.title)}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {project.categories.map((category) => (
+                      <Pill key={category.en}>{l(category)}</Pill>
+                    ))}
+                  </div>
+                  <ProjectLinks project={project} size="sm" />
+                </div>
               </div>
             ))}
           </div>
@@ -134,7 +134,7 @@ export function Showcase() {
         </div>
       </div>
 
-      <div className="tab:flex mt-8 hidden min-h-24 flex-col items-center gap-4 px-6">
+      <div className="tab:flex mt-8 hidden min-h-32 flex-col items-center gap-4 px-6">
         <AnimatePresence mode="wait">
           {active && (
             <motion.div
@@ -154,6 +154,7 @@ export function Showcase() {
                   <Pill key={category.en}>{l(category)}</Pill>
                 ))}
               </div>
+              <ProjectLinks project={active} size="sm" className="justify-center" />
             </motion.div>
           )}
         </AnimatePresence>
