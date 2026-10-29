@@ -413,6 +413,403 @@ parameter and missing-piece fixes only.
   scroll range (0 to one viewport) because the sticky pin freezes the section's
   own rect, so element-relative start/end would never advance.
 
+### Content migration (2026-08-27) — real material replaces every placeholder
+
+Everything the site says now comes from one of three sources: the `portfolio`
+repo (`~/Developer/personal/portfolio/portfolio`, "P"), `Mike_Alvarado_Tech.pdf`
+v3.2 (July 2026, "CV"), or `github.com/MikeAlvarado` ("GH"). Nothing is invented.
+Three items are deliberately still `TODO(mike)`; see **Deferred** below.
+
+- **`scripts/import-portfolio-content.mjs` generates `src/data/projects.ts`**
+  (`npm run import:content`). P groups locale→key (`messages/{en,es}.json`);
+  redo groups key→locale (`LocalizedString`), so eleven projects by hand would
+  drift between languages. The script reads both JSON files plus `PROJECT_META`
+  parsed out of `P/components/sections/Projects.tsx`, runs a parity check that
+  **exits non-zero** listing every key/field present in one locale and missing in
+  the other (and every `tags` array whose lengths disagree), converts
+  `P/public/projects/*` to WebP in `public/projects/` with sharp, and writes the
+  typed file with each image's real pixel dimensions. `projects.ts` is generated
+  — edit the script, never the file. Verified by feeding it a deliberately
+  broken `es.json`: three problems reported, exit 1, no files written.
+- **Featured, in carousel order (7)**: vitrina, mediterra, aiMeter, koddaStudio,
+  apex, tequilaKaos, reactPractice. Present but not featured: lightcycleArena,
+  cloudFunctionsTs, yCombinator, pmp — the last two are credentials and also
+  appear in the new strip; they stay in `projects.ts` with `featured: false` so
+  nothing dangles.
+- **`reactPractice` renders as "React Lab"** (both locales) with its category
+  retitled `Open Source` / `Código abierto`. `i18nKey`, slug and image paths are
+  untouched; the rename lives in `TITLE_OVERRIDES`/`CATEGORY_OVERRIDES` in the
+  import script so a re-import keeps it.
+- **`Project` gained `category` and `ProjectImage`.** The spec maps
+  `categories[]` from P's `tags` (not `category`) but also asks for the React Lab
+  `category` rename, so `category: LocalizedString` is now its own field,
+  rendered as the small uppercase eyebrow above the title in the showcase caption
+  and the overlay. `cover`/`gallery` are `{ src, width, height }` rather than
+  bare paths, so every project image carries its true intrinsic size (the assets
+  range from 3:2 screenshots to a portrait certificate; one hardcoded 1200×800
+  would have been a lie and a CLS source). Overlay gallery images switched to
+  `object-contain` for the same reason.
+- **DEVIATION from the spec's repo list: `tequilakaos` is NOT public.** The spec
+  named it among the repos safe to link; the GitHub API returns 404 for
+  `MikeAlvarado/tequilakaos` (as it does for `Mediterra` and `portfolio`), and
+  the account's public repo list does not contain it. Gate 5 ("every `links.repo`
+  resolves to a public repository") wins over the enumeration, so tequilaKaos
+  keeps `links.live` only. Six repo links ship, all re-verified public:
+  vitrina, AIMeter, getapex, lightcycle_arena, cloudfunctions-ts, react_practice.
+- **Clients are twelve real organizations** (CV + P), replacing the fictional
+  wordmarks. `clients.heading` no longer says "trusted by N organizations" —
+  agency language a solo portfolio cannot speak, and an invented number. It now
+  reads "Organizations I have built with and for" / "Organizaciones con las que
+  y para las que he construido". `marquee.lockup` lost "Trusted by 20+
+  organizations" for the laurel-appropriate, factual "Y Combinator S21".
+  `ClientWordmark`'s `mono` flair **dropped its `lowercase`**: styling
+  "Moneypool", "VantTec" and "Campus Accesible" down to lowercase reads as a
+  typo once the names are real. `caps` keeps `uppercase` — all-caps is a
+  wordmark convention, lowercase is not.
+- **Services keeps its CTA** (the mobile-only cream button under the list) —
+  Mike is taking client work. All six rows are retitled to what the CV actually
+  evidences, every deliverable traceable to a CV line, and thumbnails are now
+  real project screenshots (`/projects/*.webp`) with P's own `imageAlt` strings.
+  Heading and sub are written around working together.
+- **Stats carry an optional `mark`.** Four real CV numbers (8,000+ Kodda users,
+  6 engineers led, 70+ supermarkets, +37% payment completion), each paired with
+  the company it came from. `StatRow` grew `prefix`/`suffix`/`group`/`source`
+  and `mark?: { src, alt }`; `useCountUp` grew a `group` option
+  (`groupStat` in `lib/format`) so 8000 rolls to "8,000". **All four ship with
+  `mark` undefined** — nothing in P holds a transparent Kodda/Softtek/Moneypool
+  wordmark, and a cropped screenshot or a logo drawn from memory would be worse
+  than none, so the row renders the source name as small muted text and takes
+  the image only when one is supplied. `Stats.test.tsx` covers both shapes.
+- **Testimonials ship empty.** There is not one quote in P, CV or GH, so
+  `testimonials` is `[]` and `Testimonials` returns `null` (the hook-bearing
+  body moved to an inner `TestimonialCarousel`). `Testimonials.test.tsx` covers
+  0/1/2/11 entries, so the section works the day real quotes arrive. Because the
+  section is gone, `SECTION_IDS` in `lib/site.ts` now **derives** from the data —
+  `reviews` drops out while `testimonials` is empty — and Nav and Footer both map
+  over it, so neither offers an anchor that resolves to nothing.
+- **Credentials strip** (`src/data/credentials.ts` + `sections/Credentials`),
+  between founders and the closing card: one wrapping flex row, small UI type,
+  hairline dividers, shared reveal, no cards. Only Y Combinator carries an
+  `href`. The row sits in an `overflow-hidden` wrapper and is shifted `-ml-px`,
+  so the `border-l` of whichever item starts a wrapped line falls outside and
+  disappears — dividers survive only between items on the same line, at every
+  width, with no dangling tick. It is left-aligned in `max-w-5xl`, matching the
+  stats column above it.
+- **Journey reframed to an invitation.** The three cards were an agency
+  qualifying a prospect ("where are *you* in your journey?"), which has no
+  speaker on a personal site. They are now Zero to one / One to many / Hands on
+  the tools, and `journey.heading` is "Three ways to\n*build* together" /
+  "Tres formas de\n*construir* juntos" — same `\n` + `*italic*` treatment
+  `MixedHeading` and the `deck:` variants expect.
+- **Copy** now comes from P verbatim where the spec maps it: `meta.*` from
+  `Meta`, `nav.work`/`nav.cta`/`nav.openMenu`/`nav.closeMenu` from `Nav`,
+  `statement` from `AboutPage.title` (28 words, right at what the pinned reveal
+  wants), `closing.heading`/`closing.eyebrow` from `Footer.title`/`description`,
+  `closing.rights` from `Footer.rights` (the footer composes
+  `© {year} Mike Alvarado.` in front of it, as P does). `CONTACT_EMAIL` moved to
+  P's public address, `miguel_l06@hotmail.com`.
+- **Founders is one centred card.** Mike only; `w-[305px]` keeps it from
+  stretching, `justify-center` centres it, the tilt stays. `FounderLink.label`
+  became a `LocalizedString` (for "Email"/"Correo") and the three links now wrap
+  in a centred row **without the hairline dividers** — three labels plus icons
+  overflow a 249px content box in Spanish, and the card clips. Verified at 390,
+  430 and 1440.
+- **Contact links** (`src/data/contact.ts`): P's full footer set. `reachLinks`
+  (email, WhatsApp, phone, CV) render as a labelled row inside the closing card;
+  `socialLinks` (LinkedIn, GitHub, GitHub @MikeAlvaradoBP, X, Strava, Instagram)
+  render as a hairline-separated row in the footer. Labels only, no nested
+  opacity — the second GitHub is disambiguated the way P labels it.
+- **Contrast**: the new 12px eyebrows and the credentials strip failed axe at
+  `text-cream/40..50` on black (3.76:1 against a 4.5 floor). They are
+  `text-cream/55`/`/60` now. `e2e/axe.spec.ts` was changed to report the failing
+  node selectors and summaries instead of just the rule id — the old message
+  named the rule but not the element.
+- **`e2e/overflow.spec.ts` gained a Spanish clipping sweep at 390 and 430.**
+  Page-level `scrollWidth` never catches text clipped *inside* an
+  `overflow-hidden` section, which is exactly where longer Spanish strings fail.
+  The new test walks every visible text leaf and asserts it is inside both the
+  viewport and its nearest clipping ancestor. It scrolls with `mouse.wheel`, not
+  `window.scrollTo`: Lenis drives ScrollTrigger off real scroll events, so a
+  programmatic jump leaves reveals at opacity 0 and `checkVisibility` would skip
+  the very elements under test. Decorative layers (`aria-hidden`, the marquee
+  track) are excluded — the parallax backdrop and the duplicated marquee row are
+  *meant* to exceed their container.
+- Placeholder art deleted: `project-*.svg`, `service-*.svg`, `portrait-*.svg`,
+  and `scripts/gen-art.mjs`, which generated all three and now generates nothing
+  the site uses. `public/art/` keeps only the hero/closing photographs,
+  `deck-back.svg` and the founder portrait placeholder.
+
+**Deferred — the only three `TODO(mike)` left in `src/`:**
+
+1. `src/i18n/en.ts` — `hero.line1` / `line2` / `sub`, in **both** `en.ts` and
+   `es.ts`. P's hero is "hey." plus an under-construction notice, which this
+   design cannot carry. Mike is writing it.
+2. `src/data/stats.ts` — the four stat `mark` images (Kodda, Softtek,
+   Moneypool). Mike is supplying transparent wordmarks separately.
+3. `src/data/founders.ts` — the portrait. No photograph of Mike exists anywhere
+   in P, so `/art/founder-mike.svg` stays. (The spec named
+   `public/portrait.jpg`; the placeholder that actually exists in this repo is
+   `/art/founder-mike.svg`, and that is what is kept.)
+
+### Project detail overlay (2026-08-27) — three bugs that made it unusable
+
+Reported as "no se puede scrollear ni ver hacia otros lados". Three separate
+faults stacked up; every one of them was invisible to the existing suite,
+because the overlay test only ever used Tab and Escape.
+
+- **Lenis ate the wheel.** `lenis.stop()` does not remove Lenis's wheel/touch
+  listener — it keeps calling `preventDefault()`, so native scrolling inside the
+  fixed panel was dead while keyboard scrolling (End/PageDown) still worked, which
+  is exactly why it looked like a CSS problem and wasn't. The panel now carries
+  `data-lenis-prevent`, Lenis's own opt-out: it skips any event whose composed
+  path contains that attribute. Added `overscroll-contain` alongside it.
+- **Closing dumped the reader at the top of the site.** `useBodyScrollLock` set
+  `overflow: hidden` on `<html>`, which takes the scroll extent away and drops
+  the document's scroll position; on unlock the page came back at 0 (measured:
+  3189 → 0). The hook now captures `window.scrollY` before locking and restores
+  it on cleanup, and `resumeLenis(scrollY)` re-seats Lenis's own `animatedScroll`
+  with `scrollTo(y, { immediate: true, force: true })` — restoring the window
+  alone is not enough, Lenis would animate back to its stale internal target.
+- **The nav painted on top of the overlay.** Every section wrapper in `App.tsx`
+  is `relative z-10`, which opens a stacking context, so the panel's `z-50` only
+  ever competed *inside* that wrapper while the nav's root-level `z-50` won
+  outright — the Back control sat half-buried under the nav pill. `ProjectOverlay`
+  now renders through `createPortal(..., document.body)`. Motion's `layoutId`
+  cover transition is unaffected (its registry is not DOM-tree scoped).
+
+**From the reference**: redomedia.co has no overlay at all — project details are
+real pages at `/featured-work/<slug>`, natively scrolling with Lenis still
+running, exiting through a `← Back` pill at the top left (no X). We keep the
+hash-routed overlay (see *Overlay state* in Architecture — no router), but took
+its exit affordance: the corner X is gone, replaced by a labelled Back pill at
+the top of the panel. Its string is `showcase.back`, sourced verbatim from P's
+`ProjectsPage.backToProjects` ("Back to projects" / "Volver a proyectos"), and
+the now-dead `showcase.closeOverlay` key was deleted from the Dictionary and both
+dictionaries. Escape and backdrop-click still close.
+
+Covered by a new e2e case (`overlay.spec.ts`): scroll the page, open a project,
+assert the panel has real scroll extent, wheel it, assert the panel moved and the
+page behind did not, then close and assert the page is back where it was and
+still scrolls. Plus a `useBodyScrollLock` unit test for the position restore.
+The reference-vs-build `npm run compare` has no row for this — the reference has
+no overlay to compare against.
+
+### Showcase carousel (2026-08-27) — a peeking card scrolls, it does not open
+
+Clicking a dimmed neighbour opened that project instead of bringing it to the
+centre, which is not what a peek carousel affords: the neighbours are visibly
+*not* the subject, so a click reads as "bring this one here". Only the centred
+slide opens now; `isPeeking(index)` gates both the click handler and the
+accessible name (`showcase.goToSlide` vs `showcase.openProject`), so the name
+always states the action the click actually performs.
+
+Below `tab:` the slides are a plain vertical list with the carousel deactivated,
+and there is no "centred" card — every card opens directly, as before. That
+decision needs JS to agree with CSS about the breakpoint, so the Embla
+`breakpoints` key and the `useMediaQuery` call now share one constant,
+`STACKED_QUERY`, and it is expressed in **rem** (`max-width: 50.624rem`) rather
+than the old `809px`. Under browser zoom the px query would have drifted away
+from `--breakpoint-tab: 50.625rem` by ~90px, opening a band where CSS renders
+the stacked list while JS still thinks a carousel is centred — the same
+two-sources-of-truth failure that broke the journey deck fan.
+
+Covered in `carousels.spec.ts`: clicking a neighbour centres it and opens
+nothing (both directions, including the loop-back), the centred card opens, and
+at 430px all seven cards carry "Open project details" with no "Go to project"
+button present.
+
+### Fidelity re-check (2026-08-27, post-migration) — 151/151, one defect fixed
+
+`npm run compare` re-run against the live reference after the content migration.
+The previous run predated it, so its verdict notes described placeholder content
+that no longer exists; they have been rewritten against what the sheets actually
+show. Two tool corrections were needed first:
+
+- `reviews` rows were still in the report from **stale screenshots on disk** —
+  the build no longer renders that section, but the report is driven by
+  `existsSync`, so old `mine-en` captures kept producing PASS rows for a section
+  that is gone. Deleted, and their verdicts with them.
+- `credentials` was untracked. Added to `SECTIONS` with an empty `ref` list so
+  the reference column reads "missing" on purpose rather than the section going
+  unexamined.
+
+**Defect found and fixed: the services CTA was missing at desktop.** The
+reference renders "Build Your Vision With Us" centred under the service list at
+1440 — measured 201x34, radius 8px, background #EAE7E0, padding 10px/20px. Ours
+was `tab:hidden`, so it only ever appeared below 810px and desktop visitors got
+no call to action at the end of the section — on a site whose whole point is
+that Mike is taking client work. It descends from the first compare run's note
+("a cream CTA sits under the list on mobile"), which read a mobile-only
+placement into something the reference does at every width. The fix is dropping
+`tab:hidden` and giving desktop a wider gap (`tab:mt-24`); our pill already
+matched the reference's radius, colour and padding exactly, only its
+`text-sm`/500 type differs from the reference's 12px/400, kept for consistency
+with the site's other CTAs. Report is back to 151/151.
+
+The narrative version of all of this — what is copied, what deliberately is
+not, and how to re-check — lives in **`FIDELITY.md`** at the repo root.
+
+Corrections to earlier claims, from this run's evidence:
+
+- **The reference has SIX service rows, not five** (`(06) Full-stack Marketing`
+  is visible at 1440). The old "my six vs reference five — content" note was
+  simply wrong; the counts match.
+- **The reference nests stats inside its "Get In Touch" section**, in a
+  two-column row with the founder cards on the left and the numerals on the
+  right. Ours are two separate stacked sections (full-width stats, then
+  founders). Structural difference, recorded, not yet reconciled.
+- Client-wall tiles are uniform height on both (measured 80px at 1440, 56px at
+  390); the density gap is real and is content — 7-up x ~5 rows of logo images
+  against our 6-up x 2 rows of twelve text wordmarks.
+
+### Recruiter/client review pass (2026-08-31) — head metadata, overlay gallery, Vitrina cover
+
+- **`index.html` head now carries the dictionary's meta strings.** `meta.title`
+  and `meta.description` existed in both dictionaries but were consumed
+  nowhere; the static head shipped "product designer and engineer" (wrong
+  positioning) and a bare title. Now: the en meta title/description verbatim,
+  plus `og:type`/`og:title`/`og:description` and a `twitter:card`. `og:image`
+  and `og:url` wait for the production domain (TODO(mike) in the file) —
+  crawlers need absolute URLs and a PNG/JPG card. Runtime language-sync of the
+  head was deliberately skipped: default is en, language never hits the URL,
+  and crawlers see the static head anyway.
+- **Overlay gallery no longer repeats the cover.** The generated data includes
+  the cover as `gallery[0]` for every project; the overlay renders the cover
+  as its hero, so the first gallery item duplicated it back-to-back. The
+  overlay filters `cover.src` out and hides the gallery list when nothing
+  remains (several projects have a one-image gallery).
+- **Vitrina's cover is its npm page** (`COVER_OVERRIDES` + matching
+  `COVER_ALT_OVERRIDES` in the import script). Its detail shot IS a Mediterra
+  screen — the library powers that shop — so the carousel showed two
+  near-identical cream-green slides in a row with "Open Source Library"
+  sitting over vitamin bottles. The npm page reads "library" at a glance and
+  disambiguates the pair at every width.
+- Verified this pass: full EN/ES/430 Playwright walks, mobile menu, overlay
+  scroll, stats count-up targets (the rolling numerals in mid-scroll captures
+  are sampling, not data errors — targets are 8,000/6/70/37).
+
+### Deck back letterboxing (2026-08-31) — square-looking corners on the joined panel
+
+- The joined face-down triptych appeared to have square outer corners. The
+  radius logic was correct all along (the visible face always paints in
+  identity orientation — the back face's own `rotateY(180deg)` cancels the
+  card's flip, so element-space corners are visual corners). The real defect:
+  `deck-back.svg` kept its default `preserveAspectRatio` (`xMidYMid meet`), so
+  `background-size: 300% 100%` letterboxed the art with ~10px transparent
+  bands top and bottom — the rounded corners clipped transparent pixels and
+  the visible art started lower with square edges (plus a dark band across the
+  panel top). Fix: `preserveAspectRatio="none"` on the SVG so it stretches to
+  fill the slice exactly (~4% horizontal squeeze, invisible on abstract art).
+
+### Numbers, people and community (2026-10-28, same branch)
+
+Mike rejected the stats content (resume bullets: Zustand, OCR at the
+register, A/B tests) and chose "people and community": 8,000+ people who
+used Kodda, 30+ people he worked alongside, 5 years building Kodda
+(2020–2026, CV), 3 communities he mentored in (FIRST 5133 regional
+champions 2020, VantTec RoboBoat, Women in Technology, all on the CV), 4
+products shipped in 2026. Softtek and Moneypool left this section; their
+numbers stay in "As an engineer". Bodies are first person, no jargon.
+Mike said no to a "4 Apple platforms" row.
+
+### Mike's photographs (2026-10-28, same branch)
+
+Mike supplied eleven photos. The portrait (white shirt, square crop) is
+`public/art/portrait-mike.webp` on the contact card; `founder-mike.svg` and
+the last `TODO(mike)` are gone. "What drives me" rows now carry
+`images: ServiceImage[]` instead of one `image`: founder = the team in
+black, leader = Mike from behind with the headset, engineer = the desk shot
+cropped to the monitor, learner = a mosaic (run club large; rooftop class,
+hackathon, FIRST, gym, studio, bass in a 3-up strip). The learner copy is
+reframed around giving back to the community, which Mike called a critical
+part of his life. Crops are 16:9 (1600×900 lead, 800×450 strip) in
+`public/art/photos/`, made with sharp from his originals. `useServiceRow`
+scales every `[data-thumb]` with a small stagger; the mobile accordion panel
+allows 80rem when a row has a mosaic.
+
+### Copy revision after Mike's review (2026-10-27, same branch)
+
+Mike reviewed the YC refresh and redirected the voice from "founder who
+ships" to "technology that makes life easier for everyone". What changed:
+
+- **Hero**: "Technology that makes / life easier for everyone." (ES
+  "Tecnología que hace / la vida más fácil para todos."), sub names him as
+  engineer and founder (Kodda, YC S21). The "8,000th user" line is gone.
+- **Statement**: Mike's own paragraph (fascination with technology; Kodda as
+  a YC-backed startup; build with purpose, adapt, people at the center), 44
+  words so the pinned reveal keeps its length.
+- **Deck → "What I build with"**: three kinds of technology instead of three
+  products: Native apps (silver), Web & cloud (red), AI & engines (charcoal).
+  The `status` line now lists the products that prove each one.
+- **Services → "What drives me"**: four rows in Mike's words (As a founder /
+  leader / engineer / lifelong learner); the first item is the belief, the
+  rest is evidence. Section id is `about`, nav label About / Sobre mí; the
+  deck's id is `tech`, label Tech / Tecnología. `SECTION_IDS` updated.
+- **Kodda numbers**: the "6-person team" claim was wrong (the company was 23
+  people) and Mike does not want a headcount. The stat is now "30+ people I
+  worked alongside" with his line about learning from them and helping their
+  careers. Stats gained a heading, "Numbers, and what's behind them".
+- **Marks**: official files replace the typographic ones for Softtek,
+  Moneypool, Tec de Monterrey (site header lockup), FIRST (primary logo with
+  the knockouts set to black so the icon keeps its shape in one colour),
+  Transpais and Cáritas de Monterrey (JPEG → luminance-to-alpha → cream).
+  Kodda +Studio (same company as Kodda) and Campus Accesible were dropped.
+  Only VantTec and Women in Tech remain typographic. 37 files in
+  `public/art/marks`.
+- **Closing** is full-bleed (no inset, no rounded shell, `min-h-svh`) so the
+  page ends edge to edge at the bottom; the hero keeps its shell.
+- Social card re-rendered with the new hero line.
+
+### YC refresh (2026-10-27) — founder positioning, new products, marks
+
+Branch `yc-refresh`. The design, hooks and motion are untouched; what changed
+is what the site says and the assets it says it with.
+
+- **Positioning**: the site read as an agency (Services, "Build your vision
+  with me", a deck qualifying a prospect). It now reads as a technical founder
+  who is building: hero "From first commit / to the 8,000th user." with name,
+  Kodda (YC S21) and the two products in flight; the statement tells the
+  Kodda → YC → CTO → CEO → solo-with-agents story in 40 words.
+- **Journey deck → "What I'm building now"**: midflight (silver), preride
+  (red), AIMeter (charcoal). `JourneyCard` gained a `status` line (mono,
+  uppercase) read from each repository on 2026-10-27; refresh it by hand.
+- **Services → "How I ship"**: six layers (native, web, backend & cloud,
+  engines & math, AI & agents, leadership), every item evidenced by a repo or
+  the CV. CTA is "Let's talk". Thumbnails are AIMeter, Mediterra, midflight,
+  preride, midflight graph, YC.
+- **Nav**: `now` joined `SECTION_IDS` (JourneyCards carries `id="now"`);
+  labels are Now / How I ship / Work. e2e and `useLanguage.test` updated.
+- **Projects**: 15 (was 11), 10 featured in this order: midflight, aiMeter,
+  preride, vitrina, mediterra, koddaStudio, hazloFacil, apex, lightcycleArena,
+  reactPractice. New in `portfolio`: midflight, preride, hazloFacil, siteLog;
+  rewritten: aiMeter (4.3.4, four platforms, three providers), lightcycleArena
+  (three.js cockpit), vitrina (0.4.1), mediterra (shop + cart), koddaStudio
+  (8,000+ and the +Studio 30→400 figure both, dated). `Project.links` gained
+  `site` (P's `website`), rendered as "Product site" in the overlay.
+- **Marks** (`public/art/marks/`, 39 files): official ones recoloured to cream
+  from the organizations' own files (YC, Kodda, +Studio, KAOS, Mediterra, GSC,
+  Apex, AIMeter); typographic ones set in the site's faces for organizations
+  with no file in any repo (`kind: 'typographic'` in `clients.ts`, swap when
+  official arrives); lockups for Mike's own products. SVGs bake `#EAE7E0`
+  because `<img>` cannot inherit `currentColor`; opacity does the dimming.
+  Text-based SVGs have their viewBox tightened to the measured text bbox
+  (Playwright + `getBBox`) so they size like the raster marks.
+- **Client wall and marquee** render the mark when a `Client` has one
+  (`ClientWordmark`), text otherwise. Stats rows show the mark alone and keep
+  the source name `sr-only`. A fifth stat (4 products shipped in 2026) is
+  sourced from git, not the CV, and says so in `source`.
+- **Head**: title "Mike Alvarado — Technical founder, YC S21", new
+  description, `og:url`/`og:image` on mikealvaradol.web.app, `og-card.png`
+  (1200×630) rendered from the hero treatment with the site's fonts
+  (Playwright), `twitter:card` large image. The TODO(mike) in `index.html` is
+  resolved; the only one left is the portrait.
+- **Contact**: email stays `miguel_l06@hotmail.com` (Mike, 2026-10-27).
+  Phone and WhatsApp left the closing card (they stay in the CV); LinkedIn
+  took their place. The second GitHub account left the footer.
+- **Node**: the unit suite needs Node 24 (`.nvmrc`); under Node 26 jsdom's
+  `window.localStorage` is undefined and all 103 tests fail before any
+  assertion. `nvm use` first.
+
 ## Blockers
 
 - Times Now (display serif) is commercial → shipped Instrument Serif and logged
@@ -425,10 +822,14 @@ parameter and missing-piece fixes only.
 
 ## Adding content
 
-- **New project**: append to `src/data/projects.ts` (both locales for every
-  `LocalizedString`), drop cover/gallery files in `public/art/`, set
-  `featured: true` to show it in the carousel. The overlay, hash-routing, pills,
-  and captions pick it up automatically.
+- **New project**: `src/data/projects.ts` is GENERATED. Add the project in the
+  `portfolio` repo (an entry in `PROJECT_META` plus its block in BOTH
+  `messages/en.json` and `messages/es.json`), then run `npm run import:content`.
+  To feature it, add its `i18nKey` to `FEATURED` in
+  `scripts/import-portfolio-content.mjs` — that array is also the carousel
+  order. Repo links are filtered through `PUBLIC_REPOS` in the same script; a
+  repo that is not listed there ships without a `repo` link on purpose.
+  The overlay, hash-routing, pills, and captions pick the rest up automatically.
 - **New UI string**: add the key to `src/i18n/types.ts`, then to BOTH `en.ts`
   and `es.ts` (the compiler enforces the second half), and read it via
   `useLanguage().t`.
@@ -441,9 +842,10 @@ parameter and missing-piece fixes only.
 | `npm run lint` | ESLint flat config, `--max-warnings 0` |
 | `npm run typecheck` | `tsc --noEmit` on the app project |
 | `npm run test` / `test:watch` / `test:cov` | Vitest (jsdom, GSAP/Lenis fakes); cov enforces 80% statements on hooks+lib |
-| `npm run e2e` | Playwright: overflow sweep, language persistence, keyboard carousels, overlay focus, mobile menu (trap/Escape/outside-tap/no scroll lock), reduced motion, axe (en+es), self-check screenshots |
+| `npm run e2e` | Playwright: overflow sweep, Spanish per-section clipping at 390/430, language persistence, keyboard carousels, overlay focus, mobile menu (trap/Escape/outside-tap/no scroll lock), reduced motion, axe (en+es), self-check screenshots |
 | `npm run check:layout` | Reports every grid utility in `src/` (must match the exception list above) |
 | `npm run check:assets` | FAILS if `src/` imports from `/reference/` |
+| `npm run import:content` | Regenerates `src/data/projects.ts` + `public/projects/*.webp` from the `portfolio` repo (`PORTFOLIO_DIR` env or argv[2] overrides its path); FAILS on any locale parity gap |
 | `npm run verify` | lint → typecheck → test → check:layout → check:assets → build → e2e |
 
 Node version: `.nvmrc` (24.19.0). GSAP ships under its standard no-charge

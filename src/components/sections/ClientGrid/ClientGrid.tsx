@@ -30,11 +30,11 @@ export function ClientGrid() {
           <li
             key={client.id}
             data-tile
-            className="rounded-tile bg-surface nav:basis-[calc(16.666%-0.625rem)] nav:h-20 tab:h-16 tab:basis-[calc(25%-0.5625rem)] flex h-14 basis-[calc(33.333%-0.5rem)] items-center justify-center border border-white/5"
+            className="rounded-tile bg-surface nav:basis-[calc(16.666%-0.625rem)] nav:h-20 tab:h-16 tab:basis-[calc(25%-0.5625rem)] flex h-14 basis-[calc(33.333%-0.5rem)] items-center justify-center border border-white/5 px-4"
           >
             <ClientWordmark
               client={client}
-              className="text-cream/45 hover:text-cream/90 max-tab:text-sm transition-opacity duration-300"
+              className="max-tab:text-sm opacity-60 transition-opacity duration-300 hover:opacity-100"
             />
           </li>
         ))}

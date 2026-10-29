@@ -6,38 +6,53 @@ export interface JourneyCard {
   icon: 'trend' | 'orbit' | 'spark'
   title: LocalizedString
   body: LocalizedString
+  status: LocalizedString
 }
 
-// TODO(mike): tune these three audience cards to the clients you want.
+// The three kinds of technology Mike builds with. Every line is evidenced by
+// a repository under ~/Developer/personal or by the CV (v3.2); the status
+// line names the products that prove it.
 export const journeyCards: JourneyCard[] = [
   {
-    id: 'zero-to-one',
+    id: 'native',
     tone: 'silver',
-    icon: 'trend',
-    title: { en: 'Going\nZero to One', es: 'De cero\na uno' },
-    body: {
-      en: "If you're shaping a new idea and need a first version the world can touch",
-      es: 'Si estás dando forma a una idea nueva y necesitas una primera versión tangible',
-    },
-  },
-  {
-    id: 'one-to-n',
-    tone: 'red',
     icon: 'orbit',
-    title: { en: 'Scaling from\nOne to N', es: 'Escalar de\nuno a N' },
+    title: { en: 'Native\napps', es: 'Apps\nnativas' },
     body: {
-      en: "If you've found your fit and want design and code that keep up with growth",
-      es: 'Si ya encontraste tu mercado y quieres diseño y código que crezcan contigo',
+      en: 'Swift, SwiftUI and React Native, from iPhone to Apple Watch. Widgets, Live Activities, Keychain, architectures that need no server at all.',
+      es: 'Swift, SwiftUI y React Native, del iPhone al Apple Watch. Widgets, Live Activities, Keychain, arquitecturas que no necesitan servidor.',
+    },
+    status: {
+      en: 'AIMeter · preride · Kodda',
+      es: 'AIMeter · preride · Kodda',
     },
   },
   {
-    id: 'quick-help',
+    id: 'web',
+    tone: 'red',
+    icon: 'trend',
+    title: { en: 'Web &\ncloud', es: 'Web y\nnube' },
+    body: {
+      en: 'React and TypeScript in front, Node, Firebase and Cloud Run behind, Stripe when it bills. Design systems, accessibility and prerendering built in.',
+      es: 'React y TypeScript al frente, Node, Firebase y Cloud Run detrás, Stripe cuando cobra. Sistemas de diseño, accesibilidad y prerenderizado de serie.',
+    },
+    status: {
+      en: 'midflight · Mediterra · HazloFácil · vitrina',
+      es: 'midflight · Mediterra · HazloFácil · vitrina',
+    },
+  },
+  {
+    id: 'ai',
     tone: 'charcoal',
     icon: 'spark',
-    title: { en: 'Need Quick\nSolutions', es: 'Soluciones\nrápidas' },
+    title: { en: 'AI &\nengines', es: 'IA y\nmotores' },
     body: {
-      en: 'If you know exactly what you need and want a safe pair of hands to ship it',
-      es: 'Si sabes exactamente qué necesitas y quieres manos expertas que lo entreguen',
+      en: 'Coding agents I direct and the tools they run on: Claude Code plugins, MCP servers, on-device ML. Physics engines in Rust with every formula cited.',
+      es: 'Agentes de código que dirijo y las herramientas donde corren: plugins de Claude Code, servidores MCP, ML en el dispositivo. Motores de física en Rust con cada fórmula citada.',
+    },
+    status: {
+      en: 'midflight · preride · AIMeter · OCR at Softtek',
+      es: 'midflight · preride · AIMeter · OCR en Softtek',
     },
   },
 ]

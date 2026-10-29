@@ -38,7 +38,7 @@ export function Founders() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7, delay: index * 0.12, ease: easeOutSoft }}
             whileHover={{ y: -6, transition: hoverSpring }}
-            className={cn(index > 0 && 'tab:-mt-0 tab:-ml-4 -mt-6')}
+            className={cn(index > 0 && 'tab:-mt-0 tab:-ml-4 -mt-6', 'shrink-0')}
             style={{ rotate: TILTS[index % TILTS.length], zIndex: index + 1 }}
           >
             <FounderCard founder={founder} />

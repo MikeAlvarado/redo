@@ -1,55 +1,57 @@
 import type { Dictionary } from './types'
 
-// TODO(mike): placeholder voice throughout — replace every string with your own copy.
 export const en = {
   meta: {
-    title: 'Mike Alvarado',
-    description: 'Mike Alvarado — product designer and engineer. Portfolio.',
+    title: 'Mike Alvarado — Engineer & founder, YC S21',
+    description:
+      'Engineer and founder (Kodda, YC S21) building technology that makes life easier for everyone: native apps, web and cloud, AI and engines. midflight, preride, AIMeter.',
   },
   nav: {
     wordmark: 'Mike.',
-    services: 'Services',
-    work: 'Featured Work',
+    tech: 'Tech',
+    about: 'About',
+    work: 'Work',
     reviews: 'Reviews',
-    cta: 'Get In Touch',
+    cta: 'Get in touch',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
     langLabel: 'Language',
     navLabel: 'Main navigation',
   },
   hero: {
-    line1: 'Imagine a space',
-    line2: 'between idea & product',
-    sub: "That's where I build.",
+    line1: 'Technology that makes',
+    line2: 'life easier for everyone.',
+    sub: 'Engineer and founder (Kodda, YC S21).\nI build products that keep people at the center, from Monterrey.',
     scroll: 'Scroll to Explore',
     location: 'MTY, MX',
     clockLabel: 'My local time',
   },
   statement:
-    'I design and build digital products end to end, from the first sketch to shipped code. So you can stay focused on what matters, while I shape how the world experiences it.',
+    "I've always been fascinated by how technology can shape the way we live, connect, and truly make life better. At Kodda, a YC-backed startup, I learned to build with purpose, adapt when things change, and keep people at the center of every decision.",
   marquee: {
-    lockup: 'Trusted by 20+ organizations',
+    lockup: 'Y Combinator S21',
     trackLabel: 'Organizations I have worked with',
   },
   journey: {
-    heading: 'Where are *you* in\nyour journey?',
+    heading: 'What I\n*build* with',
   },
   services: {
-    heading: '*With* my services',
-    sub: 'I help you achieve more at every stage of building',
-    listLabel: 'Services',
+    heading: 'What *drives* me',
+    sub: 'Founder, leader, engineer, learner. In my own words.',
+    listLabel: 'What drives me',
     toggleDetails: 'Toggle details for',
-    cta: 'Build your vision with me',
+    cta: "Let's talk",
   },
   showcase: {
     heading: '*Featured* work',
-    sub: "Bold ideas I've turned into tangible realities",
+    sub: 'Products, libraries and experiments I have shipped end to end',
     prev: 'Previous project',
     next: 'Next project',
     goToSlide: 'Go to project',
     openProject: 'Open project details',
-    closeOverlay: 'Close project details',
+    back: 'Back to projects',
     visit: 'Visit live site',
+    site: 'Product site',
     repo: 'View repository',
     caseStudy: 'Read case study',
     roleLabel: 'Role',
@@ -59,12 +61,12 @@ export const en = {
     carouselLabel: 'Featured projects',
   },
   clients: {
-    heading: 'Brands that trusted my craft',
-    gridLabel: 'Client logos',
+    heading: 'Organizations I have built with and for',
+    gridLabel: 'Organizations I have built with and for',
   },
   testimonials: {
     heading: 'Hear *from* my clients',
-    sub: "After 20+ projects shipped, here's what they have to say",
+    sub: 'Words from the people I have built with',
     prev: 'Previous testimonial',
     next: 'Next testimonial',
     goTo: 'Go to testimonial',
@@ -72,7 +74,12 @@ export const en = {
     regionLabel: 'Testimonials',
   },
   stats: {
+    heading: 'Numbers, and what\'s *behind* them',
     regionLabel: 'Numbers that back it up',
+    sourceLabel: 'Where this number comes from',
+  },
+  credentials: {
+    regionLabel: 'Credentials and education',
   },
   founders: {
     heading: 'Get in touch *with me*',
@@ -80,10 +87,12 @@ export const en = {
     regionLabel: 'Contact card',
   },
   closing: {
-    eyebrow: "That's my story",
-    heading: "Let's *reimagine* yours",
-    cta: 'Get In Touch',
-    rights: '© 2026 Mike Alvarado | All Rights Reserved.',
+    eyebrow: 'Building something, hiring a founder-level engineer, or just curious? Write to me.',
+    heading: "Let's *build* something",
+    cta: 'Get in touch',
+    rights: 'All rights reserved.',
     emailLabel: 'Email me',
+    reachLabel: 'Ways to reach me',
+    connectLabel: 'Connect',
   },
 } satisfies Dictionary

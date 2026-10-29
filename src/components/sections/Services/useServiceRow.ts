@@ -39,11 +39,12 @@ export function useServiceRow<T extends HTMLElement>() {
         ease: 'power2.out',
         scrollTrigger: { ...trigger },
       })
-      const thumb = row.querySelector('[data-thumb]')
-      if (thumb) {
-        gsap.from(thumb, {
+      const thumbs = gsap.utils.toArray('[data-thumb]', row)
+      if (thumbs.length > 0) {
+        gsap.from(thumbs, {
           scale: 0.96,
           duration: 0.8,
+          stagger: 0.05,
           ease: 'power2.out',
           scrollTrigger: { ...trigger },
         })

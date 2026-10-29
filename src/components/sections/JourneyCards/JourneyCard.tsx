@@ -67,9 +67,14 @@ export function JourneyCard({
             </span>
           ))}
       </h3>
-      <p className={cn('text-sm leading-relaxed', TONE_MUTED[card.tone])}>
-        {l(card.body)}
-      </p>
+      <div className="flex flex-col gap-4">
+        <p className={cn('text-sm leading-relaxed', TONE_MUTED[card.tone])}>
+          {l(card.body)}
+        </p>
+        <p className={cn('text-[0.68rem] tracking-[0.14em] uppercase', TONE_MUTED[card.tone])}>
+          {l(card.status)}
+        </p>
+      </div>
     </article>
   )
 }

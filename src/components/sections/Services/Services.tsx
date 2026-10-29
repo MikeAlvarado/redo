@@ -11,7 +11,7 @@ export function Services() {
 
   return (
     <section
-      id="services"
+      id="about"
       data-section="services"
       className="px-inset-sm nav:px-inset nav:py-32 py-24"
     >
@@ -33,10 +33,10 @@ export function Services() {
           <ServiceRow key={service.id} service={service} />
         ))}
       </ul>
-      <div className="tab:hidden mt-10 flex justify-center">
+      <div className="tab:mt-24 mt-10 flex justify-center">
         <a
           href={`mailto:${CONTACT_EMAIL}`}
-          className="rounded-cta bg-cream text-ink px-5 py-2.5 text-sm font-medium"
+          className="rounded-cta bg-cream text-ink px-5 py-2.5 text-sm font-medium transition-transform hover:scale-[1.03]"
         >
           {t.services.cta}
         </a>

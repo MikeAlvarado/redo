@@ -1,55 +1,57 @@
 import type { Dictionary } from './types'
 
-// TODO(mike): voz provisional — reemplaza cada texto con tu propia redacción.
 export const es = {
   meta: {
-    title: 'Mike Alvarado',
-    description: 'Mike Alvarado — diseñador de producto e ingeniero. Portafolio.',
+    title: 'Mike Alvarado — Ingeniero y fundador, YC S21',
+    description:
+      'Ingeniero y fundador (Kodda, YC S21) que construye tecnología que hace la vida más fácil para todos: apps nativas, web y nube, IA y motores. midflight, preride, AIMeter.',
   },
   nav: {
     wordmark: 'Mike.',
-    services: 'Servicios',
-    work: 'Proyectos',
+    tech: 'Tecnología',
+    about: 'Sobre mí',
+    work: 'Trabajo',
     reviews: 'Reseñas',
-    cta: 'Contáctame',
+    cta: 'Ponerse en contacto',
     openMenu: 'Abrir menú',
     closeMenu: 'Cerrar menú',
     langLabel: 'Idioma',
     navLabel: 'Navegación principal',
   },
   hero: {
-    line1: 'Imagina un espacio',
-    line2: 'entre idea y producto',
-    sub: 'Ahí es donde construyo.',
+    line1: 'Tecnología que hace',
+    line2: 'la vida más fácil para todos.',
+    sub: 'Ingeniero y fundador (Kodda, YC S21).\nConstruyo productos que ponen a las personas al centro, desde Monterrey.',
     scroll: 'Desliza para explorar',
     location: 'MTY, MX',
     clockLabel: 'Mi hora local',
   },
   statement:
-    'Diseño y construyo productos digitales de principio a fin, del primer boceto al código en producción. Así tú te concentras en lo importante, mientras yo doy forma a cómo lo vive el mundo.',
+    'Siempre me ha fascinado cómo la tecnología puede moldear la forma en que vivimos y nos conectamos, y de verdad hacer la vida mejor. En Kodda, una startup respaldada por YC, aprendí a construir con propósito, adaptarme cuando las cosas cambian y poner a las personas al centro de cada decisión.',
   marquee: {
-    lockup: 'Con la confianza de más de 20 organizaciones',
+    lockup: 'Y Combinator S21',
     trackLabel: 'Organizaciones con las que he trabajado',
   },
   journey: {
-    heading: '¿En qué punto de *tu*\ncamino estás?',
+    heading: 'Con qué\n*construyo*',
   },
   services: {
-    heading: '*Con* mis servicios',
-    sub: 'Te ayudo a lograr más en cada etapa de tu proyecto',
-    listLabel: 'Servicios',
+    heading: 'Lo que me *mueve*',
+    sub: 'Fundador, líder, ingeniero, aprendiz. En mis palabras.',
+    listLabel: 'Lo que me mueve',
     toggleDetails: 'Mostrar detalles de',
-    cta: 'Construyamos tu visión',
+    cta: 'Hablemos',
   },
   showcase: {
     heading: 'Proyectos *destacados*',
-    sub: 'Ideas audaces que he convertido en realidades tangibles',
+    sub: 'Productos, librerías y experimentos que he entregado de principio a fin',
     prev: 'Proyecto anterior',
     next: 'Proyecto siguiente',
     goToSlide: 'Ir al proyecto',
     openProject: 'Abrir detalles del proyecto',
-    closeOverlay: 'Cerrar detalles del proyecto',
+    back: 'Volver a proyectos',
     visit: 'Visitar sitio',
+    site: 'Sitio del producto',
     repo: 'Ver repositorio',
     caseStudy: 'Leer caso de estudio',
     roleLabel: 'Rol',
@@ -59,12 +61,12 @@ export const es = {
     carouselLabel: 'Proyectos destacados',
   },
   clients: {
-    heading: 'Marcas que confiaron en mi trabajo',
-    gridLabel: 'Logotipos de clientes',
+    heading: 'Organizaciones con las que y para las que he construido',
+    gridLabel: 'Organizaciones con las que y para las que he construido',
   },
   testimonials: {
     heading: 'Lo que dicen *mis* clientes',
-    sub: 'Después de más de 20 proyectos entregados, esto es lo que opinan',
+    sub: 'Palabras de las personas con las que he construido',
     prev: 'Reseña anterior',
     next: 'Reseña siguiente',
     goTo: 'Ir a la reseña',
@@ -72,7 +74,12 @@ export const es = {
     regionLabel: 'Reseñas',
   },
   stats: {
+    heading: 'Números, y lo que hay *detrás*',
     regionLabel: 'Números que lo respaldan',
+    sourceLabel: 'De dónde viene este número',
+  },
+  credentials: {
+    regionLabel: 'Credenciales y formación',
   },
   founders: {
     heading: 'Ponte en contacto *conmigo*',
@@ -80,10 +87,12 @@ export const es = {
     regionLabel: 'Tarjeta de contacto',
   },
   closing: {
-    eyebrow: 'Esa es mi historia',
-    heading: '*Reimaginemos* la tuya',
-    cta: 'Contáctame',
-    rights: '© 2026 Mike Alvarado | Todos los derechos reservados.',
+    eyebrow: '¿Construyes algo, buscas un ingeniero de nivel fundador o solo tienes curiosidad? Escríbeme.',
+    heading: '*Construyamos* algo',
+    cta: 'Ponerse en contacto',
+    rights: 'Todos los derechos reservados.',
     emailLabel: 'Escríbeme',
+    reachLabel: 'Formas de contactarme',
+    connectLabel: 'Conectar',
   },
 } satisfies Dictionary

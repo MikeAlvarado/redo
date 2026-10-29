@@ -28,7 +28,7 @@ test('every section renders in its final state and smooth scroll is off', async 
   )
   expect(pinSpacers).toBe(0)
 
-  const heroHeadline = page.getByText('Imagine a space')
+  const heroHeadline = page.getByText('Technology that makes')
   await expect(heroHeadline).toBeVisible()
 
   const deck = await page.evaluate(() =>
@@ -46,5 +46,5 @@ test('every section renders in its final state and smooth scroll is off', async 
       (span) => span.textContent,
     ),
   )
-  expect(statValues.join(' ')).toContain('24')
+  expect(statValues.join(' ')).toContain('8,000')
 })

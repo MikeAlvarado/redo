@@ -4,6 +4,7 @@ import { GrainOverlay } from './components/ui/GrainOverlay'
 import { ClientGrid } from './components/sections/ClientGrid'
 import { ClientMarquee } from './components/sections/ClientMarquee'
 import { ClosingCta } from './components/sections/ClosingCta'
+import { Credentials } from './components/sections/Credentials'
 import { Founders } from './components/sections/Founders'
 import { Hero } from './components/sections/Hero'
 import { JourneyCards } from './components/sections/JourneyCards'
@@ -54,6 +55,9 @@ function Site() {
           <Founders />
         </div>
         <div className="bg-ink tab:order-none relative z-10 order-10">
+          <Credentials />
+        </div>
+        <div className="bg-ink tab:order-none relative z-10 order-11">
           <ClosingCta />
         </div>
       </main>

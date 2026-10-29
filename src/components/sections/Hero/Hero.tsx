@@ -85,7 +85,11 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.1, ease: easeOutSoft }}
           >
-            {t.hero.sub}
+            {t.hero.sub.split('\n').map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
           </motion.p>
         </div>
         <div className="text-blush/75 nav:px-9 relative flex items-center justify-between px-6 pb-6 text-sm">

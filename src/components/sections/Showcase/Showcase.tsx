@@ -2,26 +2,37 @@ import { AnimatePresence, motion } from 'motion/react'
 import type { KeyboardEvent } from 'react'
 import { useCarousel } from '../../../hooks/useCarousel'
 import { useLanguage } from '../../../hooks/useLanguage'
+import { useMediaQuery } from '../../../hooks/useMediaQuery'
 import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll'
 import { cn } from '../../../lib/cn'
 import { ArrowButton } from '../../ui/ArrowButton'
 import { MixedHeading } from '../../ui/MixedHeading'
 import { Pill } from '../../ui/Pill'
+import { ProjectLinks } from '../../ui/ProjectLinks'
 import { ProjectOverlay } from '../ProjectOverlay'
 import { useGhostZoom } from './useGhostZoom'
 import { useShowcaseSlides } from './useShowcaseSlides'
+
+// Below `tab:` the slides lay out as a plain vertical list, so the carousel
+// deactivates. Expressed in rem, not px, so it tracks --breakpoint-tab
+// (50.625rem) through browser zoom — if JS and CSS ever disagreed here, a click
+// would scroll a carousel the reader cannot see.
+const STACKED_QUERY = '(max-width: 50.624rem)'
 
 export function Showcase() {
   const { t, l } = useLanguage()
   const headingRef = useRevealOnScroll<HTMLDivElement>({ selector: '[data-reveal]' })
   const ghostRef = useGhostZoom<HTMLDivElement>()
   const { slides, activeProject, openProject, closeProject } = useShowcaseSlides()
-  const { viewportRef, selectedIndex, scrollPrev, scrollNext } = useCarousel({
+  const stacked = useMediaQuery(STACKED_QUERY)
+  const { viewportRef, selectedIndex, scrollTo, scrollPrev, scrollNext } = useCarousel({
     loop: true,
     align: 'center',
-    breakpoints: { '(max-width: 809px)': { active: false } },
+    breakpoints: { [STACKED_QUERY]: { active: false } },
   })
   const active = slides[selectedIndex]
+
+  const isPeeking = (index: number) => !stacked && index !== selectedIndex
 
   const onArrowKeys = (event: KeyboardEvent) => {
     if (event.key === 'ArrowLeft') {
@@ -65,9 +76,13 @@ export function Showcase() {
               >
                 <button
                   type="button"
-                  onClick={() => openProject(project.slug)}
+                  onClick={() =>
+                    isPeeking(index) ? scrollTo(index) : openProject(project.slug)
+                  }
                   onKeyDown={onArrowKeys}
-                  aria-label={`${t.showcase.openProject}: ${l(project.title)}`}
+                  aria-label={`${
+                    isPeeking(index) ? t.showcase.goToSlide : t.showcase.openProject
+                  }: ${l(project.title)}`}
                   className={cn(
                     'block w-full text-left transition-[opacity,transform] duration-500',
                     index !== selectedIndex && 'tab:scale-[0.94] tab:opacity-30',
@@ -75,24 +90,28 @@ export function Showcase() {
                 >
                   <motion.img
                     layoutId={`cover-${project.slug}`}
-                    src={project.cover}
+                    src={project.cover.src}
                     alt={l(project.coverAlt)}
-                    width={1200}
-                    height={800}
+                    width={project.cover.width}
+                    height={project.cover.height}
                     loading="lazy"
                     className="rounded-tile aspect-[3/2] w-full object-cover"
                   />
-                  <span className="tab:hidden mt-4 flex flex-col gap-3">
-                    <span className="text-cream text-lg leading-snug">
-                      {l(project.title)}
-                    </span>
-                    <span className="flex flex-wrap gap-2">
-                      {project.categories.map((category) => (
-                        <Pill key={category.en}>{l(category)}</Pill>
-                      ))}
-                    </span>
-                  </span>
                 </button>
+                <div className="tab:hidden mt-4 flex flex-col gap-3">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-cream/55 text-xs tracking-[0.16em] uppercase">
+                      {l(project.category)}
+                    </span>
+                    <span className="text-cream text-lg leading-snug">{l(project.title)}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {project.categories.map((category) => (
+                      <Pill key={category.en}>{l(category)}</Pill>
+                    ))}
+                  </div>
+                  <ProjectLinks project={project} size="sm" />
+                </div>
               </div>
             ))}
           </div>
@@ -115,7 +134,7 @@ export function Showcase() {
         </div>
       </div>
 
-      <div className="tab:flex mt-8 hidden min-h-24 flex-col items-center gap-4 px-6">
+      <div className="tab:flex mt-8 hidden min-h-32 flex-col items-center gap-4 px-6">
         <AnimatePresence mode="wait">
           {active && (
             <motion.div
@@ -126,12 +145,16 @@ export function Showcase() {
               transition={{ duration: 0.25 }}
               className="flex flex-col items-center gap-4"
             >
+              <span className="text-cream/55 text-xs tracking-[0.16em] uppercase">
+                {l(active.category)}
+              </span>
               <h3 className="text-cream text-xl">{l(active.title)}</h3>
               <div className="flex flex-wrap justify-center gap-2">
                 {active.categories.map((category) => (
                   <Pill key={category.en}>{l(category)}</Pill>
                 ))}
               </div>
+              <ProjectLinks project={active} size="sm" className="justify-center" />
             </motion.div>
           )}
         </AnimatePresence>

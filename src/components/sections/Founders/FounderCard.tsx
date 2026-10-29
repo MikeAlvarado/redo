@@ -1,5 +1,4 @@
 import { Mail } from 'lucide-react'
-import { Fragment } from 'react'
 import type { Founder } from '../../../data/founders'
 import { useLanguage } from '../../../hooks/useLanguage'
 import { cn } from '../../../lib/cn'
@@ -61,22 +60,19 @@ export function FounderCard({
         ))}
       </h3>
       <p className="text-cream text-center text-base">{l(founder.role)}</p>
-      <ul className="mt-auto flex items-center pt-2">
-        {founder.links.map((link, index) => (
-          <Fragment key={link.label}>
-            {index > 0 && <li aria-hidden className="mx-4 h-4 w-px bg-white/20" />}
-            <li>
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="text-cream/85 hover:text-cream inline-flex items-center gap-1.5 text-sm transition-colors"
-              >
-                {LINK_ICONS[link.icon]}
-                {link.label}
-              </a>
-            </li>
-          </Fragment>
+      <ul className="mt-auto flex flex-wrap items-center justify-center gap-x-5 gap-y-2 pt-2">
+        {founder.links.map((link) => (
+          <li key={link.icon}>
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="text-cream/85 hover:text-cream inline-flex items-center gap-1.5 text-sm transition-colors"
+            >
+              {LINK_ICONS[link.icon]}
+              {l(link.label)}
+            </a>
+          </li>
         ))}
       </ul>
     </article>

@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { reachLinks } from '../../../data/contact'
 import { useLanguage } from '../../../hooks/useLanguage'
 import { useParallax } from '../../../hooks/useParallax'
 import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll'
@@ -8,15 +9,17 @@ import { GrainOverlay } from '../../ui/GrainOverlay'
 import { MixedHeading } from '../../ui/MixedHeading'
 
 export function ClosingCta() {
-  const { t } = useLanguage()
+  const { t, l } = useLanguage()
   const sectionRef = useRef<HTMLElement | null>(null)
   const backgroundRef = useRef<HTMLDivElement | null>(null)
   useParallax(sectionRef, backgroundRef, { yPercent: -12, fromScale: 1.08 })
   const contentRef = useRevealOnScroll<HTMLDivElement>({ selector: '[data-reveal]' })
 
   return (
-    <section ref={sectionRef} data-section="closing" className="p-inset-sm nav:p-inset">
-      <div className="rounded-shell relative flex min-h-[92svh] flex-col overflow-hidden">
+    <section ref={sectionRef} data-section="closing">
+      {/* Full-bleed on purpose: the closing runs edge to edge and down to the
+          bottom of the page, unlike the hero, which keeps its rounded shell. */}
+      <div className="relative flex min-h-svh flex-col overflow-hidden">
         <div
           ref={backgroundRef}
           aria-hidden
@@ -40,7 +43,7 @@ export function ClosingCta() {
           ref={contentRef}
           className="relative flex flex-1 flex-col items-center justify-center gap-5 px-6 py-24 text-center"
         >
-          <p data-reveal className="text-blush/70 text-lg">
+          <p data-reveal className="text-blush/70 max-w-md text-lg">
             {t.closing.eyebrow}
           </p>
           <MixedHeading
@@ -55,6 +58,27 @@ export function ClosingCta() {
           >
             {t.closing.cta}
           </a>
+          <ul
+            data-reveal
+            aria-label={t.closing.reachLabel}
+            className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
+          >
+            {reachLinks.map((link) => (
+              <li key={link.id}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blush/75 hover:text-blush flex flex-col items-center gap-0.5 transition-colors"
+                >
+                  <span className="text-[0.6875rem] tracking-[0.16em] uppercase">
+                    {l(link.label)}
+                  </span>
+                  <span className="text-sm">{link.value}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
         <Footer />
       </div>

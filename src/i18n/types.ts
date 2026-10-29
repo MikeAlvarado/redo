@@ -9,7 +9,8 @@ export interface Dictionary {
   }
   nav: {
     wordmark: string
-    services: string
+    tech: string
+    about: string
     work: string
     reviews: string
     cta: string
@@ -48,8 +49,9 @@ export interface Dictionary {
     next: string
     goToSlide: string
     openProject: string
-    closeOverlay: string
+    back: string
     visit: string
+    site: string
     repo: string
     caseStudy: string
     roleLabel: string
@@ -72,6 +74,11 @@ export interface Dictionary {
     regionLabel: string
   }
   stats: {
+    heading: string
+    regionLabel: string
+    sourceLabel: string
+  }
+  credentials: {
     regionLabel: string
   }
   founders: {
@@ -85,5 +92,7 @@ export interface Dictionary {
     cta: string
     rights: string
     emailLabel: string
+    reachLabel: string
+    connectLabel: string
   }
 }

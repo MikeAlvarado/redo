@@ -1,11 +1,13 @@
-import { ArrowUpRight, X } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import type { Project } from '../../../data/projects'
 import { useBodyScrollLock } from '../../../hooks/useBodyScrollLock'
 import { useFocusTrap } from '../../../hooks/useFocusTrap'
 import { useLanguage } from '../../../hooks/useLanguage'
 import { Pill } from '../../ui/Pill'
+import { ProjectLinks } from '../../ui/ProjectLinks'
 
 interface ProjectOverlayProps {
   project: Project | null
@@ -27,14 +29,15 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [project, onClose])
 
-  const links = project?.links
-  const linkEntries = [
-    { href: links?.live, label: t.showcase.visit },
-    { href: links?.repo, label: t.showcase.repo },
-    { href: links?.caseStudy, label: t.showcase.caseStudy },
-  ].filter((entry): entry is { href: string; label: string } => Boolean(entry.href))
+  // The generated data repeats the cover as the gallery's first image; the
+  // overlay already renders the cover as its hero, so it would show twice.
+  const galleryImages =
+    project?.gallery.filter((image) => image.src !== project.cover.src) ?? []
 
-  return (
+  // Every section wrapper in App.tsx is `relative z-10`, which is a stacking
+  // context — so this panel's z-50 only ever competed inside it and the nav's
+  // root-level z-50 painted over the top of it. A portal puts it back at root.
+  return createPortal(
     <AnimatePresence>
       {project && (
         <motion.div
@@ -42,7 +45,11 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="bg-ink/95 fixed inset-0 z-50 overflow-y-auto backdrop-blur-sm"
+          // Lenis keeps its wheel/touch listener and calls preventDefault even
+          // while stopped, which kills native scrolling inside this fixed
+          // panel. data-lenis-prevent makes it skip events from in here.
+          data-lenis-prevent
+          className="bg-ink/95 fixed inset-0 z-50 overflow-y-auto overscroll-contain backdrop-blur-sm"
           onClick={(event) => {
             if (event.target === event.currentTarget) onClose()
           }}
@@ -54,31 +61,35 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
             aria-label={l(project.title)}
             className="nav:py-20 mx-auto flex max-w-4xl flex-col gap-8 px-6 py-16"
           >
-            <div className="flex items-start justify-between gap-6">
-              <motion.h2
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15, duration: 0.5 }}
-                className="font-display text-cream nav:text-5xl text-4xl leading-[1.05]"
-              >
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-cta text-cream hover:bg-cream hover:text-ink inline-flex w-fit items-center gap-2 border border-white/20 px-4 py-2.5 text-sm transition-colors"
+            >
+              <ArrowLeft size={16} aria-hidden />
+              {t.showcase.back}
+            </button>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.5 }}
+              className="flex min-w-0 flex-col gap-2"
+            >
+              <p className="text-cream/55 text-xs tracking-[0.16em] uppercase">
+                {l(project.category)}
+              </p>
+              <h2 className="font-display text-cream nav:text-5xl text-4xl leading-[1.05]">
                 {l(project.title)}
-              </motion.h2>
-              <button
-                type="button"
-                aria-label={t.showcase.closeOverlay}
-                onClick={onClose}
-                className="text-cream hover:bg-cream hover:text-ink flex size-11 shrink-0 items-center justify-center rounded-full border border-white/20 transition-colors"
-              >
-                <X size={20} aria-hidden />
-              </button>
-            </div>
+              </h2>
+            </motion.div>
 
             <motion.img
               layoutId={`cover-${project.slug}`}
-              src={project.cover}
+              src={project.cover.src}
               alt={l(project.coverAlt)}
-              width={1200}
-              height={800}
+              width={project.cover.width}
+              height={project.cover.height}
               className="rounded-tile aspect-[3/2] w-full object-cover"
             />
 
@@ -86,23 +97,7 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
               <div className="nav:flex-1 flex flex-col gap-5">
                 <p className="text-cream/90 text-lg">{l(project.summary)}</p>
                 <p className="text-cream/65 leading-relaxed">{l(project.description)}</p>
-                {linkEntries.length > 0 && (
-                  <ul className="flex flex-wrap gap-4 pt-2">
-                    {linkEntries.map((entry) => (
-                      <li key={entry.label}>
-                        <a
-                          href={entry.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-cream hover:decoration-cream inline-flex items-center gap-1.5 underline decoration-white/30 underline-offset-4 transition-colors"
-                        >
-                          {entry.label}
-                          <ArrowUpRight size={16} aria-hidden />
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <ProjectLinks project={project} className="pt-2" />
               </div>
               <dl className="nav:w-56 flex shrink-0 flex-col gap-4 text-sm">
                 <div className="flex flex-col gap-1">
@@ -127,23 +122,26 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
               </dl>
             </div>
 
-            <ul aria-label={t.showcase.galleryLabel} className="flex flex-col gap-6">
-              {project.gallery.map((image, index) => (
-                <li key={image}>
-                  <img
-                    src={image}
-                    alt={`${l(project.title)} — ${index + 1}`}
-                    width={1200}
-                    height={800}
-                    loading="lazy"
-                    className="rounded-tile aspect-[3/2] w-full object-cover"
-                  />
-                </li>
-              ))}
-            </ul>
+            {galleryImages.length > 0 && (
+              <ul aria-label={t.showcase.galleryLabel} className="flex flex-col gap-6">
+                {galleryImages.map((image, index) => (
+                  <li key={image.src}>
+                    <img
+                      src={image.src}
+                      alt={`${l(project.title)} — ${index + 1}`}
+                      width={image.width}
+                      height={image.height}
+                      loading="lazy"
+                      className="rounded-tile w-full object-contain"
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }

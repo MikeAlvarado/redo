@@ -28,11 +28,13 @@ export function Nav() {
     return () => document.removeEventListener('pointerdown', onPointerDown)
   }, [menuOpen])
 
-  const links = [
-    { id: 'services', label: t.nav.services },
-    { id: 'work', label: t.nav.work },
-    { id: 'reviews', label: t.nav.reviews },
-  ]
+  const labels = {
+    tech: t.nav.tech,
+    about: t.nav.about,
+    work: t.nav.work,
+    reviews: t.nav.reviews,
+  }
+  const links = SECTION_IDS.map((id) => ({ id, label: labels[id] }))
 
   const goTo = (id: string) => {
     scrollToAnchor(`#${id}`, NAV_OFFSET)
