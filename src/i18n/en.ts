@@ -21,7 +21,7 @@ export const en = {
   hero: {
     line1: 'Technology that makes',
     line2: 'life easier for everyone.',
-    sub: 'Mike Alvarado. Engineer and founder (Kodda, YC S21). I build products that keep people at the center, from Monterrey.',
+    sub: 'Engineer and founder (Kodda, YC S21).\nI build products that keep people at the center, from Monterrey.',
     scroll: 'Scroll to Explore',
     location: 'MTY, MX',
     clockLabel: 'My local time',

@@ -21,7 +21,7 @@ export const es = {
   hero: {
     line1: 'Tecnología que hace',
     line2: 'la vida más fácil para todos.',
-    sub: 'Mike Alvarado. Ingeniero y fundador (Kodda, YC S21). Construyo productos que ponen a las personas al centro, desde Monterrey.',
+    sub: 'Ingeniero y fundador (Kodda, YC S21).\nConstruyo productos que ponen a las personas al centro, desde Monterrey.',
     scroll: 'Desliza para explorar',
     location: 'MTY, MX',
     clockLabel: 'Mi hora local',
