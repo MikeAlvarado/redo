@@ -701,6 +701,17 @@ Corrections to earlier claims, from this run's evidence:
   panel top). Fix: `preserveAspectRatio="none"` on the SVG so it stretches to
   fill the slice exactly (~4% horizontal squeeze, invisible on abstract art).
 
+### Numbers, people and community (2026-10-28, same branch)
+
+Mike rejected the stats content (resume bullets: Zustand, OCR at the
+register, A/B tests) and chose "people and community": 8,000+ people who
+used Kodda, 30+ people he worked alongside, 5 years building Kodda
+(2020–2026, CV), 3 communities he mentored in (FIRST 5133 regional
+champions 2020, VantTec RoboBoat, Women in Technology, all on the CV), 4
+products shipped in 2026. Softtek and Moneypool left this section; their
+numbers stay in "As an engineer". Bodies are first person, no jargon.
+Mike said no to a "4 Apple platforms" row.
+
 ### Mike's photographs (2026-10-28, same branch)
 
 Mike supplied eleven photos. The portrait (white shirt, square crop) is

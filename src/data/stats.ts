@@ -17,8 +17,10 @@ export interface StatRow {
   mark?: StatMark
 }
 
-// Rows 1, 3 and 4 come from the CV (v3.2); row 2 is Mike's own account of
-// Kodda; the fifth row is read from git. Marks are the organizations' own.
+// Five numbers about people and community, in Mike's voice. 8,000+ and the
+// Kodda dates (Aug 2020 to Jan 2026) come from the CV (v3.2); the FIRST,
+// VantTec and Women in Technology mentoring is listed there too; 30+ is
+// Mike's own account; the four products are read from git.
 export const stats: StatRow[] = [
   {
     id: 'kodda-users',
@@ -26,10 +28,10 @@ export const stats: StatRow[] = [
     suffix: '+',
     group: true,
     source: 'Kodda',
-    label: { en: 'Users on Kodda', es: 'Usuarios en Kodda' },
+    label: { en: 'People who used Kodda', es: 'Personas que usaron Kodda' },
     body: {
-      en: 'Scaled the platform past 8,000 users — Zustand for lightweight state, lazy loading for startup time, load balancing for API response times.',
-      es: 'Escalé la plataforma más allá de 8,000 usuarios: Zustand para estado ligero, lazy loading para el arranque y balanceo de carga para los tiempos de respuesta de la API.',
+      en: 'We started with 30. They came for pet insurance and stayed for their own wellbeing, and every step of that change came from listening to them.',
+      es: 'Empezamos con 30. Llegaron por un seguro para su mascota y se quedaron por su propio bienestar, y cada paso de ese cambio salió de escucharlas.',
     },
     mark: {
       src: '/art/marks/kodda-wordmark-cream.svg',
@@ -52,34 +54,27 @@ export const stats: StatRow[] = [
     },
   },
   {
-    id: 'softtek-supermarkets',
-    value: 70,
-    suffix: '+',
-    source: 'Softtek',
-    label: { en: 'Supermarkets served', es: 'Supermercados atendidos' },
+    id: 'kodda-years',
+    value: 5,
+    source: '2020 – 2026',
+    label: { en: 'Years building Kodda', es: 'Años construyendo Kodda' },
     body: {
-      en: 'Deployed an OCR app built on ML Kit across 70+ supermarkets, streamlining invoice processing at the register.',
-      es: 'Desplegué una app de OCR construida con ML Kit en más de 70 supermercados, agilizando el procesamiento de facturas en el punto de venta.',
+      en: 'From the first version to Y Combinator, from CTO to CEO. Long enough to be wrong, change course, and keep going.',
+      es: 'De la primera versión a Y Combinator, de CTO a CEO. Lo suficiente para equivocarme, cambiar de rumbo y seguir.',
     },
     mark: {
-      src: '/art/marks/softtek-wordmark-cream.svg',
-      alt: { en: 'Softtek wordmark', es: 'Logotipo de Softtek' },
+      src: '/art/marks/kodda-wordmark-cream.svg',
+      alt: { en: 'Kodda wordmark', es: 'Logotipo de Kodda' },
     },
   },
   {
-    id: 'moneypool-payments',
-    value: 37,
-    prefix: '+',
-    suffix: '%',
-    source: 'Moneypool',
-    label: { en: 'Payment completion', es: 'Finalización de pagos' },
+    id: 'communities',
+    value: 3,
+    source: 'FIRST · VantTec · WIT',
+    label: { en: 'Communities I mentored in', es: 'Comunidades donde fui mentor' },
     body: {
-      en: 'Designed and ran A/B tests on the payment flows, improving weekly direct payment completion by 37%.',
-      es: 'Diseñé y ejecuté pruebas A/B en los flujos de pago, mejorando la finalización semanal de pagos directos en 37%.',
-    },
-    mark: {
-      src: '/art/marks/moneypool-wordmark-cream.svg',
-      alt: { en: 'Moneypool wordmark', es: 'Logotipo de Moneypool' },
+      en: 'FIRST Robotics team 5133, regional champions in 2020; the VantTec RoboBoat team; Women in Technology. Giving back is where I keep learning.',
+      es: 'El equipo 5133 de FIRST Robotics, campeón regional en 2020; el equipo RoboBoat de VantTec; Women in Technology. Devolver es donde sigo aprendiendo.',
     },
   },
   {
@@ -88,8 +83,8 @@ export const stats: StatRow[] = [
     source: '2026',
     label: { en: 'Products shipped this year', es: 'Productos publicados este año' },
     body: {
-      en: 'AIMeter on the App Store, Vitrina on npm, Mediterra and hazlofacil.co live — built solo, with agents, between January and October.',
-      es: 'AIMeter en la App Store, Vitrina en npm, Mediterra y hazlofacil.co en línea: construidos solo, con agentes, entre enero y octubre.',
+      en: 'AIMeter, Vitrina, Mediterra and hazlofacil.co, built on my own with coding agents, each one for someone specific who needed it.',
+      es: 'AIMeter, Vitrina, Mediterra y hazlofacil.co, construidos por mi cuenta con agentes de código, cada uno para alguien concreto que lo necesitaba.',
     },
   },
 ]
