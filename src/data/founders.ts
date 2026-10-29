@@ -22,8 +22,8 @@ export const founders: Founder[] = [
     id: 'mike',
     name: 'Mike\nAlvarado',
     role: {
-      en: 'Engineer & founder · Kodda, YC S21 · building midflight',
-      es: 'Ingeniero y fundador · Kodda, YC S21 · construyendo midflight',
+      en: 'Engineer & founder\nYC Alumni',
+      es: 'Ingeniero y fundador\nYC Alumni',
     },
     portrait: '/art/portrait-mike.webp',
     portraitAlt: { en: 'Portrait of Mike Alvarado', es: 'Retrato de Mike Alvarado' },

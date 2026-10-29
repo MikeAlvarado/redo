@@ -59,7 +59,15 @@ export function FounderCard({
           </span>
         ))}
       </h3>
-      <p className="text-cream text-center text-base">{l(founder.role)}</p>
+      <p className="text-cream text-center text-base">
+        {l(founder.role)
+          .split('\n')
+          .map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
+      </p>
       <ul className="mt-auto flex flex-wrap items-center justify-center gap-x-5 gap-y-2 pt-2">
         {founder.links.map((link) => (
           <li key={link.icon}>

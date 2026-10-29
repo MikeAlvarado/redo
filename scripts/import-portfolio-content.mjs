@@ -27,6 +27,7 @@ const FEATURED = [
   'apex',
   'lightcycleArena',
   'reactPractice',
+  'tequilaKaos',
 ]
 
 // `React Practice` ships as `React Lab`; i18nKey, slug and image paths are unchanged.
