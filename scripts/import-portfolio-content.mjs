@@ -20,6 +20,7 @@ const FEATURED = [
   'aiMeter',
   'preride',
   'vitrina',
+  'contribMirror',
   'mediterra',
   'koddaStudio',
   'hazloFacil',
@@ -57,8 +58,12 @@ const COVER_ALT_OVERRIDES = {
 // description does not already make.
 const SUMMARIES = {
   midflight: {
-    en: 'Working memory for people who direct coding agents: what is open, where each thread stopped.',
-    es: 'Memoria de trabajo para quien dirige agentes de código: qué está abierto, dónde se quedó cada hilo.',
+    en: 'No debrief needed: pick up any task where it was left, for people who direct coding agents.',
+    es: 'Sin debrief: retoma cualquier tarea donde se quedó, para quien dirige agentes de código.',
+  },
+  contribMirror: {
+    en: 'A GitHub Action that mirrors one account\'s contributions onto another\'s graph. Dates only.',
+    es: 'Una GitHub Action que refleja las contribuciones de una cuenta en la gráfica de otra. Solo fechas.',
   },
   preride: {
     en: 'Know the ride before you ride it: a Rust physics engine and a SwiftUI app for cyclists.',
@@ -119,7 +124,8 @@ const SUMMARIES = {
 }
 
 // A repo link to a private repository 404s for every visitor. Verified against
-// the GitHub REST API on 2026-08-27; `tequilakaos` is NOT public and is dropped.
+// the GitHub REST API on 2026-08-27 (contrib-mirror on 2026-10-28); `tequilakaos` is NOT
+// public and is dropped.
 const PUBLIC_REPOS = new Set([
   'https://github.com/MikeAlvarado/vitrina',
   'https://github.com/MikeAlvarado/AIMeter',
@@ -127,6 +133,7 @@ const PUBLIC_REPOS = new Set([
   'https://github.com/MikeAlvarado/lightcycle_arena',
   'https://github.com/MikeAlvarado/cloudfunctions-ts',
   'https://github.com/MikeAlvarado/react_practice',
+  'https://github.com/MikeAlvarado/contrib-mirror',
 ])
 
 const CONTENT_FIELDS = ['title', 'category', 'role', 'description', 'tags', 'imageAlt']

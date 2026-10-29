@@ -71,7 +71,7 @@ test('the stacked list below tab: opens every card directly', async ({ page }) =
   await page.waitForTimeout(700)
 
   const cards = page.locator('[data-section="work"] button[aria-label^="Open project"]')
-  await expect(cards).toHaveCount(10)
+  await expect(cards).toHaveCount(11)
   await expect(
     page.locator('[data-section="work"] button[aria-label^="Go to project"]'),
   ).toHaveCount(0)
