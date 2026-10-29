@@ -12,6 +12,7 @@ export function ServiceRow({ service }: { service: ServiceRowData }) {
   const rowRef = useServiceRow<HTMLLIElement>()
   const [open, setOpen] = useState(false)
   const panelId = useId()
+  const [lead, ...rest] = service.images
 
   return (
     <li ref={rowRef} className="flex flex-col">
@@ -46,7 +47,9 @@ export function ServiceRow({ service }: { service: ServiceRowData }) {
           id={panelId}
           className={cn(
             'tab:max-h-none tab:flex-1 tab:flex-row tab:gap-8 tab:opacity-100 flex flex-col gap-6 overflow-hidden transition-[max-height,opacity,margin] duration-500',
-            open ? 'mt-6 max-h-[44rem] opacity-100' : 'tab:mt-0 max-h-0 opacity-0',
+            open
+              ? cn('mt-6 opacity-100', rest.length > 0 ? 'max-h-[80rem]' : 'max-h-[44rem]')
+              : 'tab:mt-0 max-h-0 opacity-0',
           )}
         >
           <div data-reveal className="tab:order-none tab:min-w-0 tab:flex-1 order-2">
@@ -58,18 +61,40 @@ export function ServiceRow({ service }: { service: ServiceRowData }) {
               ))}
             </ul>
           </div>
-          <div data-reveal className="tab:order-none tab:basis-[44%] order-1">
+          <div
+            data-reveal
+            className="tab:order-none tab:basis-[44%] order-1 flex flex-col gap-2"
+          >
             <motion.img
               data-thumb
-              src={service.image}
-              alt={l(service.imageAlt)}
-              width={800}
-              height={450}
+              src={lead.src}
+              alt={l(lead.alt)}
+              width={1600}
+              height={900}
               loading="lazy"
               className="rounded-thumb aspect-video w-full object-cover"
               whileHover={{ scale: 1.03, filter: 'brightness(1.12)' }}
               transition={hoverSpring}
             />
+            {rest.length > 0 && (
+              <ul className="flex flex-wrap gap-2">
+                {rest.map((image) => (
+                  <li key={image.src} className="basis-[calc(33.333%-0.375rem)]">
+                    <motion.img
+                      data-thumb
+                      src={image.src}
+                      alt={l(image.alt)}
+                      width={800}
+                      height={450}
+                      loading="lazy"
+                      className="rounded-thumb aspect-video w-full object-cover"
+                      whileHover={{ scale: 1.04, filter: 'brightness(1.12)' }}
+                      transition={hoverSpring}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>

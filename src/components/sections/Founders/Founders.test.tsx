@@ -17,7 +17,7 @@ function makeFounder(id: string): Founder {
     id,
     name: `Person ${id}`,
     role: { en: `Role ${id}`, es: `Rol ${id}` },
-    portrait: '/art/founder-mike.svg',
+    portrait: '/art/portrait-mike.webp',
     portraitAlt: { en: `Portrait ${id}`, es: `Retrato ${id}` },
     links: [
       {

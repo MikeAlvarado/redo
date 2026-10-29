@@ -701,6 +701,21 @@ Corrections to earlier claims, from this run's evidence:
   panel top). Fix: `preserveAspectRatio="none"` on the SVG so it stretches to
   fill the slice exactly (~4% horizontal squeeze, invisible on abstract art).
 
+### Mike's photographs (2026-10-28, same branch)
+
+Mike supplied eleven photos. The portrait (white shirt, square crop) is
+`public/art/portrait-mike.webp` on the contact card; `founder-mike.svg` and
+the last `TODO(mike)` are gone. "What drives me" rows now carry
+`images: ServiceImage[]` instead of one `image`: founder = the team in
+black, leader = Mike from behind with the headset, engineer = the desk shot
+cropped to the monitor, learner = a mosaic (run club large; rooftop class,
+hackathon, FIRST, gym, studio, bass in a 3-up strip). The learner copy is
+reframed around giving back to the community, which Mike called a critical
+part of his life. Crops are 16:9 (1600×900 lead, 800×450 strip) in
+`public/art/photos/`, made with sharp from his originals. `useServiceRow`
+scales every `[data-thumb]` with a small stagger; the mobile accordion panel
+allows 80rem when a row has a mosaic.
+
 ### Copy revision after Mike's review (2026-10-27, same branch)
 
 Mike reviewed the YC refresh and redirected the voice from "founder who

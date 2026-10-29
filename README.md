@@ -21,7 +21,7 @@ index.html
             ├─ Hero              gradient card, word-by-word intro, live clock
             ├─ ScrollStatement   pinned word wipe (≈30 words), marquee at its foot
             ├─ JourneyCards      "What I build with": pinned deck (native / web & cloud / AI & engines), stack-deal below 1440, flip-fan at 1440
-            ├─ Services          "What drives me": 4 numbered flex rows (founder, leader, engineer, learner), divider draw, thumbnail lift
+            ├─ Services          "What drives me": 4 numbered flex rows (founder, leader, engineer, learner), divider draw, photo (or photo mosaic) lift
             ├─ Showcase          center-peek Embla carousel → ProjectOverlay (#project/<slug>)
             ├─ ClientGrid        flex-wrap logo tile wall (public/art/marks), diagonal reveal
             ├─ Testimonials      Embla peek carousel + dots — renders null while empty
@@ -61,12 +61,12 @@ field keeps a `TODO(mike)` marker instead of a plausible-looking guess.
 | The `portfolio` repo (Next.js, `~/Developer/personal/portfolio/portfolio`) | All eleven projects (titles, descriptions, roles, tags, image alts, links, years) in both locales, the project screenshots, the meta/nav/statement/closing copy, and the full contact link set |
 | `Mike_Alvarado_Tech.pdf` (CV v3.2, July 2026) | The first four stat numbers, the client organizations, the credentials strip |
 | The repositories under `~/Developer/personal` (read 2026-10-27) | The "What I build with" cards and their product lines, the evidence lines under "What drives me", the fifth stat, the product marks |
+| Mike's own photographs (2026-10-28) | The portrait on the contact card and the ten photos under "What drives me" (`public/art/photos/`) |
 | `github.com/MikeAlvarado` | Which repositories are public, and therefore which projects may carry a `repo` link |
 
-One field is deliberately unfinished and marked `TODO(mike)`: Mike's portrait
-(`src/data/founders.ts`). `grep -rn "TODO(mike)" src/` should return exactly
-that line and nothing else. Everything else that needs Mike's material is
-listed in `PENDIENTES.md`.
+`grep -rn "TODO(mike)" src/` returns nothing: every field is filled. What
+still needs Mike's material (two official logos, testimonials, preride
+screenshots) is listed in `PENDIENTES.md`.
 
 ## Adding a project
 

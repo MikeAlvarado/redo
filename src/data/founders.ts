@@ -17,8 +17,6 @@ export interface Founder {
   links: FounderLink[]
 }
 
-// TODO(mike): swap `portrait` for a real photograph — nothing in the portfolio
-// repo held one, so this stays the generated placeholder.
 export const founders: Founder[] = [
   {
     id: 'mike',
@@ -27,7 +25,7 @@ export const founders: Founder[] = [
       en: 'Engineer & founder · Kodda, YC S21 · building midflight',
       es: 'Ingeniero y fundador · Kodda, YC S21 · construyendo midflight',
     },
-    portrait: '/art/founder-mike.svg',
+    portrait: '/art/portrait-mike.webp',
     portraitAlt: { en: 'Portrait of Mike Alvarado', es: 'Retrato de Mike Alvarado' },
     links: [
       {
