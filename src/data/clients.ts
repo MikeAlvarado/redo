@@ -11,8 +11,11 @@ export interface ClientMark {
   height: number
   // 'official' marks come from the organization's own files (recoloured to
   // cream, background removed); 'typographic' ones are set in the site's
-  // faces until an official file is supplied (VantTec, Women in Tech).
+  // faces until an official file is supplied. Since 2026-10-29 every mark
+  // on the wall is official.
   kind: 'official' | 'typographic'
+  // Optical correction for heavy marks on the wall (1 = the shared fit box).
+  fit?: number
 }
 
 export interface Client {
@@ -42,7 +45,7 @@ export const clients: Client[] = [
     flair: 'serif',
     mark: mark('ycombinator-cream.png', 'Y Combinator', [1600, 331], 'official'),
   },
-  { id: 'kodda', name: 'Kodda', flair: 'caps', mark: mark('kodda-wordmark-cream.svg', 'Kodda', [83, 19], 'official') },
+  { id: 'kodda', name: 'Kodda', flair: 'caps', mark: { ...mark('kodda-wordmark-cream.svg', 'Kodda', [83, 19], 'official'), fit: 0.82 } },
   { id: 'softtek', name: 'Softtek', flair: 'caps', mark: mark('softtek-wordmark-cream.svg', 'Softtek', [555.6, 102], 'official') },
   { id: 'moneypool', name: 'Moneypool', flair: 'mono', mark: mark('moneypool-wordmark-cream.svg', 'Moneypool', [144, 30], 'official') },
   { id: 'itesm', name: 'ITESM', flair: 'serif', mark: mark('itesm-lockup-cream.svg', 'Tecnológico de Monterrey', [195, 52], 'official') },
@@ -52,12 +55,12 @@ export const clients: Client[] = [
     flair: 'caps',
     mark: mark('first-lockup-cream.svg', 'FIRST Robotics', [154, 40], 'official'),
   },
-  { id: 'vanttec', name: 'VantTec', flair: 'mono', mark: mark('vanttec-wordmark.svg', 'VantTec', [189.4, 64]) },
+  { id: 'vanttec', name: 'VantTec', flair: 'mono', mark: mark('vanttec-lockup-cream.png', 'VantTec', [160, 90], 'official') },
   {
     id: 'women-in-tech',
     name: 'Women in Tech',
     flair: 'script',
-    mark: mark('women-in-tech-wordmark.svg', 'Women in Technology', [344.8, 54.2]),
+    mark: { ...mark('women-in-tech-lockup-cream.png', 'Women in Tech', [662, 261], 'official'), fit: 0.9 },
   },
   { id: 'transpais', name: 'Transpais', flair: 'serif', mark: mark('transpais-wordmark-cream.svg', 'Transpais', [196, 16], 'official') },
   { id: 'caritas', name: 'Cáritas', flair: 'script', mark: mark('caritas-lockup-cream.png', 'Cáritas de Monterrey', [734, 358], 'official') },
@@ -65,7 +68,7 @@ export const clients: Client[] = [
     id: 'tequila-kaos',
     name: 'Tequila KAOS',
     flair: 'script',
-    mark: mark('kaos-wordmark-cream.png', 'Tequila KAOS', [819, 246], 'official'),
+    mark: { ...mark('kaos-wordmark-cream.png', 'Tequila KAOS', [819, 246], 'official'), fit: 0.85 },
   },
   {
     id: 'mediterra',

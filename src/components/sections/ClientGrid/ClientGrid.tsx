@@ -34,7 +34,11 @@ export function ClientGrid() {
           >
             <ClientWordmark
               client={client}
-              className="max-tab:text-sm opacity-60 transition-opacity duration-300 hover:opacity-100"
+              // One fit box for every tile (7rem wide, at most 2.75rem tall;
+              // 4.5rem / 2rem below tab) so the marks share the same air on
+              // both sides instead of the wide ones filling the tile. Heavy
+              // marks scale down by their `fit` in clients.ts.
+              className="max-tab:w-[min(4.5rem*var(--mark-fit),2rem*var(--mark-fit)*var(--mark-ratio))] max-tab:text-sm w-[min(7rem*var(--mark-fit),2.75rem*var(--mark-fit)*var(--mark-ratio))] opacity-60 transition-opacity duration-300 hover:opacity-100"
             />
           </li>
         ))}

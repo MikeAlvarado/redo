@@ -754,8 +754,9 @@ ships" to "technology that makes life easier for everyone". What changed:
   the knockouts set to black so the icon keeps its shape in one colour),
   Transpais and Cáritas de Monterrey (JPEG → luminance-to-alpha → cream).
   Kodda +Studio (same company as Kodda) and Campus Accesible were dropped.
-  Only VantTec and Women in Tech remain typographic. 37 files in
-  `public/art/marks`.
+  VantTec (GitHub avatar, luminance-to-alpha) and Women in Tech (logo from
+  women-in-tech.org, recoloured) followed on 2026-10-29, so every mark on
+  the wall is official. 37 files in `public/art/marks`.
 - **Closing** is full-bleed (no inset, no rounded shell, `min-h-svh`) so the
   page ends edge to edge at the bottom; the hero keeps its shell.
 - Social card re-rendered with the new hero line.

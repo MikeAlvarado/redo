@@ -25,9 +25,10 @@ export function ClientWordmark({
   const { l } = useLanguage()
   if (client.mark) {
     const ratio = client.mark.width / client.mark.height
-    const style: CSSProperties & { '--mark-ratio': number } = {
+    const style: CSSProperties & { '--mark-ratio': number; '--mark-fit': number } = {
       aspectRatio: String(ratio),
       '--mark-ratio': ratio,
+      '--mark-fit': client.mark.fit ?? 1,
     }
     // Width is an explicit length (2rem tall, capped at 9.5rem; 1.5rem /
     // 7.5rem below tab) and height follows the aspect ratio, so the image
