@@ -1,0 +1,1 @@
+export { YcPage } from './YcPage'

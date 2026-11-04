@@ -2,7 +2,8 @@ import { services } from '../../../data/services'
 import { CONTACT_EMAIL } from '../../../lib/site'
 import { useLanguage } from '../../../hooks/useLanguage'
 import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll'
-import { MixedHeading } from '../../ui/MixedHeading'
+import { Button } from '../../ui/Button'
+import { SectionHeading } from '../../ui/SectionHeading'
 import { ServiceRow } from './ServiceRow'
 
 export function Services() {
@@ -15,31 +16,21 @@ export function Services() {
       data-section="services"
       className="px-inset-sm nav:px-inset nav:py-32 py-24"
     >
-      <div
+      <SectionHeading
         ref={headingRef}
-        className="mx-auto mb-16 flex max-w-2xl flex-col items-center gap-4 text-center"
-      >
-        <MixedHeading
-          data-reveal
-          text={t.services.heading}
-          className="text-section leading-[1.02] [text-shadow:0_0_26px_rgba(234,231,224,0.25)]"
-        />
-        <p data-reveal className="text-cream/60 max-w-md text-lg">
-          {t.services.sub}
-        </p>
-      </div>
+        reveal
+        text={t.services.heading}
+        sub={t.services.sub}
+        subClassName="max-w-md"
+        className="mb-16"
+      />
       <ul aria-label={t.services.listLabel} className="mx-auto flex max-w-6xl flex-col">
         {services.map((service) => (
           <ServiceRow key={service.id} service={service} />
         ))}
       </ul>
       <div className="tab:mt-24 mt-10 flex justify-center">
-        <a
-          href={`mailto:${CONTACT_EMAIL}`}
-          className="rounded-cta bg-cream text-ink px-5 py-2.5 text-sm font-medium transition-transform hover:scale-[1.03]"
-        >
-          {t.services.cta}
-        </a>
+        <Button href={`mailto:${CONTACT_EMAIL}`}>{t.services.cta}</Button>
       </div>
     </section>
   )

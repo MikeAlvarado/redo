@@ -82,8 +82,11 @@
   (backs form one continuous mountain image), flip rotateY 180→0, then tilt to
   −15/0/+10 (AABBs 443×535 and 409×515 confirm the cards stay 334×464 and
   rotate in place). Center card stacks on top (z 1/3/2).
-- The mountain triptych is an original SVG (`public/art/deck-back.svg`,
-  1066×464); backs use `background-position: -366px * index`.
+- The back triptych is a photograph (`public/art/deck-back.webp`, 2130×928,
+  see the license table) under the hero treatment, built by
+  `scripts/gen-deck-back.mjs`; backs slice it with `background-size: 300% 100%`.
+  It replaced the original mountain SVG on 2026-10-31 (Mike asked for a
+  sculpture and chose the Winged Victory from twelve treated candidates).
 - The reference's own breakpoints disagree about the heading: two lines with
   italic "you" below ~1440, one line with italic "in" at 1440. Shipped: italic
   "you" everywhere, `\n` break hidden at ≥90rem (deliberate difference, logged).
@@ -173,13 +176,19 @@ shipped exactly (verified loading via `document.fonts`: both faces `loaded`).
 
 | Asset | Source | Photographer | License |
 |---|---|---|---|
-| `public/art/hero-hands-{640,960}.webp` | https://stocksnap.io/photo/hands-reach-LUKSVTLPLT | Lalesh Aldarwish | CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) |
-| `public/art/closing-statue-{640,960}.webp` | https://stocksnap.io/photo/marble-statue-2GPG4GIYD8 | Joe deSousa | CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) |
+| `public/art/hero-psyche-{640,960}.webp` | https://commons.wikimedia.org/wiki/File:Tremezzo_-_Villa_Carlotta_0771.JPG (Adamo Tadolini after Canova, *Psyche Revived by Cupid's Kiss*, Villa Carlotta; detail of the kiss) | Phyrexian (Commons) | Public domain (released by the photographer) |
+| `public/art/closing-psyche-{640,960}.webp` | https://commons.wikimedia.org/wiki/File:Psych%C3%A9_ranim%C3%A9e_par_le_baiser_de_l%27Amour.jpg (Antonio Canova, *Psyché ranimée par le baiser de l'Amour*, Louvre) | Commons contributor | CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) |
+| `public/art/deck-back.webp` | https://commons.wikimedia.org/wiki/File:Nike_of_Samothrace,_Louvre.jpg (*Winged Victory of Samothrace*, Louvre, Daru staircase; crop on the statue and prow) | Wilfredor (Commons) | CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) |
+| `public/art/hero-statue-{640,960}.webp` (kept aside, unused) | https://commons.wikimedia.org/wiki/File:The_Hand_of_God_MET_DP346427.jpg (Auguste Rodin, *The Hand of God*, The Met) | The Met, Open Access | CC0 1.0 |
 
-Both were found via the Openverse API (CC0 filter), downloaded at 960w (the
-largest size StockSnap's CDN serves without an account), and re-encoded to
-two-size WebP via headless-Chromium canvas — no upscaling; the browser
-stretches the 960w under a treatment stack (grayscale × multiply gradient +
+Since 2026-10-30 both backdrops are the same sculpture, Canova's *Psyche
+Revived by Cupid's Kiss*: the hero is a close detail of the kiss (Villa
+Carlotta copy, square-cropped from the top of the 3840×5760 photograph, both wings kept) and
+the closing is the whole group with the wings (Louvre, square 3068 original),
+both resized with sharp to 960 and 640 WebP. The earlier StockSnap photos
+(hands by Lalesh Aldarwish, statue by Joe deSousa, both CC0, 960w) are gone;
+Rodin's *Hand of God* files stay in the folder as Mike's spare. No
+upscaling; the browser stretches the 960w under a treatment stack (grayscale × multiply gradient +
 screen hotspot + vignette + animated grain) that reads photographic, not soft.
 The reference's own hands/statue photographs were never downloaded or linked.
 

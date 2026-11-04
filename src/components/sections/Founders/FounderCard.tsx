@@ -28,6 +28,28 @@ const LINK_ICONS = {
   mail: <Mail size={15} aria-hidden />,
 } as const
 
+// The contact links alone, for the lanyard version of the section.
+export function FounderLinks({ founder, className }: { founder: Founder; className?: string }) {
+  const { l } = useLanguage()
+  return (
+    <ul className={cn('flex flex-wrap items-center justify-center gap-x-6 gap-y-2', className)}>
+      {founder.links.map((link) => (
+        <li key={link.icon}>
+          <a
+            href={link.href}
+            target={link.icon === 'mail' ? undefined : '_blank'}
+            rel={link.icon === 'mail' ? undefined : 'noreferrer'}
+            className="text-cream/75 hover:text-cream inline-flex items-center gap-1.5 text-sm transition-colors"
+          >
+            {LINK_ICONS[link.icon]}
+            {l(link.label)}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export function FounderCard({
   founder,
   className,

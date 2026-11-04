@@ -8,6 +8,8 @@ import { useFocusTrap } from '../../../hooks/useFocusTrap'
 import { useLanguage } from '../../../hooks/useLanguage'
 import { Pill } from '../../ui/Pill'
 import { ProjectLinks } from '../../ui/ProjectLinks'
+import { Button } from '../../ui/Button'
+import { Eyebrow } from '../../ui/Eyebrow'
 
 interface ProjectOverlayProps {
   project: Project | null
@@ -61,14 +63,10 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
             aria-label={l(project.title)}
             className="nav:py-20 mx-auto flex max-w-4xl flex-col gap-8 px-6 py-16"
           >
-            <button
-              type="button"
-              onClick={onClose}
-              className="rounded-cta text-cream hover:bg-cream hover:text-ink inline-flex w-fit items-center gap-2 border border-white/20 px-4 py-2.5 text-sm transition-colors"
-            >
+            <Button variant="ghost" onClick={onClose} className="w-fit">
               <ArrowLeft size={16} aria-hidden />
               {t.showcase.back}
-            </button>
+            </Button>
 
             <motion.div
               initial={{ opacity: 0, y: 14 }}
@@ -76,9 +74,7 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
               transition={{ delay: 0.15, duration: 0.5 }}
               className="flex min-w-0 flex-col gap-2"
             >
-              <p className="text-cream/55 text-xs tracking-[0.16em] uppercase">
-                {l(project.category)}
-              </p>
+              <Eyebrow as="p">{l(project.category)}</Eyebrow>
               <h2 className="font-display text-cream nav:text-5xl text-4xl leading-[1.05]">
                 {l(project.title)}
               </h2>
@@ -114,10 +110,17 @@ export function ProjectOverlay({ project, onClose }: ProjectOverlayProps) {
                     <dd className="text-cream">{project.client}</dd>
                   </div>
                 )}
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {project.categories.map((category) => (
-                    <Pill key={category.en}>{l(category)}</Pill>
-                  ))}
+                <div className="flex flex-col gap-2">
+                  <dt className="text-cream/50">{t.showcase.tagsLabel}</dt>
+                  <dd>
+                    <ul className="flex flex-wrap gap-2">
+                      {project.categories.map((category) => (
+                        <li key={category.en}>
+                          <Pill>{l(category)}</Pill>
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
                 </div>
               </dl>
             </div>

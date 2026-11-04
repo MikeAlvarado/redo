@@ -44,11 +44,13 @@ export function Hero() {
       ref={sectionRef}
       id="top"
       data-section="hero"
-      className="p-inset-sm nav:p-inset"
+      className="overflow-x-clip"
     >
+      {/* Full-bleed since 2026-10-30: the photograph reaches the corners;
+          the recede still scales this card as the next section rises. */}
       <div
         ref={cardRef}
-        className="rounded-shell nav:h-[calc(100svh-4.5rem)] relative flex h-[calc(100svh-2rem)] flex-col overflow-hidden"
+        className="relative flex h-svh flex-col overflow-hidden"
       >
         <motion.div
           aria-hidden
@@ -58,14 +60,14 @@ export function Hero() {
           transition={{ duration: 1.6, ease: easeOutExpo }}
         >
           <img
-            src="/art/hero-hands-960.webp"
-            srcSet="/art/hero-hands-640.webp 640w, /art/hero-hands-960.webp 960w"
+            src="/art/hero-psyche-960.webp"
+            srcSet="/art/hero-psyche-640.webp 640w, /art/hero-psyche-960.webp 960w"
             sizes="100vw"
             width={960}
-            height={575}
+            height={960}
             alt=""
             fetchPriority="high"
-            className="absolute inset-0 h-full w-full object-cover mix-blend-multiply [filter:grayscale(1)_contrast(1.1)_brightness(1.15)]"
+            className="absolute inset-0 h-full w-full object-cover object-[50%_42%] mix-blend-multiply [filter:grayscale(1)_contrast(1.1)_brightness(1.15)]"
           />
           <div className="absolute inset-0 bg-[radial-gradient(48%_42%_at_50%_12%,rgba(250,104,0,0.5)_0%,transparent_72%)] mix-blend-screen" />
         </motion.div>
@@ -80,7 +82,7 @@ export function Hero() {
             <RevealWords text={t.hero.line2} startAt={wordsInLine1} />
           </h1>
           <motion.p
-            className="text-blush/85 mt-4 text-lg"
+            className="text-blush/85 mt-4 text-lg text-pretty"
             initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.1, ease: easeOutSoft }}

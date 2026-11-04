@@ -75,7 +75,7 @@ export function JourneyCards() {
                   aria-hidden
                   className="absolute inset-0 [transform:rotateY(180deg)] overflow-hidden rounded-[inherit] [backface-visibility:hidden]"
                   style={{
-                    backgroundImage: 'url(/art/deck-back.svg)',
+                    backgroundImage: 'url(/art/deck-back.webp)',
                     backgroundSize: '300% 100%',
                     backgroundPosition: `${index * 50}% 0`,
                   }}

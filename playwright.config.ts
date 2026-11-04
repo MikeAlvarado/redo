@@ -14,5 +14,19 @@ export default defineConfig({
     url: 'http://localhost:5173',
     reuseExistingServer: true,
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] }, testIgnore: /yc\.spec/ },
+    {
+      // Software WebGL for the /yc lanyard only; the flags break full-page
+      // screenshots in the other specs.
+      name: 'chromium-webgl',
+      testMatch: /yc\.spec/,
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+        },
+      },
+    },
+  ],
 })
