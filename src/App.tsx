@@ -17,6 +17,12 @@ import { useRef } from 'react'
 import { useLanguageFade } from './hooks/useLanguageFade'
 import { useLenis } from './hooks/useLenis'
 import { LanguageProvider } from './i18n/LanguageProvider'
+import { YcPage } from './components/yc'
+
+// /yc is the alternative one-page landing (badge, statement, facts); every
+// other path is the home. Firebase rewrites both to index.html.
+const isYcPath = () =>
+  typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, '') === '/yc'
 
 function Site() {
   useLenis()
@@ -68,9 +74,7 @@ function Site() {
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <LanguageProvider>
-        <Site />
-      </LanguageProvider>
+      <LanguageProvider>{isYcPath() ? <YcPage /> : <Site />}</LanguageProvider>
     </MotionConfig>
   )
 }

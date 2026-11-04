@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { credentials } from '../../../data/credentials'
 import { useLanguage } from '../../../hooks/useLanguage'
 import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll'
+import { cn } from '../../../lib/cn'
 
 export function Credentials() {
   const { t, l } = useLanguage()
@@ -13,16 +14,20 @@ export function Credentials() {
       aria-label={t.credentials.regionLabel}
       className="px-inset-sm nav:px-inset py-12"
     >
-      {/* The row is shifted 1px left inside a clipping wrapper so the divider
-          on whichever item starts a wrapped line falls outside and disappears;
-          only the dividers between items on the same line survive. */}
-      <div className="mx-auto max-w-5xl overflow-hidden">
-        <ul
-          ref={listRef}
-          className="text-cream/60 -ml-px flex flex-wrap items-center gap-y-3 text-sm"
-        >
-          {credentials.map((credential) => (
-            <li key={credential.id} className="border-l border-white/15 px-5 leading-snug">
+      {/* Inline-block items in a centred run of text, so the list wraps
+          between items like words; each item carries its own trailing
+          divider, so no line ever starts with one. */}
+      <div className="mx-auto max-w-5xl">
+        <ul ref={listRef} className="text-cream/60 text-center text-sm leading-[2.2]">
+          {credentials.map((credential, index) => (
+            <li
+              key={credential.id}
+              className={cn(
+                'inline-block whitespace-nowrap',
+                index < credentials.length - 1 &&
+                  "after:mx-4 after:text-white/20 after:content-['|']",
+              )}
+            >
               {credential.href ? (
                 <a
                   href={credential.href}

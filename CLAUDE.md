@@ -701,6 +701,99 @@ Corrections to earlier claims, from this run's evidence:
   panel top). Fix: `preserveAspectRatio="none"` on the SVG so it stretches to
   fill the slice exactly (~4% horizontal squeeze, invisible on abstract art).
 
+### Deck back is a photograph (2026-10-31, main)
+
+The joined back of the three deck cards is now `public/art/deck-back.webp`
+(2130 × 928): a CC0 Louvre photograph of the *Winged Victory of Samothrace*
+on the Daru staircase (statue and prow centred, so the middle card carries
+the figure and the side cards the columns) under the hero treatment, baked by
+`scripts/gen-deck-back.mjs` with sharp (grayscale, contrast, multiply under
+the ember/blood/char radial, orange screen glow on the figures, soft
+vignette). Mike asked for a sculpture in place of the mountain SVG (deleted
+along with its generator) and picked the Victory from a sheet of twelve
+treated candidates; a Psyche shot was tried first and sank into the red,
+because photos on bright gallery walls do not survive the multiply, while
+dark-background photos do. The slicing (`background-size: 300% 100%`,
+`background-position: index * 50%`) is unchanged; the file is rendered at
+the triptych's exact 2.3:1 so the stretch is 1:1.
+
+### Alternative landing at /yc (2026-10-30, main)
+
+A second page after the one-page "backed by YC" landings (useboom.ai/yc):
+`src/components/yc/`. `App.tsx` renders `YcPage` when `location.pathname`
+is `/yc` (Firebase rewrites every path to `index.html`; the home is untouched).
+The badge is a real 3D object (`src/components/yc/lanyard/`, three.js
+0.187, loaded with a dynamic import so the home never pays its ~590 KB):
+`physics.ts` is a port of Boom's model with their constants (read from their
+bundle, rewritten here): a 5-node cable from a fixed anchor with node inverse
+mass 20, 1/960 s substeps and 2 solver iterations; segments only pull, with a
+force `hold·tanh(stiffness·x/hold) + spring·x + bandDamping·max(0, rate)`
+turned into an impulse and clamped per step; a rigid card (mass 1, plate
+inertia); the grab pins the grabbed point rigidly and holds the orientation at
+grab time (grip 40, damping 6); a yaw controller (30, 3) turns the card for a
+tap with a 9 rad/s kick; a tap on a turned card turns it back the way it
+came (front, back, front, never winding up: Mike, 2026-10-31); on load the rope and card
+are stacked above the anchor and fall until the cable catches them; drags: linear 0.25·16^d, angular 0.5·12^d, air 0.15
+across the face, broadside 0.5 along its normal, node drag 2; `textures.ts`
+paints both faces and the strap on canvases: front = the white Y lifted out
+of the official lockup (`ycombinator-orange.png`), "Y Combinator", the
+batch pill and a white strip with the Kodda wordmark tinted ink; back =
+Mike's portrait in a circle, "Mike Alvarado" and "Engineer & Founder" under it; `scene.ts` builds the extruded rounded card (1.6 × 2.25, corner 0.117, slot
+0.34 × 0.07 at 0.13 from the top, ring at 0.055, rope tie 0.095 above it),
+the two face planes at ±0.0166 with a grain normal map, silver ring and
+clip (plate + torus), a Catmull-Rom ribbon rebuilt every frame through the
+rope nodes with a 4-vertex rounded profile, twist, taper and a woven normal
+map plus sheen, Boom's dark eight-panel room baked by PMREM, neutral tone
+mapping, raycast grab/drag, tap-to-flip (<450 ms, <6 px), overhang canvas,
+and pauses when calm or off-screen. `LanyardBadge.tsx` wraps it with a
+`role="img"` stage and a visually hidden "Turn the badge over" button
+(`aria-pressed`) so keyboard users can flip it, and only imports the scene
+once the stage is within a viewport (IntersectionObserver, `rootMargin`
+100%). The same badge replaced the tilted contact card at the bottom of the
+home (`Founders.tsx`), alone under the heading: the contact links and the
+"Drag the badge" hint were dropped from the home on 2026-11-01 (Mike; the
+links stay in the closing card and footer, the hint on `/yc`;
+`FounderCard`/`FounderLinks` stay exported but unused); the stage spans the whole section width (negative inset margins) and
+the drag target is clamped to the frame less the card, after a dragged
+badge was cut off at the edge of a 48rem stage (Mike, 2026-10-31). The first CSS version
+(`motion` drag + `rotateY`) was replaced on the same day after reading
+Boom's implementation. Analysis of theirs: `scratchpad/boom` (not in repo). Below: `ScrollStatement` with its new optional `text` prop
+(`t.yc.statement`), one paragraph, three facts (batch S21, founded 2020,
+Kodda on YC) and the contact CTA. Copy lives under `yc` in the dictionary.
+Covered by `lanyard/physics.test.ts` (rest layout, cable never stretches,
+flip reaches π, back to 0, π again) and `e2e/yc.spec.ts` (keyboard flip, link, axe, no
+horizontal scroll at 390).
+
+### Responsive and reuse pass (2026-10-29, main)
+
+Full-page review at 1440 / 1024 / 834 / 768 / 390 in both languages, axe at
+three widths plus inside the overlay. Findings and fixes:
+
+- **Three UI primitives** in `src/components/ui/` now carry what five
+  sections and the nav had copied by hand: `SectionHeading` (display title
+  with the glow + optional sub, `reveal` marks both or only the sub for
+  `useRevealOnScroll`, `headingWrapperRef` for the showcase ghost),
+  `Button` (`solid` cream pill / `ghost` hairline pill, `<a>` with `href`,
+  `<button>` otherwise) and `Eyebrow` (12px tracked uppercase in cream/55).
+  Nav, mobile menu, services, closing and the overlay back button all use
+  `Button`; the showcase, stats source and overlay kicker use `Eyebrow`.
+- **Services between tab and nav (810–900px)** were three cramped columns;
+  the title column is 26% there (34% from nav) and the image 38% (44%).
+  The mobile toggle grew to 40px for touch.
+- **Stacked showcase runs two columns at every width below tab** (flex-wrap
+  with `basis-[calc(50%-0.5rem)]`, `-0.75rem` from 640px). On a phone the
+  caption is eyebrow + title only; the pills and links appear from 640px and
+  live in the overlay below that (twelve full-width cards with full captions
+  measured 5,818px at 390, seven screens; two-up compact is 1,619px. Mike,
+  2026-10-31).
+- **Credentials** are a centred inline run; each item carries its own
+  trailing `|` so no wrapped line starts with a divider (the old clipping
+  trick only worked left-aligned).
+- **Hero sub** keeps `YC S21` together and wraps with `text-pretty`
+  (the 390 build broke after "YC").
+- **Overlay `<dl>`** had the tag pills as a bare `<div>`; axe flagged
+  `definition-list` (serious). They are a `Stack` dt/dd group now.
+
 ### Numbers, people and community (2026-10-28, same branch)
 
 Mike rejected the stats content (resume bullets: Zustand, OCR at the

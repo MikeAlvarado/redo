@@ -10,7 +10,7 @@ import { ArrowButton } from '../../ui/ArrowButton'
 import { DotGrid } from '../../ui/DotGrid'
 import { GrainOverlay } from '../../ui/GrainOverlay'
 import { DotsPagination } from '../../ui/DotsPagination'
-import { MixedHeading } from '../../ui/MixedHeading'
+import { SectionHeading } from '../../ui/SectionHeading'
 
 function TestimonialCarousel() {
   const { t, l } = useLanguage()
@@ -42,19 +42,13 @@ function TestimonialCarousel() {
       aria-label={t.testimonials.regionLabel}
       className="px-inset-sm nav:px-inset nav:py-32 py-24"
     >
-      <div
+      <SectionHeading
         ref={headingRef}
-        className="mx-auto mb-14 flex max-w-2xl flex-col items-center gap-4 text-center"
-      >
-        <MixedHeading
-          data-reveal
-          text={t.testimonials.heading}
-          className="text-section leading-[1.02] [text-shadow:0_0_26px_rgba(234,231,224,0.25)]"
-        />
-        <p data-reveal className="text-cream/60 text-lg">
-          {t.testimonials.sub}
-        </p>
-      </div>
+        reveal
+        text={t.testimonials.heading}
+        sub={t.testimonials.sub}
+        className="mb-14"
+      />
 
       <div className="relative">
         <div

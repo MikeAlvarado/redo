@@ -3,7 +3,8 @@ import { stats } from '../../../data/stats'
 import { useCountUp } from '../../../hooks/useCountUp'
 import { useLanguage } from '../../../hooks/useLanguage'
 import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll'
-import { MixedHeading } from '../../ui/MixedHeading'
+import { Eyebrow } from '../../ui/Eyebrow'
+import { SectionHeading } from '../../ui/SectionHeading'
 
 function StatNumeral({ stat }: { stat: StatRow }) {
   const numeralRef = useCountUp<HTMLSpanElement>(stat.value, {
@@ -22,10 +23,7 @@ function StatNumeral({ stat }: { stat: StatRow }) {
 function StatSource({ stat }: { stat: StatRow }) {
   const { t, l } = useLanguage()
   return (
-    <span
-      title={t.stats.sourceLabel}
-      className="text-cream/55 flex items-center gap-2 text-xs tracking-[0.16em] uppercase"
-    >
+    <Eyebrow title={t.stats.sourceLabel} className="flex items-center gap-2">
       {stat.mark && (
         <img
           src={stat.mark.src}
@@ -37,7 +35,7 @@ function StatSource({ stat }: { stat: StatRow }) {
         />
       )}
       <span className={stat.mark ? 'sr-only' : undefined}>{stat.source}</span>
-    </span>
+    </Eyebrow>
   )
 }
 
@@ -75,12 +73,7 @@ export function Stats() {
       aria-label={t.stats.regionLabel}
       className="px-inset-sm nav:px-inset nav:py-24 py-16"
     >
-      <div ref={headingRef} className="mx-auto mb-8 flex max-w-4xl justify-center text-center">
-        <MixedHeading
-          text={t.stats.heading}
-          className="text-section leading-[1.02] [text-shadow:0_0_26px_rgba(234,231,224,0.25)]"
-        />
-      </div>
+      <SectionHeading ref={headingRef} text={t.stats.heading} className="mb-8 max-w-4xl" />
       <ul className="mx-auto flex max-w-5xl flex-col">
         {stats.map((stat) => (
           <StatRowItem key={stat.id} stat={stat} />

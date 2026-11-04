@@ -6,7 +6,8 @@ import { useMediaQuery } from '../../../hooks/useMediaQuery'
 import { useRevealOnScroll } from '../../../hooks/useRevealOnScroll'
 import { cn } from '../../../lib/cn'
 import { ArrowButton } from '../../ui/ArrowButton'
-import { MixedHeading } from '../../ui/MixedHeading'
+import { Eyebrow } from '../../ui/Eyebrow'
+import { SectionHeading } from '../../ui/SectionHeading'
 import { Pill } from '../../ui/Pill'
 import { ProjectLinks } from '../../ui/ProjectLinks'
 import { ProjectOverlay } from '../ProjectOverlay'
@@ -46,20 +47,14 @@ export function Showcase() {
 
   return (
     <section id="work" data-section="work" className="nav:py-32 overflow-x-clip py-24">
-      <div
+      <SectionHeading
         ref={headingRef}
-        className="mx-auto mb-14 flex max-w-2xl flex-col items-center gap-4 px-6 text-center"
-      >
-        <div ref={ghostRef}>
-          <MixedHeading
-            text={t.showcase.heading}
-            className="text-section leading-[1.02] [text-shadow:0_0_26px_rgba(234,231,224,0.25)]"
-          />
-        </div>
-        <p data-reveal className="text-cream/60 text-lg">
-          {t.showcase.sub}
-        </p>
-      </div>
+        headingWrapperRef={ghostRef}
+        reveal="sub"
+        text={t.showcase.heading}
+        sub={t.showcase.sub}
+        className="mb-14 px-6"
+      />
 
       <div
         role="region"
@@ -68,11 +63,11 @@ export function Showcase() {
         className="relative"
       >
         <div ref={viewportRef} className="tab:overflow-hidden">
-          <div className="tab:flex-row tab:gap-0 tab:px-0 flex touch-pan-y flex-col gap-12 px-4">
+          <div className="tab:flex-nowrap tab:gap-0 tab:px-0 flex touch-pan-y flex-row flex-wrap gap-x-4 gap-y-8 px-4 sm:gap-x-6 sm:gap-y-12">
             {slides.map((project, index) => (
               <div
                 key={project.id}
-                className="tab:min-w-0 tab:flex-[0_0_44%] tab:px-4 w-full"
+                className="tab:min-w-0 tab:flex-[0_0_44%] tab:px-4 basis-[calc(50%-0.5rem)] sm:basis-[calc(50%-0.75rem)]"
               >
                 <button
                   type="button"
@@ -98,19 +93,17 @@ export function Showcase() {
                     className="rounded-tile aspect-[3/2] w-full object-cover"
                   />
                 </button>
-                <div className="tab:hidden mt-4 flex flex-col gap-3">
+                <div className="tab:hidden mt-3 flex flex-col gap-3 sm:mt-4">
                   <div className="flex flex-col gap-1">
-                    <span className="text-cream/55 text-xs tracking-[0.16em] uppercase">
-                      {l(project.category)}
-                    </span>
-                    <span className="text-cream text-lg leading-snug">{l(project.title)}</span>
+                    <Eyebrow>{l(project.category)}</Eyebrow>
+                    <span className="text-cream text-base leading-snug sm:text-lg">{l(project.title)}</span>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="hidden flex-wrap gap-2 sm:flex">
                     {project.categories.map((category) => (
                       <Pill key={category.en}>{l(category)}</Pill>
                     ))}
                   </div>
-                  <ProjectLinks project={project} size="sm" />
+                  <ProjectLinks project={project} size="sm" className="hidden sm:flex" />
                 </div>
               </div>
             ))}
@@ -145,9 +138,7 @@ export function Showcase() {
               transition={{ duration: 0.25 }}
               className="flex flex-col items-center gap-4"
             >
-              <span className="text-cream/55 text-xs tracking-[0.16em] uppercase">
-                {l(active.category)}
-              </span>
+              <Eyebrow>{l(active.category)}</Eyebrow>
               <h3 className="text-cream text-xl">{l(active.title)}</h3>
               <div className="flex flex-wrap justify-center gap-2">
                 {active.categories.map((category) => (

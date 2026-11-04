@@ -8,6 +8,7 @@ import { cn } from '../../lib/cn'
 import { CONTACT_EMAIL, NAV_OFFSET, SECTION_IDS } from '../../lib/site'
 import { LanguageToggle } from './LanguageToggle'
 import { MobileMenu } from './MobileMenu'
+import { Button } from '../ui/Button'
 
 export function Nav() {
   const { t } = useLanguage()
@@ -85,12 +86,9 @@ export function Nav() {
           </ul>
           <div className="flex flex-1 items-center justify-end gap-3">
             <LanguageToggle className="nav:flex hidden" />
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="rounded-cta bg-cream text-ink nav:inline-flex hidden px-4 py-2 text-sm font-medium transition-transform hover:scale-[1.03]"
-            >
+            <Button href={`mailto:${CONTACT_EMAIL}`} className="nav:inline-flex hidden px-4 py-2">
               {t.nav.cta}
-            </a>
+            </Button>
             <button
               type="button"
               aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}

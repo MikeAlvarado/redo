@@ -5,6 +5,7 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { easeOutExpo, easeOutSoft } from '../../lib/easing'
 import { CONTACT_EMAIL } from '../../lib/site'
 import { LanguageToggle } from './LanguageToggle'
+import { Button } from '../ui/Button'
 
 interface MobileMenuProps {
   open: boolean
@@ -72,12 +73,9 @@ export function MobileMenu({ open, onClose, onNavigate, links }: MobileMenuProps
               <span className="text-cream/50 text-xs">{t.nav.langLabel}</span>
               <LanguageToggle />
             </div>
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="rounded-cta bg-cream text-ink mt-4 flex h-10 items-center justify-center text-sm font-medium"
-            >
+            <Button href={`mailto:${CONTACT_EMAIL}`} className="mt-4 flex h-10 w-full">
               {t.nav.cta}
-            </a>
+            </Button>
           </motion.div>
         </motion.div>
       )}

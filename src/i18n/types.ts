@@ -57,6 +57,7 @@ export interface Dictionary {
     roleLabel: string
     yearLabel: string
     clientLabel: string
+    tagsLabel: string
     galleryLabel: string
     carouselLabel: string
   }
@@ -94,5 +95,21 @@ export interface Dictionary {
     emailLabel: string
     reachLabel: string
     connectLabel: string
+  }
+  yc: {
+    title: string
+    badgeLabel: string
+    flipLabel: string
+    role: string
+    hint: string
+    statement: string
+    body: string
+    batchLabel: string
+    batchValue: string
+    foundedLabel: string
+    foundedValue: string
+    companyLabel: string
+    cta: string
+    madeIn: string
   }
 }
