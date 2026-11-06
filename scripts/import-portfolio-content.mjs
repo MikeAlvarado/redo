@@ -67,8 +67,8 @@ const SUMMARIES = {
     es: 'Una GitHub Action que refleja las contribuciones de una cuenta en la gráfica de otra. Solo fechas.',
   },
   preride: {
-    en: 'Know the ride before you ride it: a Rust physics engine and a SwiftUI app for cyclists.',
-    es: 'Conoce la ruta antes de rodarla: un motor de física en Rust y una app SwiftUI para ciclistas.',
+    en: 'Which route to ride today and when to leave: a Rust physics engine and a SwiftUI app for cyclists.',
+    es: 'Qué ruta hacer hoy y a qué hora salir: un motor de física en Rust y una app SwiftUI para ciclistas.',
   },
   hazloFacil: {
     en: 'A landing that tests a product for small businesses, on top of WhatsApp Business.',
@@ -87,8 +87,8 @@ const SUMMARIES = {
     es: 'Sitio editorial bilingüe y tienda arrastrable para un consultorio de medicina preventiva.',
   },
   aiMeter: {
-    en: 'Your AI limits at a glance, on iPhone, iPad, Mac and Apple Watch. On the App Store.',
-    es: 'Tus límites de IA de un vistazo, en iPhone, iPad, Mac y Apple Watch. En la App Store.',
+    en: 'Your AI limits at a glance, in the Mac\'s notch and on iPhone, iPad and Apple Watch. On the App Store.',
+    es: 'Tus límites de IA de un vistazo, en el notch del Mac y en iPhone, iPad y Apple Watch. En la App Store.',
   },
   koddaStudio: {
     en: 'The YC-backed product I co-founded and led from CTO to CEO, past 8,000 users.',
