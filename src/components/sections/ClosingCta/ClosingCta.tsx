@@ -42,9 +42,9 @@ export function ClosingCta() {
         <GrainOverlay className="opacity-[0.07]" />
         <div
           ref={contentRef}
-          className="relative flex flex-1 flex-col items-center justify-center gap-5 px-6 py-24 text-center"
+          className="max-tab:gap-4 max-tab:pt-28 max-tab:pb-8 relative flex flex-1 flex-col items-center justify-center gap-5 px-6 py-24 text-center"
         >
-          <p data-reveal className="text-blush/70 max-w-md text-lg">
+          <p data-reveal className="text-blush/70 max-tab:text-base max-w-md text-lg">
             {t.closing.eyebrow}
           </p>
           <MixedHeading

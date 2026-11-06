@@ -87,6 +87,8 @@
 
 html {
   background: var(--color-ink);
+  color-scheme: dark;
+  -webkit-tap-highlight-color: transparent;
   scrollbar-width: thin;
   scrollbar-color: rgb(255 255 255 / 0.2) transparent;
 }
@@ -97,6 +99,16 @@ body {
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+}
+
+/* Phones: the pinned statement has to fit between the nav and the marquee in
+   the small viewport (svh: both browser toolbars showing), so its size is
+   capped by height as well as width. Measured on a 393 x 657 viewport, an
+   iPhone in Chrome. */
+@media (max-width: 50.624rem) {
+  :root {
+    --text-statement: clamp(1.5rem, min(1rem + 4.2vw, 4.9svh), 2.6rem);
+  }
 }
 
 html.lenis,

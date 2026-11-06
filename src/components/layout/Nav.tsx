@@ -95,7 +95,7 @@ export function Nav() {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               onClick={() => setMenuOpen((wasOpen) => !wasOpen)}
-              className="nav:hidden text-cream flex size-9 items-center justify-center rounded-full border border-white/12"
+              className="nav:hidden text-cream relative flex size-9 items-center justify-center rounded-full border border-white/12 after:absolute after:-inset-1 after:content-['']"
             >
               <svg aria-hidden viewBox="0 0 20 20" className="size-5" fill="currentColor">
                 <circle cx="10" cy="4.5" r="1.6" />

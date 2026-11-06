@@ -701,6 +701,50 @@ Corrections to earlier claims, from this run's evidence:
   panel top). Fix: `preserveAspectRatio="none"` on the SVG so it stretches to
   fill the slice exactly (~4% horizontal squeeze, invisible on abstract art).
 
+### iPhone pass (2026-11-06)
+
+Mike's iPhone in Chrome shows 393 x 657 CSS px with both toolbars up, and
+Chrome on iOS keeps them up while scrolling, so the small viewport (svh) is
+the one that counts. Measured there and checked in the iOS Simulator
+(iPhone 17, Safari: the same WebKit Chrome uses on iOS).
+
+- **Pinned statement** ran under the nav and pushed the marquee off the
+  bottom: the paragraph was centred in the whole pin with nothing reserving
+  the nav, and 36px type gave nine lines. Below `tab` the paragraph wrapper
+  has `pt-24`, the marquee is tighter (`py-9`, `gap-7`), and
+  `--text-statement` is capped by height too:
+  `clamp(1.5rem, min(1rem + 4.2vw, 4.9svh), 2.6rem)` in a media query.
+- **Deck stack** stuck at a fixed 263px, so a 402px card ran past a 657px
+  viewport. The offset is `clamp(6.5rem, 50svh - 201px, 263px)` (the card
+  centred, never above the nav, never lower than the reference's 263), and
+  `useCardFan` reads the computed `top` back for the approach's end instead
+  of repeating the number.
+- **Closing** was taller than the viewport, so at the end of the page its
+  first line sat under the nav. Below `tab`: `pt-28 pb-8`, `gap-4`, a
+  `text-base` eyebrow and tighter footer rules; it now fits in 657px.
+- **Credentials** below `sm` are one item per line with the dividers off
+  (a trailing `|` dangled at the end of every line).
+- **Touch targets**: the nav trigger keeps its 36px circle with a 44px hit
+  area (`after:-inset-1`); the service toggles are 44px.
+- **The badge is never cut** (same day, from Mike's phone: a pulled card was
+  sliced where the canvas ended). The canvas now runs half a stage above the
+  stage and 1.1 below (`OVER` in `scene.ts`), with the view offset shifted to
+  match and the pixel ratio lowered on big stages to stay under 6.5 MP. The
+  sideways clamp is gone (the canvas is as wide as the page); up and down
+  the card stops at the canvas edge less its own size. Pointer and touch
+  handlers moved from the stage to `window`, each starting with a hit test,
+  so the card is grabbable wherever it is drawn and anything that misses it
+  goes through; a grab swallows the click it would otherwise send to a link
+  underneath. The Founders wrapper in `App.tsx` is `z-20` so the overhang
+  paints over the neighbouring sections' backgrounds.
+- **iOS housekeeping**: `theme-color` and `color-scheme: dark` (toolbar and
+  overscroll match the page), `-webkit-tap-highlight-color: transparent`,
+  and `ScrollTrigger.config({ ignoreMobileResize: true })` in `main.tsx`,
+  because iOS fires a resize whenever a toolbar shows or hides and a
+  refresh on each one makes pinned sections jump. `viewport-fit=cover` was
+  left out on purpose: nothing here needs to draw under the notch, and the
+  default keeps the fixed nav clear of it in landscape.
+
 ### Deck back is a photograph (2026-10-31, main)
 
 The joined back of the three deck cards is now `public/art/deck-back.webp`
