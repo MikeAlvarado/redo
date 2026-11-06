@@ -66,9 +66,9 @@ export function ClosingCta() {
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-blush/75 hover:text-blush flex flex-col items-center gap-0.5 transition-colors"
+                  className="text-blush/75 hover:text-blush relative after:absolute after:content-[''] flex flex-col items-center gap-0.5 transition-colors after:-inset-x-2 after:-inset-y-1"
                 >
-                  <span className="text-[0.6875rem] tracking-[0.16em] uppercase">
+                  <span className="text-xs tracking-[0.16em] uppercase">
                     {l(link.label)}
                   </span>
                   <span className="text-sm">{link.value}</span>

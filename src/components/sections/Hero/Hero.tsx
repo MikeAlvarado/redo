@@ -4,6 +4,8 @@ import { easeOutExpo, easeOutSoft } from '../../../lib/easing'
 import { useHeroRecede } from '../../../hooks/useHeroRecede'
 import { useLanguage } from '../../../hooks/useLanguage'
 import { usePrefersReducedMotion } from '../../../hooks/usePrefersReducedMotion'
+import { CONTACT_EMAIL } from '../../../lib/site'
+import { Button } from '../../ui/Button'
 import { GrainOverlay } from '../../ui/GrainOverlay'
 import { LiveClock } from '../../ui/LiveClock'
 
@@ -93,6 +95,16 @@ export function Hero() {
               </span>
             ))}
           </motion.p>
+          <motion.div
+            className="nav:hidden mt-7"
+            initial={reduced ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.3, ease: easeOutSoft }}
+          >
+            <Button href={`mailto:${CONTACT_EMAIL}`} className="px-6">
+              {t.nav.cta}
+            </Button>
+          </motion.div>
         </div>
         <div className="text-blush/75 nav:px-9 relative flex items-center justify-between px-6 pb-6 text-sm">
           <LiveClock />

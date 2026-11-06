@@ -745,6 +745,31 @@ the one that counts. Measured there and checked in the iOS Simulator
   left out on purpose: nothing here needs to draw under the notch, and the
   default keeps the fixed nav clear of it in landscape.
 
+### UX audit fixes (2026-11-06, same branch)
+
+From an audit of the built site at 393 x 657 and 1440 x 900 (Mike picked
+which findings to fix).
+
+- **Social card** (`public/og-card.png`) now shows the closing card's Canova
+  *Psyche* with both figures centred, so square crops in chat previews keep
+  them; rendered by `scripts/gen-og-card.mjs <origin>` against a served
+  build (it borrows the page's loaded fonts).
+- **Badge heading sits above the canvas** (`relative z-10`): since the
+  canvas overhangs the stage, the strap ran across the sub line.
+- **Hero has a "Get in touch" button below `nav`**, where the nav CTA is
+  inside the menu.
+- **Touch targets**: links keep their look and grow a hit area with an
+  `::after` inset (wordmark, EN/ES, footer socials, reach links); the footer
+  email has real padding; solid buttons are 44px tall below `tab`;
+  credentials are one 45px line each below `sm`.
+- **Showcase counter** ("02 / 12") above the desktop caption.
+- **Stat roll is 0.8s** (was 1.4s): mid-roll numbers disagreed with the
+  body text beside them for too long.
+- **Small type**: deck card status and reach labels are 12px (were ~11).
+- **Menu trigger shows an X while open.**
+- **`document.title` follows the language** (`LanguageProvider`, home only;
+  `/yc` keeps its own). The static head stays English for crawlers.
+
 ### Deck back is a photograph (2026-10-31, main)
 
 The joined back of the three deck cards is now `public/art/deck-back.webp`

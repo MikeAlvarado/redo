@@ -71,7 +71,7 @@ export function JourneyCard({
         <p className={cn('text-sm leading-relaxed', TONE_MUTED[card.tone])}>
           {l(card.body)}
         </p>
-        <p className={cn('text-[0.68rem] tracking-[0.14em] uppercase', TONE_MUTED[card.tone])}>
+        <p className={cn('text-xs tracking-[0.12em] uppercase', TONE_MUTED[card.tone])}>
           {l(card.status)}
         </p>
       </div>

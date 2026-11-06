@@ -8,7 +8,7 @@ const BASE =
 
 const VARIANTS: Record<Variant, string> = {
   // Cream pill on ink: the one call to action per section.
-  solid: 'bg-cream text-ink px-5 py-2.5 hover:scale-[1.03]',
+  solid: 'bg-cream text-ink max-tab:min-h-11 px-5 py-2.5 hover:scale-[1.03]',
   // Hairline pill that fills on hover: secondary actions (back, cancel).
   ghost: 'text-cream border border-white/20 px-4 py-2.5 hover:bg-cream hover:text-ink',
 }

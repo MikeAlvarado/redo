@@ -20,7 +20,7 @@ export function Credentials() {
           line of its own, where a trailing divider would dangle, so there
           the dividers are off. */}
       <div className="mx-auto max-w-5xl">
-        <ul ref={listRef} className="text-cream/60 text-center text-sm leading-[2.2]">
+        <ul ref={listRef} className="text-cream/60 text-center text-sm leading-[2.2] max-sm:leading-[3.2]">
           {credentials.map((credential, index) => (
             <li
               key={credential.id}
