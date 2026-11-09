@@ -18,7 +18,7 @@ export function Founders() {
         text={t.founders.heading}
         sub={t.founders.sub}
         headingClassName="leading-[1.05]"
-        className="mb-4"
+        className="pointer-events-none relative z-10 mb-4"
       />
       <div className="-mx-inset-sm nav:-mx-inset">
         <LanyardBadge />

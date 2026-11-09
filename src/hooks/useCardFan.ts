@@ -110,6 +110,14 @@ export function rowHeadingOpacity(progress: number) {
   return easeOut(clamp01((progress - 0.03) / 0.15))
 }
 
+// The stack tier's sticky offset is CSS (263px, less on short phones so the
+// card stays whole inside the small viewport); the approach has to end
+// exactly where the card sticks, so it reads the offset back.
+function stickyTop(card: HTMLElement): number {
+  const top = Number.parseFloat(getComputedStyle(card).top)
+  return Number.isFinite(top) ? top : 263
+}
+
 export function useCardFan<T extends HTMLElement>(
   container: RefObject<T | null>,
   tier: DeckTier,
@@ -142,7 +150,7 @@ export function useCardFan<T extends HTMLElement>(
           const trigger = ScrollTrigger.create({
             trigger: card.parentElement ?? card,
             start: 'top 85%',
-            end: 'top 263px',
+            end: () => `top ${stickyTop(card)}px`,
             scrub: true,
             onUpdate: (self) => apply(self.progress),
           })

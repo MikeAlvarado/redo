@@ -87,7 +87,14 @@ const PROFILE = [0, 0.07, 0.93, 1]
 const PROFILE_ANGLES = [-0.95, -0.28, 0.28, 0.95].map((a) => [Math.cos(a), Math.sin(a)] as const)
 const CARD_SHARE = 0.6
 const STRAP_SHARE = 0.5
-const OVERHANG = 0.35
+// The canvas runs past the stage, half a stage above it and a full one
+// below, so a pulled card is drawn over the neighbouring sections instead of
+// being cut at the stage's edge.
+const OVER = { top: 0.5, bottom: 1.1 }
+const CANVAS_SPAN = 1 + OVER.top + OVER.bottom
+// Pixels the canvas may hold; the pixel ratio drops on large stages to stay
+// under it.
+const MAX_PIXELS = 6_500_000
 const FOV = 24
 const TAP_MS = 450
 const TAP_PX = 6
@@ -235,9 +242,10 @@ export function createLanyard(container: HTMLElement, options: LanyardOptions): 
   renderer.toneMapping = NeutralToneMapping
   renderer.toneMappingExposure = 1
   const canvas = renderer.domElement
-  canvas.className = 'pointer-events-none absolute top-0 left-0 w-full'
+  canvas.className = 'pointer-events-none absolute left-0 w-full'
+  canvas.style.top = `${-100 * OVER.top}%`
   canvas.setAttribute('aria-hidden', 'true')
-  canvas.style.height = `${100 * (1 + OVERHANG)}%`
+  canvas.style.height = `${100 * CANVAS_SPAN}%`
   container.appendChild(canvas)
 
   const scene = new Scene()
@@ -333,9 +341,10 @@ export function createLanyard(container: HTMLElement, options: LanyardOptions): 
   let laidOut = false
   let lastTime = performance.now()
 
-  // The reach the pointer may drag the card to: the frame the camera shows,
-  // less the card itself, so it never leaves the canvas.
-  const bounds = { x: 1, top: 1, bottom: -1 }
+  // How far up and down the pointer may take the card: the canvas, less the
+  // card itself, so it is never cut. Sideways it is free: the canvas is as
+  // wide as the page.
+  const bounds = { top: 1, bottom: -1 }
   const grabOffset = new Vector3()
   const fit = () => {
     const aspect = size.width / size.height
@@ -345,14 +354,19 @@ export function createLanyard(container: HTMLElement, options: LanyardOptions): 
     camera.aspect = aspect
     camera.position.set(0, 0, visibleHeight / 2 / Math.tan((FOV * Math.PI) / 360))
     camera.lookAt(0, 0, 0)
-    camera.setViewOffset(size.width, size.height, 0, 0, size.width, size.height * (1 + OVERHANG))
+    camera.setViewOffset(
+      size.width,
+      size.height,
+      0,
+      -size.height * OVER.top,
+      size.width,
+      size.height * CANVAS_SPAN,
+    )
     camera.updateProjectionMatrix()
     camera.updateMatrixWorld()
     const anchorY = visibleHeight / 2 + 0.2
-    const halfWidth = (visibleHeight * aspect) / 2
-    bounds.x = Math.max(halfWidth * 0.3, halfWidth - CARD.height * 0.8)
-    bounds.top = visibleHeight / 2 - CARD.height * 0.2
-    bounds.bottom = -visibleHeight / 2 - visibleHeight * OVERHANG + CARD.height * 0.6
+    bounds.top = visibleHeight / 2 + visibleHeight * OVER.top - CARD.height * 0.6
+    bounds.bottom = -visibleHeight / 2 - visibleHeight * OVER.bottom + CARD.height * 0.6
     const slotY = visibleHeight / 2 - visibleHeight * (0.12 + 0.3 * STRAP_SHARE) + (HANG_Y - CARD.height / 2)
     if (!laidOut) {
       layout(state, new Vector3(0, anchorY, 0), anchorY - slotY, options.reducedMotion ? 'rest' : 'drop')
@@ -508,10 +522,17 @@ export function createLanyard(container: HTMLElement, options: LanyardOptions): 
     return raycaster.intersectObjects([bodyMesh, frontMesh, backMesh], false)[0] ?? null
   }
   const setCursor = (value: string) => {
-    if (container.style.cursor !== value) container.style.cursor = value
+    const root = document.documentElement
+    if (root.style.cursor !== value) root.style.cursor = value
+  }
+  // A tap or drag that lands on the card must not also click whatever the
+  // canvas overhangs.
+  const swallowClick = (event: MouseEvent) => {
+    event.preventDefault()
+    event.stopPropagation()
   }
   const onPointerDown = (event: PointerEvent) => {
-    if (event.button > 0) return
+    if (event.button > 0 || !visible) return
     aim(event)
     const hit = hitCard()
     if (!hit) return
@@ -524,17 +545,17 @@ export function createLanyard(container: HTMLElement, options: LanyardOptions): 
     }
     grabOffset.copy(state.grab.local).applyQuaternion(state.grab.rotation)
     tap = { x: event.clientX, y: event.clientY, time: performance.now(), point: hit.point.clone() }
-    container.setPointerCapture?.(event.pointerId)
+    window.addEventListener('click', swallowClick, { capture: true })
     setCursor('grabbing')
     event.preventDefault()
     wake()
   }
   const onPointerMove = (event: PointerEvent) => {
+    if (!state.grab && (!visible || event.pointerType === 'touch')) return
     aim(event)
     if (state.grab) {
       if (tap && Math.hypot(event.clientX - tap.x, event.clientY - tap.y) > TAP_PX) tap = null
       const target = raycaster.ray.at(state.grab.reach, state.grab.target)
-      target.x = Math.min(bounds.x + grabOffset.x, Math.max(-bounds.x + grabOffset.x, target.x))
       target.y = Math.min(bounds.top + grabOffset.y, Math.max(bounds.bottom + grabOffset.y, target.y))
       wake()
       return
@@ -551,39 +572,48 @@ export function createLanyard(container: HTMLElement, options: LanyardOptions): 
       flip(state, tap.point, camera.position)
     }
     tap = null
-    container.releasePointerCapture?.(event.pointerId)
+    window.setTimeout(() => window.removeEventListener('click', swallowClick, { capture: true }), 60)
     setCursor(hovering && event.pointerType !== 'touch' ? 'grab' : '')
     wake()
   }
   const onTouchStart = (event: TouchEvent) => {
     const touch = event.touches[0]
-    if (event.touches.length !== 1 || !touch) return
+    if (!visible || event.touches.length !== 1 || !touch) return
     aim(touch)
     if (hitCard()) event.preventDefault()
   }
+  // On the window, not the stage: the card can hang or be pulled outside the
+  // stage, and it has to be grabbable wherever it is drawn. Every handler
+  // starts with a hit test, so anything that misses the card goes through.
   container.style.touchAction = 'pan-y pinch-zoom'
-  container.addEventListener('pointerdown', onPointerDown)
-  container.addEventListener('pointermove', onPointerMove)
-  container.addEventListener('pointerup', onPointerUp)
-  container.addEventListener('pointercancel', onPointerUp)
-  container.addEventListener('lostpointercapture', onPointerUp)
-  container.addEventListener('touchstart', onTouchStart, { passive: false })
+  window.addEventListener('pointerdown', onPointerDown)
+  window.addEventListener('pointermove', onPointerMove)
+  window.addEventListener('pointerup', onPointerUp)
+  window.addEventListener('pointercancel', onPointerUp)
+  window.addEventListener('touchstart', onTouchStart, { passive: false })
 
   const resize = () => {
     size.width = Math.max(1, container.clientWidth)
     size.height = Math.max(1, container.clientHeight)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
-    renderer.setSize(size.width, Math.round(size.height * (1 + OVERHANG)), false)
+    const canvasHeight = Math.round(size.height * CANVAS_SPAN)
+    const budget = Math.sqrt(MAX_PIXELS / (size.width * canvasHeight))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2, budget))
+    renderer.setSize(size.width, canvasHeight, false)
     fit()
     render()
     wake()
   }
   const resizeObserver = new ResizeObserver(resize)
   resizeObserver.observe(container)
-  const intersection = new IntersectionObserver(([entry]) => {
-    visible = entry?.isIntersecting ?? true
-    if (visible) wake()
-  })
+  // The margins are the canvas's overhang: the card can be on screen while
+  // the stage itself is not.
+  const intersection = new IntersectionObserver(
+    ([entry]) => {
+      visible = entry?.isIntersecting ?? true
+      if (visible) wake()
+    },
+    { rootMargin: `${110 * OVER.bottom}% 0px ${110 * OVER.top}% 0px` },
+  )
   intersection.observe(container)
   const onVisibility = () => {
     if (!document.hidden) wake()
@@ -624,12 +654,13 @@ export function createLanyard(container: HTMLElement, options: LanyardOptions): 
       resizeObserver.disconnect()
       intersection.disconnect()
       document.removeEventListener('visibilitychange', onVisibility)
-      container.removeEventListener('pointerdown', onPointerDown)
-      container.removeEventListener('pointermove', onPointerMove)
-      container.removeEventListener('pointerup', onPointerUp)
-      container.removeEventListener('pointercancel', onPointerUp)
-      container.removeEventListener('lostpointercapture', onPointerUp)
-      container.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('pointerdown', onPointerDown)
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerUp)
+      window.removeEventListener('pointercancel', onPointerUp)
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('click', swallowClick, { capture: true })
+      document.documentElement.style.cursor = ''
       for (const mesh of [bodyMesh, frontMesh, backMesh, ring, strapMesh, clipPlate, clipRing]) mesh.geometry.dispose()
       for (const material of [edgeMaterial, frontMaterial, backMaterial, metal, strapMaterial]) material.dispose()
       for (const map of [frontMap, backMap, strapMap, grainNormal, weaveNormal]) map.dispose()

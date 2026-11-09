@@ -16,16 +16,18 @@ export function Credentials() {
     >
       {/* Inline-block items in a centred run of text, so the list wraps
           between items like words; each item carries its own trailing
-          divider, so no line ever starts with one. */}
+          divider, so no line ever starts with one. Below sm every item is a
+          line of its own, where a trailing divider would dangle, so there
+          the dividers are off. */}
       <div className="mx-auto max-w-5xl">
-        <ul ref={listRef} className="text-cream/60 text-center text-sm leading-[2.2]">
+        <ul ref={listRef} className="text-cream/60 text-center text-sm leading-[2.2] max-sm:leading-[3.2]">
           {credentials.map((credential, index) => (
             <li
               key={credential.id}
               className={cn(
-                'inline-block whitespace-nowrap',
+                'inline-block whitespace-nowrap max-sm:block',
                 index < credentials.length - 1 &&
-                  "after:mx-4 after:text-white/20 after:content-['|']",
+                  "after:mx-4 after:text-white/20 after:content-['|'] max-sm:after:hidden",
               )}
             >
               {credential.href ? (

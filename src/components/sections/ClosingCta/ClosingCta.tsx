@@ -42,9 +42,9 @@ export function ClosingCta() {
         <GrainOverlay className="opacity-[0.07]" />
         <div
           ref={contentRef}
-          className="relative flex flex-1 flex-col items-center justify-center gap-5 px-6 py-24 text-center"
+          className="max-tab:gap-4 max-tab:pt-28 max-tab:pb-8 relative flex flex-1 flex-col items-center justify-center gap-5 px-6 py-24 text-center"
         >
-          <p data-reveal className="text-blush/70 max-w-md text-lg">
+          <p data-reveal className="text-blush/70 max-tab:text-base max-w-md text-lg">
             {t.closing.eyebrow}
           </p>
           <MixedHeading
@@ -66,9 +66,9 @@ export function ClosingCta() {
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-blush/75 hover:text-blush flex flex-col items-center gap-0.5 transition-colors"
+                  className="text-blush/75 hover:text-blush relative after:absolute after:content-[''] flex flex-col items-center gap-0.5 transition-colors after:-inset-x-2 after:-inset-y-1"
                 >
-                  <span className="text-[0.6875rem] tracking-[0.16em] uppercase">
+                  <span className="text-xs tracking-[0.16em] uppercase">
                     {l(link.label)}
                   </span>
                   <span className="text-sm">{link.value}</span>

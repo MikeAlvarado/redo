@@ -24,7 +24,7 @@ export function ClientMarquee() {
   const { trackRef, isStatic } = useMarquee<HTMLDivElement>()
 
   return (
-    <section className="px-inset-sm nav:flex-row nav:gap-14 nav:px-inset flex flex-col items-center gap-10 py-20">
+    <section className="px-inset-sm nav:flex-row nav:gap-14 nav:px-inset max-tab:gap-7 max-tab:py-9 flex flex-col items-center gap-10 py-20">
       <div className="flex shrink-0 items-center gap-3">
         <Laurel />
         <p className="text-cream/90 max-w-40 text-center text-lg">{t.marquee.lockup}</p>

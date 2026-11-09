@@ -57,7 +57,9 @@ function Site() {
         <div className="bg-ink tab:order-none relative z-10 order-7">
           <Stats />
         </div>
-        <div className="bg-ink tab:order-none relative z-10 order-9">
+        {/* z-20: the badge's canvas overhangs the sections around it, and has
+            to paint over their backgrounds. */}
+        <div className="bg-ink tab:order-none relative z-20 order-9">
           <Founders />
         </div>
         <div className="bg-ink tab:order-none relative z-10 order-10">

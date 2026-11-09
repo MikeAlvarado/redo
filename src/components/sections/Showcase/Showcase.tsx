@@ -128,6 +128,9 @@ export function Showcase() {
       </div>
 
       <div className="tab:flex mt-8 hidden min-h-32 flex-col items-center gap-4 px-6">
+        <p className="text-cream/55 text-xs tracking-[0.14em] tabular-nums">
+          {String(selectedIndex + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+        </p>
         <AnimatePresence mode="wait">
           {active && (
             <motion.div

@@ -10,6 +10,7 @@ function StatNumeral({ stat }: { stat: StatRow }) {
   const numeralRef = useCountUp<HTMLSpanElement>(stat.value, {
     digits: 0,
     group: stat.group,
+    duration: 0.8,
   })
   return (
     <span className="font-display text-numeral text-cream/85 leading-none tracking-tight italic">

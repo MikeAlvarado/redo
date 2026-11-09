@@ -59,7 +59,7 @@ export function Nav() {
                 event.preventDefault()
                 scrollToAnchor('body', 0)
               }}
-              className="font-display text-cream text-2xl italic"
+              className="font-display text-cream relative after:absolute after:content-[''] text-2xl italic after:-inset-x-2 after:-inset-y-1.5"
             >
               {t.nav.wordmark}
             </a>
@@ -95,14 +95,28 @@ export function Nav() {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               onClick={() => setMenuOpen((wasOpen) => !wasOpen)}
-              className="nav:hidden text-cream flex size-9 items-center justify-center rounded-full border border-white/12"
+              className="nav:hidden text-cream relative flex size-9 items-center justify-center rounded-full border border-white/12 after:absolute after:-inset-1 after:content-['']"
             >
-              <svg aria-hidden viewBox="0 0 20 20" className="size-5" fill="currentColor">
-                <circle cx="10" cy="4.5" r="1.6" />
-                <circle cx="15.5" cy="10" r="1.6" />
-                <circle cx="10" cy="15.5" r="1.6" />
-                <circle cx="4.5" cy="10" r="1.6" />
-              </svg>
+              {menuOpen ? (
+                <svg
+                  aria-hidden
+                  viewBox="0 0 20 20"
+                  className="size-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                >
+                  <path d="M5 5l10 10M15 5L5 15" />
+                </svg>
+              ) : (
+                <svg aria-hidden viewBox="0 0 20 20" className="size-5" fill="currentColor">
+                  <circle cx="10" cy="4.5" r="1.6" />
+                  <circle cx="15.5" cy="10" r="1.6" />
+                  <circle cx="10" cy="15.5" r="1.6" />
+                  <circle cx="4.5" cy="10" r="1.6" />
+                </svg>
+              )}
             </button>
           </div>
         </div>

@@ -19,7 +19,7 @@ export function ScrollStatement({ footer, text }: { footer?: ReactNode; text?: s
     <section data-section="statement">
       <div ref={containerRef} className="relative flex min-h-svh flex-col">
         <DotGrid />
-        <div className="nav:px-16 relative flex flex-1 items-center justify-center px-6">
+        <div className="nav:px-16 max-tab:pt-24 relative flex flex-1 items-center justify-center px-6">
           <p className="font-display text-statement text-cream max-w-[77rem] text-center leading-[1.12]">
             {statement.split(' ').map((word, index) => (
               <Fragment key={`${word}-${index}`}>

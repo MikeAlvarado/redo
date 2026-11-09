@@ -65,7 +65,7 @@ export function JourneyCards() {
                 data-deck-card
                 className={cn(
                   'mx-auto aspect-[0.733] [transform-style:preserve-3d]',
-                  row ? 'absolute inset-x-0 top-1/2' : 'sticky top-[263px] w-[281px]',
+                  row ? 'absolute inset-x-0 top-1/2' : 'sticky top-[clamp(6.5rem,calc(50svh-201px),263px)] w-[281px]',
                 )}
               >
                 <div className="absolute inset-0 overflow-hidden rounded-[inherit] [backface-visibility:hidden]">

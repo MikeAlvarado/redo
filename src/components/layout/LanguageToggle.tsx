@@ -22,7 +22,7 @@ export function LanguageToggle({ className }: { className?: string }) {
           aria-current={lang === locale ? 'true' : undefined}
           onClick={() => setLang(locale)}
           className={cn(
-            'rounded-full px-2.5 py-1 transition-colors',
+            "relative after:absolute after:content-[''] rounded-full px-2.5 py-1 transition-colors after:inset-x-0 after:-inset-y-2.5",
             lang === locale ? 'bg-cream text-ink' : 'text-cream/60 hover:text-cream',
           )}
         >

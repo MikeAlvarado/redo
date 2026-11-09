@@ -34,7 +34,7 @@ export function ServiceRow({ service }: { service: ServiceRowData }) {
             aria-controls={panelId}
             aria-label={`${t.services.toggleDetails} ${l(service.title)}`}
             onClick={() => setOpen((current) => !current)}
-            className="text-cream tab:hidden flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20"
+            className="text-cream tab:hidden flex size-11 shrink-0 items-center justify-center rounded-full border border-white/20"
           >
             <Plus
               size={16}
