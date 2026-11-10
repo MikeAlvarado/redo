@@ -770,6 +770,17 @@ which findings to fix).
 - **`document.title` follows the language** (`LanguageProvider`, home only;
   `/yc` keeps its own). The static head stays English for crawlers.
 
+### Link preview video (2026-11-10, branch `og-video`)
+
+`og:video` points at `public/og-card.mp4` (1200 x 630, 6 s, H.264, no
+audio, ~300 KB): the social card coming in (the sculpture settles, the
+headline rises word by word). iMessage plays it inside the link bubble;
+other apps fall back to `og:image`. `scripts/gen-og-card.mjs` renders both
+files from one page, stepping the CSS animations frame by frame and
+encoding with ffmpeg, so the PNG is the video's last frame. Known trade-off
+in iMessage: a tap on the video plays it full screen, and only the caption
+strip under it opens the site.
+
 ### Deck back is a photograph (2026-10-31, main)
 
 The joined back of the three deck cards is now `public/art/deck-back.webp`
